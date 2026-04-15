@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="data.js"></script>
+	<script type="text/javascript" src="jugadors.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<style>
+	table, th, td {
+	  border: 1px solid black;
+	  border-collapse: collapse;
+	}
+	td {
+		width: 50pt;
+		text-align: center;
+	}
+	</style>
+	<title>Cercador de jugadors</title>
+</head>
+<body>
+	<h1>Cercador de jugadors</h1>
+
+	<label for="jugador">Jugador: </label>
+	<input type="text" name="jugador" id="jugador">
+	<button type="button" onclick="cercar()">Cercar</button>
+
+	<p></p>
+	<div id="resultats"></div>
+
+	<script>
+		const cat_especials = categories_especials(_partides);
+		const cats = categories_basiques.concat(cat_especials);
+
+		function cercar(){
+			document.getElementById("resultats").innerHTML = "";
+			const jugador = document.getElementById("jugador").value;
+			const mitjs = mitjanes(jugador, _partides);
+			var fila_mitjanes = [];
+			for (var i = 0; i < cats.length; i ++) {
+				if (mitjs[cats[i]] == -1) {
+					fila_mitjanes.push("-");
+				} else {
+					fila_mitjanes.push(mitjs[cats[i]]);
+				}
+			}
+			var div = document.createElement("div");
+			div.innerHTML = dibuixar_taula_llista([cats, fila_mitjanes]);
+			document.getElementById("resultats").appendChild(div);
+		}
+	</script>
+</body>
+</html>
