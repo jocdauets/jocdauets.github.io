@@ -1,0 +1,41 @@
+[
+	{
+		"jugadors": ["Carla", "Andreu", "Maria", "Dani"],
+		"categories_especials": ["forma", "4/4"],
+		"puntuacions": {
+			"Carla": [3,6,18,24,25,6,25,28],
+			"Andreu": [4,6,15,24,30,36,18,44],
+			"Maria": [4,4,18,12,30,12,0,36],
+			"Dani": [7,2,15,20,30,36,12,28]
+		},
+		"classificacio": {"Dani": 3, "Andreu": 10, "Carla": 2, "Maria": 0},
+		"trumfo": {"n": "penyora"},
+		"data": "29-03-2026"
+	},
+	{
+		"jugadors": ["Joanna", "Teresa", "Maria", "Albert"],
+		"categories_especials": ["dauet(12)", "forma"],
+		"puntuacions": {
+			"Joanna": [7,12,18,24,25,36,20,65],
+			"Teresa": [6,10,18,20,30,30,37,34],
+			"Maria": [7,8,18,28,35,6,20,31],
+			"Albert": [6,12,15,24,25,24,35,28]
+		},
+		"classificacio": {"Joanna": 10, "Albert": 1, "Teresa": 3, "Maria": 0},
+		"trumfo": {},
+		"data": "29-03-2026"
+	},
+	{
+		"jugadors": ["Albert", "Roger", "Carla", "Robert"],
+		"categories_especials": ["buida","buida"],
+		"puntuacions": {
+			"Albert": [7,14,18,28,35,48,0,0],
+			"Roger": [6,16,18,32,35,6,0,0],
+			"Carla": [7,6,21,12,25,24,0,0],
+			"Robert": [5,12,21,28,25,18,0,0]
+		},
+		"classificacio": {"Roger": 2, "Albert": 10, "Carla": 0, "Robert": 1},
+		"trumfo": {},
+		"data": "29-03-2026"
+	}
+]
