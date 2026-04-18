@@ -9,7 +9,7 @@ _partides = [
 			"Dani": [7,2,15,20,30,36,12,28]
 		},
 		"classificacio": {"Dani": 3, "Andreu": 10, "Carla": 2, "Maria": 0},
-		"trumfo": {"n": "penyora"},
+		"trumfo": [[], ["penyora"], [], [], [], [], [], []],
 		"data": "29-03-2026"
 	},
 	{
@@ -22,7 +22,6 @@ _partides = [
 			"Albert": [6,12,15,24,25,24,35,28]
 		},
 		"classificacio": {"Joanna": 10, "Albert": 1, "Teresa": 3, "Maria": 0},
-		"trumfo": {},
 		"data": "29-03-2026"
 	},
 	{
@@ -35,7 +34,6 @@ _partides = [
 			"Robert": [5,12,21,28,25,18,0,0]
 		},
 		"classificacio": {"Roger": 2, "Albert": 10, "Carla": 0, "Robert": 1},
-		"trumfo": {},
 		"data": "29-03-2026"
 	}
 ]

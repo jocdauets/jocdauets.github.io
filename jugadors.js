@@ -1,5 +1,6 @@
 const categories_basiques = ["v","n","j","q","k","a"];
 const categories_basiques_diccionari = {"v":0, "n":1, "j":2, "q":3, "k":4, "a":5};
+const llindar_condicions_estandard = {"v": 8, "n": 16, "j": 24, "q": 32, "k": 40, "a": 48, "forma": 48, "color": 48, "dauet(12)": 24, "buida": 0, "4/4": 44, "5/3": 45};
 
 function categories_especials(_partides){
 	categories = [];
@@ -86,4 +87,118 @@ function mitjanes(jugador, _partides) {
 		mitjanes[cat_especials[i]] = mitjana(jugador, cat_especials[i], _partides);
 	}
 	return mitjanes;
+}
+
+function maxim_unic(partida) {
+	const n = partida.puntuacions[partida.jugadors[0]].length;
+	var resultat = [];
+	for (var i = 0; i < n; i ++) {
+		var maxim = partida.puntuacions[partida.jugadors[0]][i];
+		var unic = true;
+		var jugador_maxim = partida.jugadors[0];
+		for (var j = 1; j < partida.jugadors.length; j ++) {
+			if (partida.puntuacions[partida.jugadors[j]][i] == maxim) {
+				unic = false;
+			} else if (partida.puntuacions[partida.jugadors[j]][i] > maxim) {
+				maxim = partida.puntuacions[partida.jugadors[j]][i];
+				unic = true;
+				jugador_maxim = partida.jugadors[j];
+			}
+		}
+		if (unic == true) {
+			resultat.push(jugador_maxim);
+		} else {
+			resultat.push(false);
+		}
+	}
+	return resultat;
+}
+
+function minim_no_unic(partida) {
+	const n = partida.puntuacions[partida.jugadors[0]].length;
+	var resultat = [];
+	for (var i = 0; i < n; i ++) {
+		var minim = partida.puntuacions[partida.jugadors[0]][i];
+		var jugadors_minims = [partida.jugadors[0]];
+		for (var j = 1; j < partida.jugadors.length; j ++) {
+			if (partida.puntuacions[partida.jugadors[j]][i] == minim) {
+				jugadors_minims.push(partida.jugadors[j]);
+			} else if (partida.puntuacions[partida.jugadors[j]][i] < minim) {
+				jugadors_minims = [partida.jugadors[j]];
+			}
+		}
+		resultat.push(jugadors_minims);
+	}
+	return resultat;
+}
+
+function puntuacions(partida) {
+	const n = partida.puntuacions[partida.jugadors[0]].length;
+	resultat = {};
+	for (var i = 0; i < partida.jugadors.length; i ++) {
+		resultat[partida.jugadors[i]] = 0;
+		for (var j = 0; j < n; j ++) {
+			resultat[partida.jugadors[i]] += partida.puntuacions[partida.jugadors[i]][j];
+		}
+	}
+
+	// Propines
+	var maxim_unic_partida = maxim_unic(partida);
+	for (var i = 0; i < n; i ++) {
+		if (maxim_unic_partida[i] != false) {
+			resultat[maxim_unic_partida[i]] += 5;
+		}
+	}
+
+	// Trumfos
+	if ("trumfo" in partida) {
+		var minim_no_unic_partida = minim_no_unic(partida);
+		for (var i = 0; i < n; i ++) {
+			for (var j = 0; j < partida.trumfo[i].length; j ++) {
+				if (partida.trumfo[i][j] == "penyora") {
+					for (var k = 0; k < minim_no_unic_partida[i].length; k ++) {
+						resultat[minim_no_unic_partida[i][k]] -= 5;
+					}
+				}
+			}
+		}
+	}
+
+	return resultat;
+}
+
+function puntuacions_relatives(partida) {
+	const punt = puntuacions(partida);
+	minim = punt[partida.jugadors[0]];
+	maxim = punt[partida.jugadors[0]];
+	for (var i = 1; i < partida.jugadors.length; i ++) {
+		if (punt[partida.jugadors[i]] > maxim) {
+			maxim = punt[partida.jugadors[i]];
+		} else if (punt[partida.jugadors[i]] < minim) {
+			minim = punt[partida.jugadors[i]];
+		}
+	}
+	if (minim == maxim) {
+		for (var i = 0; i < partida.jugadors.length; i ++) {
+			punt[partida.jugadors[i]] = 100;
+		}
+	} else {
+		for (var i = 0; i < partida.jugadors.length; i ++) {
+			punt[partida.jugadors[i]] = 100*(punt[partida.jugadors[i]]-minim)/(maxim-minim);
+		}
+	}
+	return punt;
+}
+
+function puntuacio_relativa_mitjana(jugador, _partides){
+	const partides = partides_amb_cert_jugador(jugador, _partides);
+	if (partides.length == 0) {
+		return -1;
+	} else {
+		var suma = 0;
+		for (var i = 0; i < partides.length; i ++) {
+			suma += puntuacions_relatives(partides[i])[jugador];
+		}
+		return suma/partides.length;
+	}
 }
