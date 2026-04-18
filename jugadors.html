@@ -12,8 +12,19 @@
 	  border-collapse: collapse;
 	}
 	td {
-		width: 50pt;
+		width: 60pt;
 		text-align: center;
+	}
+	.info-fce {
+		display: none;
+	}
+	.text-fce:hover + .info-fce {
+		display: block;
+		color: red;
+		font-size: 10px;
+	}
+	.gray {
+		color: gray;
 	}
 	</style>
 	<title>Cercador de jugadors</title>
@@ -32,48 +43,137 @@
 	<p>Atenció! Només es mostren les estadístiques de les partides registrades. Malauradament hi ha algunes partides oficials no registrades.</p>
 
 	<script>
+		const resultats = document.getElementById("resultats");
 		const cat_especials = categories_especials(_partides);
 		const cats = categories_basiques.concat(cat_especials);
 		var cats_negreta = [""];
+		var cats_negreta_basiques = [""];
+		var cats_negreta_especials = [""];
+		var cats_negreta_dauets = [""];
 		for (var i = 0; i < cats.length; i ++) {
-			cats_negreta.push("<b>" + cats[i] + "</b>");
+			if (cats[i] != "buida") {
+				cats_negreta.push("<b>" + cats[i] + "</b>");
+				if (categories_basiques.includes(cats[i])) {
+					cats_negreta_basiques.push("<b>" + cats[i] + "</b>");
+				} else {
+					if (cats[i].split("(")[0] == "dauet") {
+						cats_negreta_dauets.push(("<b>" + cats[i] + "</b>"));
+					} else {
+						cats_negreta_especials.push(("<b>" + cats[i] + "</b>"));
+					}
+				}
+			}
 		}
 
 		function cercar(){
-			const output = document.getElementById("resultats")
-			output.innerHTML = "";
-			var output_text = "";
 			const jugador = document.getElementById("jugador").value;
+			resultats.innerHTML = "";
 
 			// Títol
 			document.getElementById("titol").innerHTML = "<h1>" + jugador;
 			const prm = puntuacio_relativa_mitjana(jugador, _partides);
 			if (prm != -1) {
-				document.getElementById("titol").innerHTML = "<h1>" + jugador + " (" + Math.round(prm).toString() + ")</h1>";
+				document.getElementById("titol").innerHTML = "<h1>" + jugador + " (" + (Math.round(prm + percentatge_victories(jugador,_partides)/10)).toString() + ")</h1>";
 
 				// General
-				output_text += "<h2>General</h2><ul>";
-				output_text += "<li><b>Partides registrades:</b> " + partides_amb_cert_jugador(jugador,_partides).length.toString() + "</li>";
-				output_text += "<li><b>% victòries:</b> " + Math.round(percentatge_victories(jugador,_partides)).toString() + "%</li>";
-				output_text += "<li><b>Màxima puntuació:</b> " + maxima_puntuacio(jugador, _partides).toString() + "</li>";
-				output_text += "</ul>";
+				var div_general = document.createElement("div");
+				var text = "";
+				text += "<h2>General</h2><ul>";
+				text += "<li><b>Partides registrades:</b> " + partides_amb_cert_jugador(jugador,_partides).length.toString() + "</li>";
+				text += "<li><b>% victòries:</b> " + (Math.round(10*percentatge_victories(jugador,_partides))/10).toString() + "%</li>";
+				text += "<li><b>Màxima puntuació:</b> " + maxima_puntuacio(jugador, _partides).toString() + "</li>";
+				text += "<li><b>Puntuació relativa mitjana:</b> " + (Math.round(10*puntuacio_relativa_mitjana(jugador, _partides))/10).toString() + "</li>";
+				text += "</ul>";
+				div_general.innerHTML = text;
+				resultats.appendChild(div_general);
 
-				// Mitjanes
+				// Mitjanes, màximes, fce
 				const mitjs = mitjanes(jugador, _partides);
 				var fila_mitjanes = ["Mitjana"];
+				var fila_maximes = ["Màxima"];
+				var fila_fce = ["<div class=\"text-fce\">FCE</div><div class=\"info-fce\"><p>FCE = tirades fora de les condicions estàndard</p></div>"];
+				var fila_propines = ["Propines"];
+				var fila_penyores = ["Penyores"];
+				var fila_tatxar = ["Tatxar"];
 				for (var i = 0; i < cats.length; i ++) {
-					if (mitjs[cats[i]] == -1) {
-						fila_mitjanes.push("-");
-					} else {
-						fila_mitjanes.push(Math.round(10*mitjs[cats[i]])/10);
+					if (cats[i] != "buida") {
+						if (mitjs[cats[i]] == -1) {
+							fila_mitjanes.push("-");
+							fila_maximes.push("-");
+							fila_fce.push("-")
+							fila_propines.push("-");
+							fila_penyores.push("-");
+							fila_tatxar.push("-");
+						} else {
+							fila_mitjanes.push(Math.round(10*mitjs[cats[i]])/10);
+							fila_maximes.push(maxima_puntuacio_categoria(jugador, cats[i], _partides));
+							var fce = percentatge_fora_condicions_estandard(jugador, cats[i], _partides);
+							if (fce == -2) {
+								fila_fce.push("###");
+							} else {
+								var rounded_fce = Math.round(10*fce)/10;
+								if (rounded_fce == 0) {
+									fila_fce.push("<div class=\"gray\">" + rounded_fce.toString() + "%</div>");
+								} else {
+									fila_fce.push(rounded_fce.toString() + "%");
+								}
+							}
+							var rounded_propines = Math.round(percentatge_propines(jugador,cats[i],_partides));
+							if (rounded_propines == 0) {
+								fila_propines.push("<div class=\"gray\">" + rounded_propines.toString() + "%</div>");
+							}
+							else {
+								fila_propines.push(rounded_propines.toString() + "%");
+							}
+
+							var penyores = percentatge_penyores(jugador, cats[i], _partides);
+							if (penyores == -1) {
+								fila_penyores.push("-");
+							} else {
+								var rounded_penyores = Math.round(penyores);
+								if (rounded_penyores == 0) {
+									fila_penyores.push("<div class=\"gray\">" + rounded_penyores.toString() + "%</div>");
+								} else {
+									fila_penyores.push(rounded_penyores.toString() + "%");
+								}
+							}
+
+							var tatxar = percentatge_tatxar(jugador, cats[i], _partides);
+							if (tatxar == -1) {
+								fila_tatxar.push("-");
+							} else {
+								var rounded_tatxar = Math.round(tatxar);
+								if (rounded_tatxar == 0) {
+									fila_tatxar.push("<div class=\"gray\">" + rounded_tatxar.toString() + "%</div>");
+								} else {
+									fila_tatxar.push(rounded_tatxar.toString() + "%");
+								}
+							}
+						}
 					}
 				}
 
-				// Fora condicions estàndard
+				var div_categories = document.createElement("div");
+				div_categories.innerHTML = "<h2>Categories</h2>";
 
-				output_text += "<h2>Per categories</h2>" + dibuixar_taula_llista([cats_negreta, fila_mitjanes]);
+				// A continuació falta afegir la fila de "tatxar"
 
-				output.innerHTML = output_text;
+				// Categories bàsiques
+				var div_cat_basiques = document.createElement("div");
+				div_cat_basiques.innerHTML = "<h3>Bàsiques</h3>" + dibuixar_taula_llista([cats_negreta, fila_mitjanes, fila_maximes, fila_propines, fila_penyores, fila_fce], cats_negreta_basiques);
+				div_categories.appendChild(div_cat_basiques);
+
+				// Categories especials
+				var div_cat_especials = document.createElement("div");
+				div_cat_especials.innerHTML = "<h3>Especials (sense dauets)</h3>" + dibuixar_taula_llista([cats_negreta, fila_mitjanes, fila_maximes, fila_propines, fila_penyores, fila_fce], cats_negreta_especials);
+				div_categories.appendChild(div_cat_especials);
+
+				// Categories bàsiques
+				var div_dauets = document.createElement("div");
+				div_dauets.innerHTML = "<h3>Dauets</h3>" + dibuixar_taula_llista([cats_negreta, fila_mitjanes, fila_maximes, fila_propines, fila_penyores, fila_fce], cats_negreta_dauets);
+				div_categories.appendChild(div_dauets)
+
+				resultats.appendChild(div_categories);
 			}
 		}
 	</script>

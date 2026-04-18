@@ -257,3 +257,163 @@ function maxima_puntuacio(jugador, _partides) {
 	}
 	return max;
 }
+
+function maxima_puntuacio_categoria(jugador, categoria, _partides) {
+	var max = -1;
+	const partides = partides_amb_cert_jugador(jugador, _partides);
+	for (var i = 0; i < partides.length; i ++) {
+		if (categories_basiques.includes(categoria)) {
+			if (partides[i].puntuacions[jugador][categories_basiques_diccionari[categoria]] > max) {
+				max = partides[i].puntuacions[jugador][categories_basiques_diccionari[categoria]];
+			}
+		} else {
+			for (var j = 0; j < partides[i].categories_especials.length; j ++) {
+				if (partides[i].categories_especials[j] == categoria) {
+					if (partides[i].puntuacions[jugador][6+j] > max) {
+						max = partides[i].puntuacions[jugador][6+j];
+					}
+				}
+			}
+		}
+	}
+	return max;
+}
+
+function percentatge_fora_condicions_estandard(jugador, categoria, _partides) {
+	if (categoria in llindar_condicions_estandard) {
+		var total = 0;
+		var fce = 0;
+		const partides = partides_amb_cert_jugador(jugador, _partides);
+		for (var i = 0; i < partides.length; i ++) {
+			if (categories_basiques.includes(categoria)) {
+				total ++;
+				if (partides[i].puntuacions[jugador][categories_basiques_diccionari[categoria]] > llindar_condicions_estandard[categoria]) {
+					fce ++;
+				}
+			} else {
+				for (var j = 0; j < partides[i].categories_especials.length; j ++) {
+					if (partides[i].categories_especials[j] == categoria) {
+						total ++;
+						if (partides[i].puntuacions[jugador][6+j] > llindar_condicions_estandard[categoria]) {
+							fce ++;
+						}
+					}
+				}
+			}
+		}
+		if (total == 0) {
+			return -1;
+		} else {
+			return 100*fce/total;
+		}
+	} else {
+		return -2;
+	}
+}
+
+function percentatge_propines(jugador, categoria, _partides) {
+	var total = 0;
+	var n = 0;
+	const partides = partides_amb_cert_jugador(jugador, _partides);
+	for (var i = 0; i < partides.length; i ++) {
+		const propines = maxim_unic(partides[i]);
+		if (categories_basiques.includes(categoria)) {
+			total ++;
+			if (propines[categories_basiques_diccionari[categoria]] == jugador) {
+				n ++;
+			}
+		} else {
+			for (var j = 0; j < partides[i].categories_especials.length; j ++) {
+				if (partides[i].categories_especials[j] == categoria) {
+					total ++;
+					if (propines[6+j] == jugador) {
+						n ++;
+					}
+				}
+			}
+		}
+	}
+	if (total == 0) {
+		return -1;
+	} else {
+		return 100*n/total;
+	}
+}
+
+function percentatge_penyores(jugador, categoria, _partides) {
+	var total = 0;
+	var n = 0;
+	const partides = partides_amb_cert_jugador(jugador, _partides);
+	for (var i = 0; i < partides.length; i ++) {
+		if ("trumfo" in partides[i]) {
+			const trmf = minim_no_unic(partides[i]);
+			if (categories_basiques.includes(categoria) && partides[i].trumfo[categories_basiques_diccionari[categoria]].includes("penyora")) {
+				total ++;
+				if (trmf[categories_basiques_diccionari[categoria]].includes(jugador)) {
+					n ++;
+				}
+			} else {
+				for (var j = 0; j < partides[i].categories_especials.length; j ++) {
+					if (partides[i].categories_especials[j] == categoria && partides[i].trumfo[6+j].includes("penyora")) {
+						total ++;
+						if (trmf[6+j].includes(jugador)) {
+							n ++;
+						}
+					}
+				}
+			}
+		}
+	}
+	if (total == 0) {
+		return -1;
+	} else {
+		return 100*n/total;
+	}
+}
+
+function percentatge_tatxar(jugador, categoria, _partides) {
+	var total = 0;
+	var n = 0;
+	const partides = partides_amb_cert_jugador(jugador, _partides);
+	for (var i = 0; i < partides.length; i ++) {
+		if ("trumfo" in partides[i]) {
+			const trmf = maxim_unic(partides[i]);
+			if (categories_basiques.includes(categoria)) {
+				var includes = false;
+				for (var j = 0; j < partides[i].trumfo[categories_basiques_diccionari[categoria]]; j ++) {
+					if (partides[i].trumfo[categories_basiques_diccionari[categoria]][j].split("-")[0] == "tatxar") {
+						includes = true;
+					}
+				}
+				if (includes) {
+					total ++;
+					if (trmf[categories_basiques_diccionari[categoria]].includes(jugador)) {
+						n ++;
+					}
+				}
+			} else {
+				for (var j = 0; j < partides[i].categories_especials.length; j ++) {
+					if (partides[i].categories_especials[j] == categoria) {
+						var includes = false;
+						for (var k = 0; k < partides[i].categories_especials[j]; k ++) {
+							if (partides[i].trumfo[6+j].split("-")[0] == "tatxar") {
+								includes = true;
+							}
+						}
+						if (includes) {
+							total ++;
+							if (trmf[6+j].includes(jugador)) {
+								n ++;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	if (total == 0) {
+		return -1;
+	} else {
+		return 100*n/total;
+	}
+}
