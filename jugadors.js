@@ -1,6 +1,6 @@
 const categories_basiques = ["v","n","j","q","k","a"];
 const categories_basiques_diccionari = {"v":0, "n":1, "j":2, "q":3, "k":4, "a":5};
-const llindar_condicions_estandard = {"v": 8, "n": 16, "j": 24, "q": 32, "k": 40, "a": 48, "forma": 48, "color": 48, "dauet(12)": 24, "buida": 0, "4/4": 44, "5/3": 45};
+const llindar_condicions_estandard = {"v": 8, "n": 16, "j": 24, "q": 32, "k": 40, "a": 48, "4/4": 44, "5/3": 55, "buida": 0, "color": 48, "dauet(10)": 22, "dauet(12)": 24, "dauet(5)": 17, "forma": 48};
 
 function categories_especials(_partides){
 	categories = [];
@@ -11,7 +11,7 @@ function categories_especials(_partides){
 			}
 		}
 	}
-	return categories;
+	return categories.sort();
 }
 
 function partides_amb_cert_jugador(jugador,_partides){
@@ -134,19 +134,38 @@ function minim_no_unic(partida) {
 
 function puntuacions(partida) {
 	const n = partida.puntuacions[partida.jugadors[0]].length;
+
+	// Categories tatxades
+	var categories_tatxades = [];
+	if ("trumfo" in partida) {
+		for (var i = 0; i < n; i ++) {
+			for (var j = 0; j < partida.trumfo[i].length; j ++) {
+				var text = partida.trumfo[i][j].split("-");
+				if (text[0] == "tatxar" && text.length == 2) {
+					categories_tatxades.push(parseInt(text[1]));
+				}
+			}
+		}
+	}
+
+	// Suma de punts
 	resultat = {};
 	for (var i = 0; i < partida.jugadors.length; i ++) {
 		resultat[partida.jugadors[i]] = 0;
 		for (var j = 0; j < n; j ++) {
-			resultat[partida.jugadors[i]] += partida.puntuacions[partida.jugadors[i]][j];
+			if (categories_tatxades.includes(j) == false) {
+				resultat[partida.jugadors[i]] += partida.puntuacions[partida.jugadors[i]][j];
+			}
 		}
 	}
 
 	// Propines
 	var maxim_unic_partida = maxim_unic(partida);
 	for (var i = 0; i < n; i ++) {
-		if (maxim_unic_partida[i] != false) {
-			resultat[maxim_unic_partida[i]] += 5;
+		if (categories_tatxades.includes(i) == false) {
+			if (maxim_unic_partida[i] != false) {
+				resultat[maxim_unic_partida[i]] += 5;
+			}
 		}
 	}
 
@@ -154,10 +173,12 @@ function puntuacions(partida) {
 	if ("trumfo" in partida) {
 		var minim_no_unic_partida = minim_no_unic(partida);
 		for (var i = 0; i < n; i ++) {
-			for (var j = 0; j < partida.trumfo[i].length; j ++) {
-				if (partida.trumfo[i][j] == "penyora") {
-					for (var k = 0; k < minim_no_unic_partida[i].length; k ++) {
-						resultat[minim_no_unic_partida[i][k]] -= 5;
+			if (categories_tatxades.includes(i) == false) {
+				for (var j = 0; j < partida.trumfo[i].length; j ++) {
+					if (partida.trumfo[i][j] == "penyora") {
+						for (var k = 0; k < minim_no_unic_partida[i].length; k ++) {
+							resultat[minim_no_unic_partida[i][k]] -= 5;
+						}
 					}
 				}
 			}
@@ -201,4 +222,38 @@ function puntuacio_relativa_mitjana(jugador, _partides){
 		}
 		return suma/partides.length;
 	}
+}
+
+function percentatge_victories(jugador, _partides) {
+	const partides = partides_amb_cert_jugador(jugador, _partides);
+	if (partides.length == 0) {
+		return -1;
+	} else {
+		var victories = 0;
+		for (var i = 0; i < partides.length; i ++) {
+			const punts = puntuacions(partides[i]);
+			var guanyador = true;
+			for (var j = 0; j < partides[i].jugadors.length; j ++) {
+				if (punts[jugador] < punts[partides[i].jugadors[j]]) {
+					guanyador = false;
+				}
+			}
+			if (guanyador == true) {
+				victories ++;
+			}
+		}
+		return 100*victories/partides.length;
+	}
+}
+
+function maxima_puntuacio(jugador, _partides) {
+	var max = -1;
+	const partides = partides_amb_cert_jugador(jugador, _partides);
+	for (var i = 0; i < partides.length; i ++) {
+		var punt = puntuacions(partides[i])[jugador];
+		if (punt > max) {
+			max = punt;
+		}
+	}
+	return max;
 }

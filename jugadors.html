@@ -23,42 +23,58 @@
 	<input type="text" name="jugador" id="jugador">
 	<button type="button" onclick="cercar()">Cercar</button>
 
-	<p></p>
+	<br>
 	<div id="titol"></div>
 
-	<p></p>
 	<div id="resultats"></div>
+
+	<br>
+	<p>Atenció! Només es mostren les estadístiques de les partides registrades. Malauradament hi ha algunes partides oficials no registrades.</p>
 
 	<script>
 		const cat_especials = categories_especials(_partides);
 		const cats = categories_basiques.concat(cat_especials);
+		var cats_negreta = [""];
+		for (var i = 0; i < cats.length; i ++) {
+			cats_negreta.push("<b>" + cats[i] + "</b>");
+		}
 
 		function cercar(){
-			document.getElementById("resultats").innerHTML = "";
+			const output = document.getElementById("resultats")
+			output.innerHTML = "";
+			var output_text = "";
 			const jugador = document.getElementById("jugador").value;
 
 			// Títol
 			document.getElementById("titol").innerHTML = "<h1>" + jugador;
 			const prm = puntuacio_relativa_mitjana(jugador, _partides);
-			if (prm == -1) {
-				document.getElementById("titol").innerHTML = "<h1>" + jugador + "</h1>";
-			} else {
+			if (prm != -1) {
 				document.getElementById("titol").innerHTML = "<h1>" + jugador + " (" + Math.round(prm).toString() + ")</h1>";
-			}
 
-			// Mitjanes
-			const mitjs = mitjanes(jugador, _partides);
-			var fila_mitjanes = [];
-			for (var i = 0; i < cats.length; i ++) {
-				if (mitjs[cats[i]] == -1) {
-					fila_mitjanes.push("-");
-				} else {
-					fila_mitjanes.push(mitjs[cats[i]]);
+				// General
+				output_text += "<h2>General</h2><ul>";
+				output_text += "<li><b>Partides registrades:</b> " + partides_amb_cert_jugador(jugador,_partides).length.toString() + "</li>";
+				output_text += "<li><b>% victòries:</b> " + Math.round(percentatge_victories(jugador,_partides)).toString() + "%</li>";
+				output_text += "<li><b>Màxima puntuació:</b> " + maxima_puntuacio(jugador, _partides).toString() + "</li>";
+				output_text += "</ul>";
+
+				// Mitjanes
+				const mitjs = mitjanes(jugador, _partides);
+				var fila_mitjanes = ["Mitjana"];
+				for (var i = 0; i < cats.length; i ++) {
+					if (mitjs[cats[i]] == -1) {
+						fila_mitjanes.push("-");
+					} else {
+						fila_mitjanes.push(Math.round(10*mitjs[cats[i]])/10);
+					}
 				}
+
+				// Fora condicions estàndard
+
+				output_text += "<h2>Per categories</h2>" + dibuixar_taula_llista([cats_negreta, fila_mitjanes]);
+
+				output.innerHTML = output_text;
 			}
-			var div_mitjanes = document.createElement("div");
-			div_mitjanes.innerHTML = "<h2>Mitjanes</h2>" + dibuixar_taula_llista([cats, fila_mitjanes]);
-			document.getElementById("resultats").appendChild(div_mitjanes);
 		}
 	</script>
 </body>
