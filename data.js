@@ -25,7 +25,7 @@ _partides = [
 	},
 	{
 		"jugadors": ["Roger", "Joanna", "Raúl", "Jofre"],
-		"categories_especials": ["5/3", "dauet"],
+		"categories_especials": ["5/3", "dauet(5)"],
 		"puntuacions": {
 			"Roger": [5,10,21,24,35,36,34,0],
 			"Joanna": [3,10,15,24,40,12,0,27],
