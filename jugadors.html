@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script type="text/javascript" src="data.js"></script>
 	<script type="text/javascript" src="jugadors.js"></script>
+	<script type="text/javascript" src="tornejos.js"></script>
 	<script type="text/javascript" src="script.js"></script>
 	<style>
 	table, th, td {
@@ -38,6 +39,8 @@
 	<div id="titol"></div>
 
 	<div id="resultats"></div>
+
+	<div id="tornejos"></div>
 
 	<br>
 	<p>Atenció! Només es mostren les estadístiques de les partides registrades. Malauradament hi ha algunes partides oficials no registrades.</p>
@@ -174,6 +177,24 @@
 				div_categories.appendChild(div_dauets)
 
 				resultats.appendChild(div_categories);
+
+				// tornejos
+				var div_tornejos = document.createElement("div");
+				div_tornejos.innerHTML = "<h2>Tornejos</h2>";
+				var llista = document.createElement("ul");
+				const tornejos = tornejos_amb_cert_jugador(jugador, _tornejos);
+				for (var i = 0; i < tornejos.length; i ++) {
+					var li = document.createElement("li");
+					li.innerHTML = tornejos[i].nom + " (";
+					var link = document.createElement("a");
+					link.href = "jocdauets.github.io/tornejos/" + tornejos[i].abreviatura + ".html";
+					link.innerHTML = tornejos[i].abreviatura;
+					li.appendChild(link);
+					li.innerHTML += ")";
+					llista.appendChild(li);
+				}
+				div_tornejos.appendChild(llista);
+				resultats.appendChild(div_tornejos);
 			}
 		}
 	</script>
