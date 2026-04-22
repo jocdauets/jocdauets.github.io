@@ -3,89 +3,251 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		table, th, td {
+		  border: 1px solid black;
+		  border-collapse: collapse;
+		}
+		td {
+			width: 60pt;
+			text-align: center;
+		}
+	</style>
 	<title>I Copa del Drac Català</title>
 </head>
 <body>
-<h1>
-	I Copa del Drac Català
-</h1>
+	<h1>
+		I Copa del Drac Català
+	</h1>
 
-<p>
-	<b>Queda una partida per jugar!</b> Dia 25 d'abril.
-</p>
+	<p>
+		<b>Queda una partida per jugar!</b> Dia 25 d'abril a les 20:30.
+	</p>
 
-<p>
-	Classificació actual:
-</p>
+	<h2>Classificació provisional</h2>
 
-<table>
-	<tr>
-		<td>Posició</td>
-		<td>Jugador/a</td>
-		<td>Punts</td>
-		<td>Jugades</td>
-	</tr>
-	<tr>
-		<td>1</td>
-		<td>Adri</td>
-		<td>32</td>
-		<td>5</td>
-	</tr>
-	<tr bgcolor="yellow">
-		<td>2</td>
-		<td>Roger</td>
-		<td>24</td>
-		<td>4</td>
-	</tr>
-	<tr>
-		<td>3</td>
-		<td>Dani</td>
-		<td>23</td>
-		<td>5</td>
-	</tr>
-	<tr>
-		<td>4</td>
-		<td>Joanna</td>
-		<td>22</td>
-		<td>5</td>
-	</tr>
-	<tr>
-		<td>5</td>
-		<td>Albert</td>
-		<td>19</td>
-		<td>5</td>
-	</tr>
-	<tr bgcolor="yellow">
-		<td>5</td>
-		<td>Andreu</td>
-		<td>19</td>
-		<td>4</td>
-	</tr>
-	<tr>
-		<td>7</td>
-		<td>Carla</td>
-		<td>9</td>
-		<td>5</td>
-	</tr>
-	<tr bgcolor="yellow">
-		<td>8</td>
-		<td>Teresa</td>
-		<td>8</td>
-		<td>4</td>
-	</tr>
-	<tr bgcolor="yellow">
-		<td>9</td>
-		<td>Robert</td>
-		<td>7</td>
-		<td>4</td>
-	</tr>
-	<tr>
-		<td>10</td>
-		<td>Maria</td>
-		<td>4</td>
-		<td>5</td>
-	</tr>
-</table>
+	<table>
+		<tr>
+			<td>Posició</td>
+			<td>Jugador/a</td>
+			<td>Punts</td>
+			<td>Jugades</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>Adri</td>
+			<td>32</td>
+			<td>5</td>
+		</tr>
+		<tr bgcolor="yellow">
+			<td>2</td>
+			<td>Roger</td>
+			<td>24</td>
+			<td>4</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>Dani</td>
+			<td>23</td>
+			<td>5</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>Joanna</td>
+			<td>22</td>
+			<td>5</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>Albert</td>
+			<td>19</td>
+			<td>5</td>
+		</tr>
+		<tr bgcolor="yellow">
+			<td>5</td>
+			<td>Andreu</td>
+			<td>19</td>
+			<td>4</td>
+		</tr>
+		<tr>
+			<td>7</td>
+			<td>Carla</td>
+			<td>9</td>
+			<td>5</td>
+		</tr>
+		<tr bgcolor="yellow">
+			<td>8</td>
+			<td>Teresa</td>
+			<td>8</td>
+			<td>4</td>
+		</tr>
+		<tr bgcolor="yellow">
+			<td>9</td>
+			<td>Robert</td>
+			<td>7</td>
+			<td>4</td>
+		</tr>
+		<tr>
+			<td>10</td>
+			<td>Maria</td>
+			<td>4</td>
+			<td>5</td>
+		</tr>
+	</table>
 
+	<h2>Porra</h2>
+
+	<p>Porra sobre la darrera partida, amb jugadors: Robert, Teresa, Andreu i Roger.</p>
+
+	<p>En cada categoria indicar l'aposta i el valor apostat (mínim 0,20€). Si la categoria es deixa en blanc o el valor apostat és inferior a 0,20€, no es tindrà en compte. <b>Els jugadors de la pròpia partida no poden apostar.</b></p>
+
+	<div>
+		<p>Nom: <input type="text" id="nom"></p>
+
+		<p><b>1. Posicions.</b></p> <p>Guanya qui n'encerta més.</p>
+		<p>Aposta (€): <input type="number" id="aposta-posicions"></p>
+		<ul>
+			<li>Primer: <input type="text" id="primer"></li>
+			<li>Segon: <input type="text" id="segon"></li>
+			<li>Tercer: <input type="text" id="tercer"></li>
+			<li>Quart: <input type="text" id="quart"></li>
+		</ul>
+
+		<p><b>2. Fora de les condicions estàndard (FCE).</b></p> <p>Una tirada està fora de les condicions estàndard (segons en Robert) si, p.ex: es puntuen més de 8 K's, es puntuen dos 4/4's, dos colors, etc. L'aposta en cada categoria és individual. Si s'aposta en una categoria que no es juga (p.ex. s'aposta a dauet, però no es juga dauet) es retornen els diners.</p>
+		<table>
+			<tr>
+				<td>Categoria</td>
+				<td>FCE sí</td>
+				<td>FCE no</td>
+				<td>Aposta (€)</td>
+			</tr>
+			<tr>
+				<td>V</td>
+				<td><input type="checkbox" id="v-s"></td>
+				<td><input type="checkbox" id="v-n"></td>
+				<td><input type="number" id="aposta-v"></td>
+			</tr>
+			<tr>
+				<td>N</td>
+				<td><input type="checkbox" id="n-s"></td>
+				<td><input type="checkbox" id="n-n"></td>
+				<td><input type="number" id="aposta-n"></td>
+			</tr>
+			<tr>
+				<td>J</td>
+				<td><input type="checkbox" id="j-s"></td>
+				<td><input type="checkbox" id="j-n"></td>
+				<td><input type="number" id="aposta-j"></td>
+			</tr>
+			<tr>
+				<td>Q</td>
+				<td><input type="checkbox" id="q-s"></td>
+				<td><input type="checkbox" id="q-n"></td>
+				<td><input type="number" id="aposta-q"></td>
+			</tr>
+			<tr>
+				<td>K</td>
+				<td><input type="checkbox" id="k-s"></td>
+				<td><input type="checkbox" id="k-n"></td>
+				<td><input type="number" id="aposta-k"></td>
+			</tr>
+			<tr>
+				<td>A</td>
+				<td><input type="checkbox" id="a-s"></td>
+				<td><input type="checkbox" id="a-n"></td>
+				<td><input type="number" id="aposta-a"></td>
+			</tr>
+			<tr>
+				<td>4/4</td>
+				<td><input type="checkbox" id="44-s"></td>
+				<td><input type="checkbox" id="44-n"></td>
+				<td><input type="number" id="aposta-44"></td>
+			</tr>
+			<tr>
+				<td>5/3</td>
+				<td><input type="checkbox" id="53-s"></td>
+				<td><input type="checkbox" id="53-n"></td>
+				<td><input type="number" id="aposta-53"></td>
+			</tr>
+			<tr>
+				<td>2/2/2/2</td>
+				<td><input type="checkbox" id="2222-s"></td>
+				<td><input type="checkbox" id="2222-n"></td>
+				<td><input type="number" id="aposta-2222"></td>
+			</tr>
+			<tr>
+				<td>Dauet</td>
+				<td><input type="checkbox" id="dauet-s"></td>
+				<td><input type="checkbox" id="dauet-n"></td>
+				<td><input type="number" id="aposta-dauet"></td>
+			</tr>
+			<tr>
+				<td>Color</td>
+				<td><input type="checkbox" id="color-s"></td>
+				<td><input type="checkbox" id="color-n"></td>
+				<td><input type="number" id="aposta-color"></td>
+			</tr>
+			<tr>
+				<td>Forma</td>
+				<td><input type="checkbox" id="forma-s"></td>
+				<td><input type="checkbox" id="forma-n"></td>
+				<td><input type="number" id="aposta-forma"></td>
+			</tr>
+		</table>
+
+		<p><b>3. Altres.</b></p>
+		<table>
+			<tr>
+				<td></td>
+				<td>Sí</td>
+				<td>No</td>
+				<td>Aposta (€)</td>
+			</tr>
+			<tr>
+				<td>Hi haurà una puntuació superior (o igual) als 200 punts</td>
+				<td><input type="checkbox" id="200-s"></td>
+				<td><input type="checkbox" id="200-n"></td>
+				<td><input type="number" id="aposta-200"></td>
+			</tr>
+			<tr>
+				<td>Hi haurà un jugador que guanyarà 4 propines o més</td>
+				<td><input type="checkbox" id="propina-s"></td>
+				<td><input type="checkbox" id="propina-n"></td>
+				<td><input type="number" id="aposta-propina"></td>
+			</tr>
+			<tr>
+				<td>La last round d'asos d'en Robert (si la fa) arribarà als cinc asos</td>
+				<td><input type="checkbox" id="robert-s"></td>
+				<td><input type="checkbox" id="robert-n"></td>
+				<td><input type="number" id="aposta-robert"></td>
+			</tr>
+		</table>
+		<button onclick="porra()">Enviar</button>
+	</div>
+
+	<div id="div_text">
+	</div>
+	<script>
+		function porra() {
+			var data = {"nom": document.getElementById("nom").value};
+			data["posicions"] = [{"primer": document.getElementById("primer").value, "segon": document.getElementById("segon").value, "tercer": document.getElementById("tercer").value, "quart": document.getElementById("quart").value}, document.getElementById("aposta-posicions").value];
+			var ids = ["v","n","j","q","k","a","44","53","2222","dauet","color","forma","200","propina","robert"];
+			for (var i = 0; i < ids.length; i ++) {
+				var si = document.getElementById(ids[i] + "-s").checked;
+				var no = document.getElementById(ids[i] + "-n").checked;
+				if (si != no) {
+					data[ids[i]] = [si, document.getElementById("aposta-" + ids[i]).value];
+				}
+			}
+			var p1 = document.createElement("p");
+			p1.innerHTML = "Si no s'ha enviat el correu automàticament, envia el següent text a jocdauets@gmail.com (o a en Roger):";
+			var p2 = document.createElement("p");
+			p2.innerHTML = JSON.stringify(data);
+			div_text.appendChild(p1);
+			div_text.appendChild(p2);
+
+			window.open("mailto:jocdauets@gmail.com?subject=Porra_" + document.getElementById("nom").value + "&body=" + JSON.stringify(data));
+		}
+	</script>
 </body>
 </html>
