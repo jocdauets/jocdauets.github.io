@@ -112,3 +112,76 @@ _partides = [
 		"data": "13-04-2026"
 	}
 ]
+
+_tornejos = [
+	{
+		"nom": "Wesseling League",
+		"abreviatura": "WL",
+		"jugadors": ["Roger","Raúl","Jofre","Joanna"],
+		"partides": [
+			{
+				"index": 0
+			},
+			{
+				"index": 1
+			},
+			{
+				"index": 2
+			},
+			{
+				"index": 3
+			},
+			{
+				"index": 4
+			},
+			{
+				"index": 5
+			},
+			{
+				"index": 9
+			}
+		],
+		"estat": "jugant"
+	},
+	{
+		"nom": "I Copa del Drac Català",
+		"abreviatura": "DRAC-I",
+		"jugadors": ["Adri","Roger","Dani","Joanna","Albert","Andreu","Carla","Teresa","Robert","Maria"],
+		"partides": [
+			{
+				"index": false
+			},
+			{
+				"index": 6
+			},
+			{
+				"index": 7
+			},
+			{
+				"index": false
+			},
+			{
+				"index": false
+			},
+			{
+				"index": false
+			},
+			{
+				"index": false
+			},
+			{
+				"index": 8
+			},
+			{
+				"index": false
+			},
+			{
+				"index": false
+			},
+			{
+				"index": false
+			}
+		],
+		"estat": "jugant"
+	}
+]
