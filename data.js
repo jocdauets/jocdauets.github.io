@@ -110,7 +110,8 @@ _partides = [
 		},
 		"trumfo": [[], [], [], [], ["tatxar-3"], [], [], []],
 		"data": "13-04-2026"
-	}
+	},
+	{"jugadors":["Roger","Raúl"],"categories_especials":["4/4","color"],"puntuacions":{"Roger":[1,4,21,24,25,24,36,26],"Raúl":[2,14,21,20,35,12,36,39]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-4-2026"}
 ]
 
 _tornejos = [
@@ -139,6 +140,9 @@ _tornejos = [
 			},
 			{
 				"index": 9
+			},
+			{
+				"index": 10
 			}
 		],
 		"estat": "jugant"
