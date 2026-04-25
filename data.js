@@ -111,7 +111,8 @@ _partides = [
 		"trumfo": [[], [], [], [], ["tatxar-3"], [], [], []],
 		"data": "13-04-2026"
 	},
-	{"jugadors":["Roger","Raúl"],"categories_especials":["4/4","color"],"puntuacions":{"Roger":[1,4,21,24,25,24,36,26],"Raúl":[2,14,21,20,35,12,36,39]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-4-2026"}
+	{"jugadors":["Roger","Raúl"],"categories_especials":["4/4","color"],"puntuacions":{"Roger":[1,4,21,24,25,24,36,26],"Raúl":[2,14,21,20,35,12,36,39]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-4-2026"},
+	{"jugadors":["Roger","Andreu","Teresa","Robert"],"categories_especials":["dauet(12)","buida"],"puntuacions":{"Roger":[5,8,12,20,30,24,20,0],"Andreu":[8,10,18,28,30,18,18,0],"Teresa":[6,10,18,20,25,30,18,0],"Robert":[8,14,24,20,30,30,21,0]},"trumfo":[["penyora"],[""],[""],[""],[""],[""],[""],[""]],"data":"25-4-2026"}
 ]
 
 _tornejos = [
@@ -184,6 +185,9 @@ _tornejos = [
 			},
 			{
 				"index": false
+			},
+			{
+				"index": 11
 			}
 		],
 		"estat": "jugant"
