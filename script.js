@@ -29,3 +29,14 @@ function dibuixar_taula_llista(llista, header=false){
 		return dibuixar_taula_llista(nova_llista);
 	}
 }
+
+function descarregar(text, nom, extensio=txt) {
+	var file = new File(["\ufeff"+text], nom + "." + extensio, {type: "text/plain:charset=UTF-8"});
+	var url = window.URL.createObjectURL(file);
+	var a = document.createElement("a");
+	a.style = "display:none";
+	a.href = url;
+	a.download = file.name;
+	a.click();
+	window.URL.revokeObjectURL(url);
+}

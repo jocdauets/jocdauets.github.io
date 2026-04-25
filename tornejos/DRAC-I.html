@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="../script.js"></script>
 	<style>
 		table, th, td {
 		  border: 1px solid black;
@@ -222,7 +223,8 @@
 				<td><input type="number" id="aposta-robert"></td>
 			</tr>
 		</table>
-		<button onclick="porra()">Enviar</button>
+		<p>Descarrega la porra i envia-la a jocdauets@gmail.com o per WhatsApp a en Roger:</p>
+		<button onclick="porra()">Descarregar</button>
 	</div>
 
 	<div id="div_text">
@@ -230,23 +232,16 @@
 	<script>
 		function porra() {
 			var data = {"nom": document.getElementById("nom").value};
-			data["posicions"] = [{"primer": document.getElementById("primer").value, "segon": document.getElementById("segon").value, "tercer": document.getElementById("tercer").value, "quart": document.getElementById("quart").value}, document.getElementById("aposta-posicions").value];
+			data["posicions"] = [{"primer": document.getElementById("primer").value, "segon": document.getElementById("segon").value, "tercer": document.getElementById("tercer").value, "quart": document.getElementById("quart").value}, parseInt(document.getElementById("aposta-posicions").value)];
 			var ids = ["v","n","j","q","k","a","44","53","2222","dauet","color","forma","200","propina","robert"];
 			for (var i = 0; i < ids.length; i ++) {
 				var si = document.getElementById(ids[i] + "-s").checked;
 				var no = document.getElementById(ids[i] + "-n").checked;
 				if (si != no) {
-					data[ids[i]] = [si, document.getElementById("aposta-" + ids[i]).value];
+					data[ids[i]] = [si, parseInt(document.getElementById("aposta-" + ids[i]).value)];
 				}
 			}
-			var p1 = document.createElement("p");
-			p1.innerHTML = "Si no s'ha enviat el correu automàticament, envia el següent text a jocdauets@gmail.com (o a en Roger):";
-			var p2 = document.createElement("p");
-			p2.innerHTML = JSON.stringify(data);
-			div_text.appendChild(p1);
-			div_text.appendChild(p2);
-
-			window.open("mailto:jocdauets@gmail.com?subject=Porra_" + document.getElementById("nom").value + "&body=" + JSON.stringify(data));
+			descarregar(JSON.stringify(data), "DRAC-I_porra_" + document.getElementById("nom").value, "json");
 		}
 	</script>
 </body>
