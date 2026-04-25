@@ -4,6 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="data.js"></script>
+    <script type="text/javascript" src="tornejos.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    td {
+        width: 60pt;
+        text-align: center;
+    }
+    </style>
     <title>Dauets</title>
 </head>
 <body>
@@ -18,6 +31,10 @@
         </ul>
     </div>
 
+    <h2>Rànquing de Dauets Professional</h2>
+    <div id="classificacio">
+    </div>
+
     <script>
         for (var i = 0; i < _tornejos.length; i ++) {
             var li = document.createElement("li");
@@ -27,6 +44,8 @@
             li.appendChild(link);
             document.getElementById("adreces_interes").appendChild(li);
         }
+
+        document.getElementById("classificacio").innerHTML = dibuixar_taula_llista(taula_classificacio_ultim_any(_tornejos));
     </script>
 </body>
 </html>
