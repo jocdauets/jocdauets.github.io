@@ -190,6 +190,18 @@ _tornejos = [
 				"index": 11
 			}
 		],
-		"estat": "jugant"
+		"estat": "finalitzat",
+		"posicions": {
+			"Adri": 100,
+			"Roger": 80,
+			"Dani": 60,
+			"Joanna": 50,
+			"Andreu": 40,
+			"Albert": 30,
+			"Robert": 20,
+			"Carla": 10,
+			"Teresa": 8,
+			"Maria": 6
+		}
 	}
 ]
