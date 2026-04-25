@@ -1,4 +1,33 @@
+/*  https://www.w3schools.com/colors/tryit.asp?filename=trycolors_palettes20  */
+
+:root {
+	--color-text: #454140;
+	--color-fort: #7a3b2e;
+	--color-llampant: #bd5734;
+	--color-clar: #a79e84;
+}
+
+p {
+	color: var(--color-text);
+}
+
 .taula-classificacio{
 	border-collapse: collapse;
 	margin: 25px 0;
+}
+
+/* Link cercar jugador/torneig */
+
+.link-cercar{
+	color: var(--color-text);
+	text-decoration: none;
+}
+
+.link-cercar:hover{
+	color: var(--color-llampant);
+	text-decoration: underline;
+}
+
+.link-cercar:active{
+	color:var(--color-llampant);
 }

@@ -101,7 +101,7 @@ function taula_classificacio_ultim_any(_tornejos) {
 		for (var i = 0; i < jugadors.length; i ++) {
 			for (var k = 0; k < jugadors.length; k ++) {
 				if (classificacio[jugadors[k]].posicio == i+1) {
-					var fila = [classificacio[jugadors[k]].posicio, jugadors[k], classificacio[jugadors[k]].punts];
+					var fila = [classificacio[jugadors[k]].posicio, "<a href=\"/jugadors.html?jugador=" + jugadors[k] + "\" class=\"link-cercar\">" + jugadors[k] + "</a>", classificacio[jugadors[k]].punts];
 					for (var j = 0; j < tornejos.length; j ++) {
 						if (classificacio[jugadors[k]].tornejos[tornejos[j]] == false) {
 							fila.push("-");
@@ -113,7 +113,6 @@ function taula_classificacio_ultim_any(_tornejos) {
 				}
 			}
 		}
-		console.log(taula);
 		return taula;
 	} else {
 		return [[]];
