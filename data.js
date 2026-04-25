@@ -191,7 +191,7 @@ _tornejos = [
 			}
 		],
 		"estat": "finalitzat",
-		"data": "25-04-2026",
+		"finalitzacio": "25-04-2026",
 		"posicions": {
 			"Adri": 100,
 			"Roger": 80,
