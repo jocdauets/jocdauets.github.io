@@ -6,6 +6,7 @@
     <script type="text/javascript" src="data.js"></script>
     <script type="text/javascript" src="tornejos.js"></script>
     <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="rdp_database.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <style>
     table, th, td {
@@ -45,7 +46,64 @@
             document.getElementById("adreces_interes").appendChild(li);
         }
 
-        document.getElementById("classificacio").innerHTML = dibuixar_taula_llista(taula_classificacio_ultim_any(_tornejos));
+        const ultim = _rdp[_rdp.length-1];
+        const jugadors = Object.keys(ultim.daus);
+        var taula = document.createElement("table");
+        var header = document.createElement("tr");
+        var header_posicio = document.createElement("th");
+        header_posicio.innerHTML = "Posició";
+        var header_jugadors = document.createElement("th");
+        header_jugadors.innerHTML = "Jugador/a";
+        var header_daus = document.createElement("th");
+        header_daus.innerHTML = "Daus";
+        header.appendChild(header_posicio);
+        header.appendChild(header_jugadors);
+        header.appendChild(header_daus);
+        taula.appendChild(header);
+
+        var posicions = {};
+        var jugadors_afegits = [];
+        while (jugadors_afegits.length < jugadors.length) {
+            var afegir = false;
+            for (var i = 0; i < jugadors.length; i ++) {
+                if (jugadors_afegits.includes(jugadors[i]) == false) {
+                    if (afegir == false) {
+                        afegir = jugadors[i];
+                    } else if (ultim.daus[jugadors[i]] > ultim.daus[afegir]) {
+                        afegir = jugadors[i];
+                    }
+                }
+            }
+            if (jugadors_afegits.length == 0) {
+                jugadors_afegits.push(afegir);
+                posicions[afegir] = 1;
+            } else {
+                if (ultim.daus[afegir] == ultim.daus[jugadors_afegits[jugadors_afegits.length-1]]) {
+                    posicions[afegir] = posicions[jugadors_afegits[jugadors_afegits.length-1]];
+                    jugadors_afegits.push(afegir);
+                } else {
+                    jugadors_afegits.push(afegir);
+                    posicions[afegir] = jugadors_afegits.length;
+                }
+            }
+            var fila = document.createElement("tr");
+            var cella_posicio = document.createElement("td");
+            cella_posicio.innerHTML = posicions[afegir].toString();
+            fila.appendChild(cella_posicio);
+            var cella_jugador = document.createElement("td");
+            var link_jugador = document.createElement("a");
+            link_jugador.href = "/jugadors.html?jugador=" + afegir;
+            link_jugador.classList = ["link-cercar"];
+            link_jugador.innerHTML = afegir;
+            cella_jugador.appendChild(link_jugador);
+            fila.appendChild(cella_jugador);
+            var cella_daus = document.createElement("td");
+            cella_daus.innerHTML = ultim.daus[afegir].toString();
+            fila.appendChild(cella_daus);
+            taula.appendChild(fila);
+        }
+
+        document.getElementById("classificacio").appendChild(taula);
     </script>
 </body>
 </html>
