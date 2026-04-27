@@ -7,6 +7,7 @@
 	<script type="text/javascript" src="jugadors.js"></script>
 	<script type="text/javascript" src="tornejos.js"></script>
 	<script type="text/javascript" src="script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<style>
 	table, th, td {
 	  border: 1px solid black;
@@ -187,6 +188,24 @@
 
 				resultats.appendChild(div_categories);
 
+				// gràfics
+				const ctxt_div = document.createElement("div");
+				const ctxt_title = document.createElement("h2");
+				ctxt_title.innerHTML = "Gràfics";
+				const ctxt_categoria = document.createElement("input");
+				ctxt_categoria.id = "grafic_categoria";
+				const ctxt_boto = document.createElement("button");
+				ctxt_boto.setAttribute("onclick", "grafic_categoria();");
+				ctxt_boto.innerHTML = "Gràfic";
+				const ctxt_canvas = document.createElement("canvas");
+				ctxt_canvas.id = "canvas";
+				ctxt_div.appendChild(ctxt_title);
+				ctxt_div.appendChild(ctxt_categoria);
+				ctxt_div.appendChild(ctxt_boto);
+				ctxt_div.appendChild(document.createElement("br"));
+				ctxt_div.appendChild(ctxt_canvas);
+				resultats.appendChild(ctxt_div);
+
 				// tornejos
 				var div_tornejos = document.createElement("div");
 				div_tornejos.innerHTML = "<h2>Tornejos</h2>";
@@ -204,6 +223,47 @@
 				}
 				div_tornejos.appendChild(llista);
 				resultats.appendChild(div_tornejos);
+			}
+		}
+
+		var grafic = false;
+
+		function grafic_categoria() {
+			const ctx = document.getElementById('canvas');
+			if (grafic != false) {
+				grafic.destroy();
+			}
+			const categoria = document.getElementById("grafic_categoria").value;
+			const jugador = document.getElementById("jugador").value;
+			const partides = partides_amb_cert_jugador(jugador, _partides);
+			if (["v","n","j","q","k","a"].includes(categoria)) {
+				const index_categoria = ["v","n","j","q","k","a"].indexOf(categoria);
+				var valors = [];
+				var data = [];
+				for (var i = 0; i <= 8*3; i ++) {
+					valors.push(i*(index_categoria+1));
+					data.push(0);
+					for (var j = 0; j < partides.length; j ++) {
+						if (partides[j].puntuacions[jugador][index_categoria] == i*(index_categoria+1)) {
+							data[i] ++;
+						}
+					}
+				}
+				for (var i = 0; i < data.length; i ++) {
+					data[i] = 100*data[i]/partides.length;
+				}
+				grafic = new Chart(ctx, {
+					"type": "bar",
+					"data": {
+						"labels": valors,
+						"datasets": [
+							{
+								"label": categoria,
+								"data": data
+							}
+						]
+					}
+				})
 			}
 		}
 	</script>
