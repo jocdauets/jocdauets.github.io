@@ -68,6 +68,15 @@
 			}
 		}
 
+		const url = document.URL;
+		if (url.split("?").length == 2) {
+			if (url.split("?")[1].split("=").length==2 && url.split("?")[1].split("=")[0] == "jugador") {
+				var nom = url.split("?")[1].split("=")[1];
+				document.getElementById("jugador").value = nom;
+				cercar();
+			}
+		}
+
 		function cercar(){
 			const jugador = document.getElementById("jugador").value;
 			resultats.innerHTML = "";
