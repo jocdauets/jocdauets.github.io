@@ -49,6 +49,8 @@
 				<th>Q</th>
 				<th>K</th>
 				<th>A</th>
+				<th>4/4</th>	
+				<th>Color</th>
 				<th>Suma</th>
 			</head>
 			<tr>
@@ -59,6 +61,8 @@
 				<td id="1-3" class="marcador" onclick="jugador_puntuar(3)"></td>
 				<td id="1-4" class="marcador" onclick="jugador_puntuar(4)"></td>
 				<td id="1-5" class="marcador" onclick="jugador_puntuar(5)"></td>
+				<td id="1-6" class="marcador" onclick="jugador_puntuar(6)"></td>
+				<td id="1-7" class="marcador" onclick="jugador_puntuar(7)"></td>
 				<td id="1-suma" class="marcador"></td>
 			</tr>
 			<tr>
@@ -69,6 +73,8 @@
 				<td id="2-3" class="marcador"></td>
 				<td id="2-4" class="marcador"></td>
 				<td id="2-5" class="marcador"></td>
+				<td id="2-6" class="marcador"></td>
+				<td id="2-7" class="marcador"></td>
 				<td id="2-suma" class="marcador"></td>
 			</tr>
 		</table>
@@ -79,14 +85,21 @@
 		const noms = ["Jugador/a", "<Tomeu>"];
 		const n_jugadors = noms.length;
 		var cal_tirar = false;
-		const cat_especials = [];
+		const cat_especials = ["4/4","color"];
+		const n_cat_especials = cat_especials.length;
 		var torn = 0;
 		var fixat = [false,false,false,false,false,false,false,false];
-		var daus = [5,5,5,5,5,5,5,5];
+		var daus = [null,null,null,null,null,null,null,null];
 		var obligatori = null;
 		var tirada = 0;
 		var marcador = {"Jugador/a": [null,null,null,null,null,null], "<Tomeu>": [null,null,null,null,null,null]};
-		var fcer = {"Jugador/a": [false,false,false,false,false,false], "<Tomeu>": [false,false,false,false,false,false]}
+		var fcer = {"Jugador/a": [false,false,false,false,false,false], "<Tomeu>": [false,false,false,false,false,false]};
+		for (var i = 0; i < n_jugadors; i ++) {
+			for (var j = 0; j < n_cat_especials; j ++) {
+				marcador[noms[i]].push(null);
+				fcer[noms[i]].push(false);
+			}
+		}
 
 		mostrar();
 		
@@ -222,21 +235,33 @@
 		}
 
 		function puntuar(categoria) {
-			var jugador = torn%n_jugadors;
-			if (cal_tirar == true) {
-				alert("Has de tirar!");
-			} else if (obligatori != null && categoria != obligatori) {
-				alert("Ja tens una categoria fixa.");
+			var nom_categoria = categoria;
+			if (categoria > 5) {
+				nom_categoria = cat_especials[categoria-6];
 			}
-			else {
-				if (marcador[noms[jugador]][categoria] == null && tirada == 3) {
-					var count = 0;
-					for (var i = 0; i < 8; i ++) {
-						if (daus[i] == categoria || daus[i] == 5) {
-							count ++;
-						}
+			var jugador = torn%n_jugadors;
+			if (cal_tirar == true || tirada == 0) {
+				alert("Has de tirar!");
+			} else if (obligatori != null && nom_categoria != obligatori) {
+				alert("Ja tens una categoria fixa.");
+			} else {
+				var distribucio = [0,0,0,0,0,0];
+				for (var i = 0; i < 8; i ++) {
+					distribucio[daus[i]] ++;
+				}
+				const punts = evaluar(nom_categoria, distribucio);
+				var complet = false;
+				if ([0,1,2,3,4,5].includes(categoria)) {
+					if (punts == (categoria+1)*8) {
+						complet = true;
 					}
-					marcador[noms[jugador]][categoria] = (categoria+1)*count;
+				} else {
+					if (punts != 0) {
+						complet = true;
+					}
+				}
+				if (marcador[noms[jugador]][categoria] == null && tirada >= 3) {
+					marcador[noms[jugador]][categoria] = punts;
 					actualitzar_taula();
 
 					torn ++;
@@ -246,20 +271,14 @@
 						fixat[i] = false;
 					}
 				} else if (tirada < 3) {
-					var count = 0;
-					for (var i = 0; i < 8; i ++) {
-						if (daus[i] == categoria || daus[i] == 5) {
-							count ++;
-						}
-					}
-					if (count == 8) {
-						obligatori = categoria;
+					if (complet == true) {
+						obligatori = nom_categoria;
 						cal_tirar = true;
 						fcer[noms[jugador]][categoria] = true;
 						if (marcador[noms[jugador]][categoria] == null) {
-							marcador[noms[jugador]][categoria] = 8*(categoria+1);
+							marcador[noms[jugador]][categoria] = punts;
 						} else {
-							marcador[noms[jugador]][categoria] += 8*(categoria+1);
+							marcador[noms[jugador]][categoria] += punts;
 						}
 						for (var i = 0; i < 8; i ++) {
 							fixat[i] = false;
@@ -269,14 +288,8 @@
 						alert("Encara et queden tirades.");
 					}
 				} else {
-					var count = 0;
-					for (var i = 0; i < 8; i ++) {
-						if (daus[i] == categoria || daus[i] == 5) {
-							count ++;
-						}
-					}
 					if (fcer[noms[jugador]][categoria] == true) {
-						marcador[noms[jugador]][categoria] += count*(categoria+1);
+						marcador[noms[jugador]][categoria] += punts;
 						torn ++;
 						tirada = 0;
 						obligatori = null;
@@ -290,19 +303,21 @@
 				}
 				mostrar();
 			}
-			if (torn == n_jugadors*6) {
-				puntuacions_finals = puntuacions({"jugadors": noms, "categories_especials": cat_especials, "puntuacions": marcador});
-				for (var i = 0; i < n_jugadors; i ++) {
-					document.getElementById((i+1).toString() + "-suma").innerHTML = puntuacions_finals[noms[i]];
+			if (tirada == 0) {
+				if (torn == n_jugadors*(6+n_cat_especials)) {
+					puntuacions_finals = puntuacions({"jugadors": noms, "categories_especials": cat_especials, "puntuacions": marcador});
+					for (var i = 0; i < n_jugadors; i ++) {
+						document.getElementById((i+1).toString() + "-suma").innerHTML = puntuacions_finals[noms[i]];
+					}
+				} else if (torn%n_jugadors != index_jugador) {
+					rival();
 				}
-			} else if (torn%n_jugadors != index_jugador) {
-				rival();
 			}
 		}
 
 		function actualitzar_taula() {
 			for (var jugador = 0; jugador < n_jugadors; jugador ++) {
-				for (var i = 0; i < 6; i ++) {
+				for (var i = 0; i < 6+n_cat_especials; i ++) {
 					if (marcador[noms[jugador]][i] == null) {
 						document.getElementById((jugador+1).toString() + "-" + i.toString()).innerHTML = "";
 					} else {
@@ -313,81 +328,109 @@
 		}
 
 		function rival() {
-			var completades = [];
-			for (var i = 0; i < 6; i ++) {
-				if (marcador["<Tomeu>"][i] != null) {
-					completades.push(i);
-				}
-			}
-			setTimeout(function() {
-				// primera tirada
-				tirar();
-				setTimeout(function() {
-					var taulell = [0,0,0,0,0,0];
-					for (var i = 0; i < 8; i ++) {
-						taulell[daus[i]] ++;
+			if (torn%n_jugadors != index_jugador) {
+				const nom = noms[torn%n_jugadors];
+				var completades = [];
+				for (var i = 0; i < 6; i ++) {
+					if (marcador[nom][i] != null) {
+						completades.push(i);
 					}
-					var resultat = _estrategies["<Tomeu>"](taulell,completades,obligatori);
-					var quantitat = resultat[0];
-
+				}
+				for (var i = 0; i < n_cat_especials; i ++) {
+					if (marcador[nom][6+i] != null) {
+						completades.push(cat_especials[i]);
+					}
+				}
+				const estrategia = constructor_estrategia(nom, cat_especials);
+				setTimeout(function() {
+					// primera tirada
+					tirar();
 					setTimeout(function() {
+						var taulell = [0,0,0,0,0,0];
 						for (var i = 0; i < 8; i ++) {
-							if (quantitat[daus[i]] > 0) {
-								fixar(i);
-								quantitat[daus[i]] --;
-							}
+							taulell[daus[i]] ++;
 						}
-						if (resultat[1] == true) {
-							puntuar(resultat[2]);
-						}
-						obligatori = resultat[2];
+						var resultat = estrategia.actuar(taulell,completades,obligatori);
+						var previ_fixat = resultat[1];
+						var quantitat = resultat[0];
 
 						setTimeout(function() {
-							// segona tirada
-							tirar();
-							setTimeout(function() {
-								var taulell = [0,0,0,0,0,0];
-								for (var i = 0; i < 8; i ++) {
-									taulell[daus[i]] ++;
+							for (var i = 0; i < 8; i ++) {
+								if (quantitat[daus[i]] > 0) {
+									fixar(i);
+									quantitat[daus[i]] --;
 								}
-								var resultat = _estrategies["<Tomeu>"](taulell,completades,obligatori);
-								var quantitat = resultat[0];
+							}
+							if (resultat[1] == true) {
+								if ([0,1,2,3,4,5].includes(resultat[2])) {
+									puntuar(resultat[2]);
+								} else {
+									puntuar(6+cat_especials.indexOf(resultat[2]));
+								}
+							}
+							obligatori = resultat[2];
 
+
+							setTimeout(function() {
+								// segona tirada
+								tirar();
 								setTimeout(function() {
-									fixat = [false,false,false,false,false,false,false,false];
+									var taulell = [0,0,0,0,0,0];
 									for (var i = 0; i < 8; i ++) {
-										if (quantitat[daus[i]] > 0) {
-											fixar(i);
-											quantitat[daus[i]] --;
-										}
+										taulell[daus[i]] ++;
 									}
-									if (resultat[1] == true) {
-										puntuar(resultat[2]);
-									}
-									obligatori = resultat[2];
+									var resultat = estrategia.actuar(taulell,completades,obligatori);
+									var quantitat = resultat[0];
 
 									setTimeout(function() {
-										// tercera tirada
-										tirar();
-										setTimeout(function() {
-											var taulell = [0,0,0,0,0,0];
+										if (previ_fixat == false) {
+											fixat = [false,false,false,false,false,false,false,false];
 											for (var i = 0; i < 8; i ++) {
-												taulell[daus[i]] ++;
+												if (quantitat[daus[i]] > 0) {
+													fixar(i);
+													quantitat[daus[i]] --;
+												}
 											}
-											var resultat = _estrategies["<Tomeu>"](taulell,completades,obligatori,ultima=true);
-											var quantitat = resultat[0];
-
-											setTimeout(function() {
+										}
+										previ_fixat = resultat[1];
+										if (resultat[1] == true) {
+											if ([0,1,2,3,4,5].includes(resultat[2])) {
 												puntuar(resultat[2]);
-											}, 2000);
-										}, 500);
-									}, 1000);
-								}, 2000);
-							}, 500);
-						}, 1000);
-					}, 2000);
-				}, 500);
-			}, 1000);
+											} else {
+												puntuar(6+cat_especials.indexOf(resultat[2]));
+											}
+										}
+										obligatori = resultat[2];
+
+
+										setTimeout(function() {
+											// tercera tirada
+											tirar();
+											setTimeout(function() {
+												var taulell = [0,0,0,0,0,0];
+												for (var i = 0; i < 8; i ++) {
+													taulell[daus[i]] ++;
+												}
+												var resultat = estrategia.actuar(taulell,completades,obligatori,ultima=true);
+												var quantitat = resultat[0];
+
+												setTimeout(function() {
+													if ([0,1,2,3,4,5].includes(resultat[2])) {
+														puntuar(resultat[2]);
+													} else {
+														puntuar(6+cat_especials.indexOf(resultat[2]));
+													}
+
+												}, 2000);
+											}, 500);
+										}, 1000);
+									}, 2000);
+								}, 500);
+							}, 1000);
+						}, 2000);
+					}, 500);
+				}, 1000);
+			}
 		}
 
 	</script>
