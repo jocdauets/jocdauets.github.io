@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="data.js"></script>
+	<script type="text/javascript" src="jugadors.js"></script>
+	<script type="text/javascript" src="tornejos.js"></script>
+	<script type="text/javascript" src="script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<style>
+	table, th, td {
+	  border: 1px solid black;
+	  border-collapse: collapse;
+	}
+	td {
+		width: 60pt;
+		text-align: center;
+	}
+	.info-fce {
+		display: none;
+	}
+	.text-fce:hover + .info-fce {
+		display: block;
+		color: red;
+		font-size: 10px;
+	}
+	.gray {
+		color: gray;
+	}
+	</style>
+	<title>Comparador de jugadors</title>
+</head>
+<body>
+	<label for="jugador1">Jugador 1: </label>
+	<input type="text" name="jugador1" id="jugador1">
+	<label for="jugador2">Jugador 2: </label>
+	<input type="text" name="jugador2" id="jugador2">
+	<button type="button" onclick="cercar()">Cercar</button>
+
+	<br>
+	<div id="titol"></div>
+
+	<div id="resultats"></div>
+
+	<script>
+		const resultats = document.getElementById("resultats");
+		const cat_especials = categories_especials(_partides);
+		const cats = categories_basiques.concat(cat_especials);
+
+		function cercar(){
+			const jugador1 = document.getElementById("jugador1").value;
+			const jugador2 = document.getElementById("jugador2").value;
+			resultats.innerHTML = "";
+			var h1_titol = document.createElement("h1");
+			h1_titol.innerHTML = jugador1 + " vs " + jugador2;
+			document.getElementById("titol").innerHTML = "";
+			document.getElementById("titol").appendChild(h1_titol);
+
+			var categories_comparables = [];
+			var guanya1 = [];
+			var guanya2 = [];
+			var empat = [];
+
+			// Comparar categories
+			for (var i = 0; i < cats.length; i ++) {
+				var frequencia_comparada = frequencia_relativa_comparada(jugador1, jugador2, cats[i], _partides);
+				console.log(cats[i]);
+				console.log(frequencia_comparada);
+				if (Object.keys(frequencia_comparada).length > 0 && cats[i] != "buida") {
+					categories_comparables.push(cats[i]);
+					var g1 = 0;
+					var g2 = 0;
+					var e = 0;
+					for (var j = 0; j < Object.keys(frequencia_comparada).length; j ++) {
+						var valor = parseInt(Object.keys(frequencia_comparada)[j]);
+						if (valor == 0) {
+							e += 100*frequencia_comparada[valor];
+						} else if (valor > 0) {
+							g1 += 100*frequencia_comparada[valor];
+						} else {
+							g2 += 100*frequencia_comparada[valor];
+						}
+					}
+					guanya1.push(g1);
+					guanya2.push(g2);
+					empat.push(e);
+				}
+			}
+			console.log(guanya1);
+			var data = {
+				labels: categories_comparables,
+				datasets: [					
+					{
+						label: jugador1,
+						data: guanya1,
+						backgroundColor: "black",
+					},
+					{
+						label: "Empat",
+						data: empat,
+						backgroundColor: "gray",
+					},
+					{
+						label: jugador2,
+						data: guanya2,
+						backgroundColor: "lightGray",
+					}									
+				]
+			};
+			var config = {
+				type: "bar",
+				data: data,
+				options: {
+					responsive: true,
+					scales: {
+						x: {
+							stacked: true
+						},
+						y: {
+							stacked: true,
+							max: 100
+						}
+					}
+				}
+			};
+
+			const div_categories = document.createElement("div");
+
+			const h2_categories = document.createElement("h2");
+			h2_categories.innerHTML = "Probabilitat de victòria per categoria";
+			div_categories.appendChild(h2_categories);
+
+			const ctxt_canvas = document.createElement("canvas");
+			ctxt_canvas.id = "canvas";
+			div_categories.appendChild(ctxt_canvas);
+
+			resultats.appendChild(div_categories);
+
+			const ctx = document.getElementById("canvas");
+
+			var grafic = new Chart(ctx, config);
+		}
+	</script>
+</body>
+</html>

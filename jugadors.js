@@ -417,3 +417,55 @@ function percentatge_tatxar(jugador, categoria, _partides) {
 		return 100*n/total;
 	}
 }
+
+function frequencia_relativa(jugador, categoria, _partides) {
+	var frequencia = {};
+	var n = 0;
+	const partides = partides_amb_cert_jugador(jugador,_partides);
+	for (var i = 0; i < partides.length; i ++) {
+		if (categories_basiques.includes(categoria)) {
+			n ++;
+			var puntuacio = parseInt(partides[i].puntuacions[jugador][categories_basiques.indexOf(categoria)]);
+			if (Object.keys(frequencia).includes(puntuacio.toString()) == true) {
+				frequencia[puntuacio] ++;
+			} else {
+				frequencia[puntuacio] = 1;
+			}
+		} else {
+			for (var j = 0; j < partides[i].categories_especials.length; j ++) {
+				if (partides[i].categories_especials[j] == categoria) {
+					n ++;
+					var puntuacio = parseInt(partides[i].puntuacions[jugador][6+j]);
+					if (Object.keys(frequencia).includes(puntuacio.toString()) == true) {
+						frequencia[puntuacio] ++;
+					} else {
+						frequencia[puntuacio] = 1;
+					}
+				}
+			}
+		}
+	}
+	for (var i = 0; i < Object.keys(frequencia).length; i ++) {
+		frequencia[Object.keys(frequencia)[i]] = frequencia[Object.keys(frequencia)[i]]/n;
+	}
+	return frequencia;
+}
+
+function frequencia_relativa_comparada(jugador1, jugador2, categoria, _partides) {
+	const frequencia1 = frequencia_relativa(jugador1, categoria, _partides);
+	const frequencia2 = frequencia_relativa(jugador2, categoria, _partides);
+	var frequencia_comparada = {};
+	for (var i = 0; i < Object.keys(frequencia1).length; i ++) {
+		var p1 = frequencia1[Object.keys(frequencia1)[i]];
+		for (var j = 0; j < Object.keys(frequencia2).length; j ++) {
+			var p2 = frequencia2[Object.keys(frequencia2)[j]];
+			var diferencia = parseInt(Object.keys(frequencia1)[i]) - parseInt(Object.keys(frequencia2)[j]);
+			if (Object.keys(frequencia_comparada).includes(diferencia.toString())) {
+				frequencia_comparada[diferencia] += p1*p2;
+			} else {
+				frequencia_comparada[diferencia] = p1*p2;
+			}
+		}
+	}
+	return frequencia_comparada;
+}
