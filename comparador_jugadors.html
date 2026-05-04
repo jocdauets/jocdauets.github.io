@@ -47,6 +47,7 @@
 		const resultats = document.getElementById("resultats");
 		const cat_especials = categories_especials(_partides);
 		const cats = categories_basiques.concat(cat_especials);
+		var grafic_probabilitat_victoria = null;
 
 		function cercar(){
 			const jugador1 = document.getElementById("jugador1").value;
@@ -57,16 +58,13 @@
 			document.getElementById("titol").innerHTML = "";
 			document.getElementById("titol").appendChild(h1_titol);
 
+			// Comparar categories
 			var categories_comparables = [];
 			var guanya1 = [];
 			var guanya2 = [];
 			var empat = [];
-
-			// Comparar categories
 			for (var i = 0; i < cats.length; i ++) {
 				var frequencia_comparada = frequencia_relativa_comparada(jugador1, jugador2, cats[i], _partides);
-				console.log(cats[i]);
-				console.log(frequencia_comparada);
 				if (Object.keys(frequencia_comparada).length > 0 && cats[i] != "buida") {
 					categories_comparables.push(cats[i]);
 					var g1 = 0;
@@ -87,7 +85,6 @@
 					empat.push(e);
 				}
 			}
-			console.log(guanya1);
 			var data = {
 				labels: categories_comparables,
 				datasets: [					
@@ -128,7 +125,7 @@
 			const div_categories = document.createElement("div");
 
 			const h2_categories = document.createElement("h2");
-			h2_categories.innerHTML = "Probabilitat de victòria per categoria";
+			h2_categories.innerHTML = "Categories";
 			div_categories.appendChild(h2_categories);
 
 			const ctxt_canvas = document.createElement("canvas");
@@ -140,6 +137,90 @@
 			const ctx = document.getElementById("canvas");
 
 			var grafic = new Chart(ctx, config);
+
+			// Probabilitat victòria (display)
+			var div_probabilitat_victoria = document.createElement("div");
+
+			var h2_probabilitat_victoria = document.createElement("h2");
+			h2_probabilitat_victoria.innerHTML = "Partides";
+			div_probabilitat_victoria.appendChild(h2_probabilitat_victoria);
+
+			var text_categories = document.createElement("p");
+			text_categories.innerHTML = "Categories especials:";
+			div_probabilitat_victoria.appendChild(text_categories);
+
+			var input_categories = document.createElement("input");
+			input_categories.type = "text";
+			input_categories.id = "categories_comparar_probabilitat_victoria";
+			div_probabilitat_victoria.appendChild(input_categories);
+
+			var boto_categories = document.createElement("button");
+			boto_categories.onclick = calcular_probabilitat;
+			boto_categories.innerHTML = "Calcular";
+			div_probabilitat_victoria.appendChild(boto_categories);
+
+			var br = document.createElement("br");
+			div_probabilitat_victoria.appendChild(br);
+
+			var canvas = document.createElement("canvas");
+			canvas.id = "canvas_probabilitat_victoria_total";
+			div_probabilitat_victoria.appendChild(canvas);
+
+			resultats.append(div_probabilitat_victoria);
+		}
+
+		function calcular_probabilitat() {
+			if (grafic_probabilitat_victoria != null) {
+				grafic_probabilitat_victoria.destroy();
+			}
+			var cat_especials = document.getElementById("categories_comparar_probabilitat_victoria").value.split(",");
+			if (cat_especials[0] == "") {
+				cat_especials = [];
+			}
+			var jugador1 = document.getElementById("jugador1").value;
+			var jugador2 = document.getElementById("jugador2").value;
+			var probabilitats = probabilitat_victoria(jugador1, jugador2, cat_especials, _partides)
+			if (probabilitats != null) {
+				var ctx = document.getElementById("canvas_probabilitat_victoria_total");
+				grafic_probabilitat_victoria = new Chart(ctx,
+					{
+						type: "bar",
+						data: {
+							labels: ["Probabilitat"],
+							datasets: [
+								{
+									label: jugador1,
+									data: [100*probabilitats[0]],
+									backgroundColor: "black"
+								},
+								{
+									label: "Empat",
+									data: [100*probabilitats[1]],
+									backgroundColor: "gray"
+								},
+								{
+									label: jugador2,
+									data: [100*probabilitats[2]],
+									backgroundColor: "lightGray"
+								}
+							]
+						},
+						options: {
+							indexAxis: 'y',
+							responsive: true,
+							scales: {
+								x: {
+									stacked: true,
+									max: 100
+								},
+								y: {
+									stacked: true
+								}
+							}
+						}
+					}
+				);
+			}
 		}
 	</script>
 </body>

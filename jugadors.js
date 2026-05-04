@@ -469,3 +469,91 @@ function frequencia_relativa_comparada(jugador1, jugador2, categoria, _partides)
 	}
 	return frequencia_comparada;
 }
+
+function probabilitat_victoria(jugador1, jugador2, cat_especials, _partides) {
+	frequencies = [];
+	for (var i = 0; i < 6; i ++) {
+		var f = frequencia_relativa_comparada(jugador1, jugador2, categories_basiques[i], _partides);
+		var nova_f = {};
+		for (var j = 0; j < Object.keys(f).length; j ++) {
+			var valor = parseInt(Object.keys(f)[j]);
+			if (valor == 0) {
+				nova_f[0] = f[0];
+			} else if (valor > 0) {
+				nova_f[valor+5] = f[valor];
+			} else {
+				nova_f[valor-5] = f[valor];
+			}
+		}
+		frequencies.push(nova_f);
+	}
+	for (var i = 0; i < cat_especials.length; i ++) {
+		var f = frequencia_relativa_comparada(jugador1, jugador2, cat_especials[i], _partides);
+		if (f == {}) {
+			return null;
+		} else {
+			var nova_f = {};
+			for (var j = 0; j < Object.keys(f).length; j ++) {
+				var valor = parseInt(Object.keys(f)[j]);
+				if (valor == 0) {
+					nova_f[0] = f[0];
+				} else if (valor > 0) {
+					nova_f[valor+5] = f[valor];
+				} else {
+					nova_f[valor-5] = f[valor];
+				}
+			}
+			frequencies.push(nova_f);
+		}
+	}
+
+	var n_indexs = [];
+	for (var i = 0; i < frequencies.length; i ++) {
+		n_indexs.push(Object.keys(frequencies[i]).length);
+	}
+
+	function aux(a) {
+		if (a.length == 1) {
+			var final = [];
+			for (var i = 0; i < a[0]; i ++) {
+				final.push(i)
+			}
+			return final;
+		} else {
+			var parcial = aux(a.slice(1));
+			var final = [];
+			for (var i = 0; i < parcial.length; i ++) {
+				for (var j = 0; j < a[0]; j ++) {
+					final.push([j].concat(parcial[i]));
+				}
+			}
+			return final;
+		}
+	}
+
+	var guanya1 = 0;
+	var guanya2 = 0;
+	var empat = 0;
+
+	const possibilitats = aux(n_indexs);
+	// escollim una possibilitat
+	for (var i = 0; i < possibilitats.length; i ++) {
+		var suma = 0;
+		var p = 1;
+		// categoria
+		for (var j = 0; j < possibilitats[i].length; j ++) {
+			var valor = parseInt(Object.keys(frequencies[j])[possibilitats[i][j]]);
+			suma += valor;
+			p *= frequencies[j][valor];
+		}
+		if (suma == 0) {
+			empat += p;
+		} else if (suma > 0) {
+			guanya1 += p;
+		} else {
+			guanya2 += p;
+		}
+	}
+
+	return [guanya1, empat, guanya2];
+}
