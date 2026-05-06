@@ -122,6 +122,30 @@ function tomeu_guardar(daus, categoria) {
 				nous_daus[segona] = 4;
 			}
 		}
+	} else if (categoria == "forma") {
+		var punts = daus[0] + daus[1] + daus[5];
+		var lletres = daus[2] + daus[3] + daus[4];
+		if (punts == lletres) {
+			var suma_p = daus[0] + daus[1]*2 + daus[5]*6;
+			var suma_l = daus[2]*3 + daus[3]*4 + daus[4]*5;
+			if (suma_p >= suma_l) {
+				nous_daus[0] = daus[0];
+				nous_daus[1] = daus[1];
+				nous_daus[5] = daus[5];
+			} else {
+				nous_daus[2] = daus[2];
+				nous_daus[3] = daus[3];
+				nous_daus[4] = daus[4];
+			}
+		} else if (punts > lletres) {
+			nous_daus[0] = daus[0];
+			nous_daus[1] = daus[1];
+			nous_daus[5] = daus[5];
+		} else {
+			nous_daus[2] = daus[2];
+			nous_daus[3] = daus[3];
+			nous_daus[4] = daus[4];
+		}
 	}
 	return nous_daus;
 }
@@ -131,7 +155,7 @@ function tomeu_puntuar(daus, categoria) {
 	for (var i = 0; i < 6; i ++) {
 		suma += daus[i];
 	}
-	if (categoria == "color" || categoria == "4/4") {
+	if (categoria == "color" || categoria == "4/4" || categoria == "forma") {
 		if (suma < 8) {
 			suma = suma - 2.5;
 		}
@@ -191,6 +215,16 @@ function evaluar(categoria, daus) {
 			} else {
 				return 0;
 			}
+		} else {
+			return 0;
+		}
+	} else if (categoria == "forma") {
+		if (daus[0] + daus[1] + daus[5] == 8 || daus[2] + daus[3] + daus[4] == 8) {
+			var suma = 0;
+			for (var i = 0; i < 6; i ++) {
+				suma += (i+1)*daus[i];
+			}
+			return suma;
 		} else {
 			return 0;
 		}

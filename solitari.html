@@ -18,90 +18,190 @@
 	<title>Dauets solitari</title>
 </head>
 <body>
-	<div id="taulell">
-		<table>
-			<tr>
-				<td id="dau0" class="dau" onclick="fixar(0)"></td>
-				<td id="dau1" class="dau" onclick="fixar(1)"></td>
-				<td id="dau2" class="dau" onclick="fixar(2)"></td>
-				<td id="dau3" class="dau" onclick="fixar(3)"></td>
-			</tr>
-			<tr>
-				<td id="dau4" class="dau" onclick="fixar(4)"></td>
-				<td id="dau5" class="dau" onclick="fixar(5)"></td>
-				<td id="dau6" class="dau" onclick="fixar(6)"></td>
-				<td id="dau7" class="dau" onclick="fixar(7)"></td>
-			</tr>
-		</table>
+	<div id="configuracio">
+		<label>Nom: </label><input type="text" id="nom"/>
+		<p>Ordena els jugadors (0 = no juga):</p>
+		<label>Jugador/a: </label><input type="number" id="ordre-jugador" value=1/>
 		<br>
-		<button onclick="jugador_tirar()">Tirar</button>
+		<label>&lt;Tomeu&gt;: </label><input type="number" id="ordre-tomeu" value=2/>
+		<br>
+		<label>Categories especials: </label>
+		<select id="categoria_especial1" value="1">
+			<option value="4/4">4/4</option>
+			<option value="color">Color</option>
+			<option value="forma">Forma</option>
+		</select>
+		<select id="categoria_especial2" value="2">
+			<option value="4/4">4/4</option>
+			<option value="color">Color</option>
+			<option value="forma">Forma</option>
+		</select>
+		<br>
+		<button id="jugar" onclick="jugar()">Jugar</button>
 	</div>
+
+	<br><br><br>
+
+	<div id="taulell"></div>
 
 	<br>
 
-	<div id="marcador">
-		<table>
-			<head>
-				<th></th>
-				<th>V</th>
-				<th>N</th>
-				<th>J</th>
-				<th>Q</th>
-				<th>K</th>
-				<th>A</th>
-				<th>4/4</th>	
-				<th>Color</th>
-				<th>Suma</th>
-			</head>
-			<tr>
-				<td>Jugador/a</td>
-				<td id="1-0" class="marcador" onclick="jugador_puntuar(0)"></td>
-				<td id="1-1" class="marcador" onclick="jugador_puntuar(1)"></td>
-				<td id="1-2" class="marcador" onclick="jugador_puntuar(2)"></td>
-				<td id="1-3" class="marcador" onclick="jugador_puntuar(3)"></td>
-				<td id="1-4" class="marcador" onclick="jugador_puntuar(4)"></td>
-				<td id="1-5" class="marcador" onclick="jugador_puntuar(5)"></td>
-				<td id="1-6" class="marcador" onclick="jugador_puntuar(6)"></td>
-				<td id="1-7" class="marcador" onclick="jugador_puntuar(7)"></td>
-				<td id="1-suma" class="marcador"></td>
-			</tr>
-			<tr>
-				<td>&lt;Tomeu&gt;</td>
-				<td id="2-0" class="marcador"></td>
-				<td id="2-1" class="marcador"></td>
-				<td id="2-2" class="marcador"></td>
-				<td id="2-3" class="marcador"></td>
-				<td id="2-4" class="marcador"></td>
-				<td id="2-5" class="marcador"></td>
-				<td id="2-6" class="marcador"></td>
-				<td id="2-7" class="marcador"></td>
-				<td id="2-suma" class="marcador"></td>
-			</tr>
-		</table>
-	</div>
+	<div id="marcador"></div>
 
 	<script>
-		const index_jugador = 0;
-		const noms = ["Jugador/a", "<Tomeu>"];
-		const n_jugadors = noms.length;
-		var cal_tirar = false;
-		const cat_especials = ["4/4","color"];
-		const n_cat_especials = cat_especials.length;
-		var torn = 0;
-		var fixat = [false,false,false,false,false,false,false,false];
-		var daus = [null,null,null,null,null,null,null,null];
-		var obligatori = null;
-		var tirada = 0;
-		var marcador = {"Jugador/a": [null,null,null,null,null,null], "<Tomeu>": [null,null,null,null,null,null]};
-		var fcer = {"Jugador/a": [false,false,false,false,false,false], "<Tomeu>": [false,false,false,false,false,false]};
-		for (var i = 0; i < n_jugadors; i ++) {
-			for (var j = 0; j < n_cat_especials; j ++) {
-				marcador[noms[i]].push(null);
-				fcer[noms[i]].push(false);
+		var index_jugador;
+		var nom_jugador;
+		const noms_html = {"<Tomeu>": "&lt;Tomeu&gt;"};
+		var noms;
+		var n_jugadors;
+		var cal_tirar;
+		var cat_especials;
+		var n_cat_especials;
+		var torn;
+		var fixat;
+		var daus;
+		var obligatori;
+		var tirada;
+		var marcador;
+		var fcer;
+
+		function jugar() {
+			noms = [];
+			var error = false;
+			index_jugador = document.getElementById("ordre-jugador").value;
+			if (index_jugador == null || index_jugador <= 0) {
+				alert("Que no vols jugar, beneit?");
+				error = true;
+			} else {
+				nom_jugador = document.getElementById("nom").value;
+				if (nom_jugador == "") {
+					nom_jugador = "Jugador/a";
+				}
+				var noms_totals = [nom_jugador, "<Tomeu>"];
+				var posicions = [index_jugador, document.getElementById("ordre-tomeu").value];
+				var comprovats = [];
+				for (var i = 0; i < noms_totals.length; i ++) {
+					if (posicions[i] <= 0) {
+						comprovats.push(posicions[i]);
+					}
+				}
+				while (comprovats.length < noms_totals.length) {
+					var valor_maxim = Infinity;
+					var index_maxim = -1;
+					for (var i =  0; i < noms_totals.length; i ++) {
+						if (comprovats.includes(noms_totals[i]) == false && posicions[i] <= valor_maxim) {
+							valor_maxim = posicions[i];
+							index_maxim = i;
+						}
+					}
+					comprovats.push(noms_totals[index_maxim]);
+					noms.push(noms_totals[index_maxim]);
+				}
+				index_jugador = noms.indexOf(nom_jugador);
+				n_jugadors = noms.length;
+
+				cat_especials = [document.getElementById("categoria_especial1").value, document.getElementById("categoria_especial2").value];
+				if (cat_especials[0] == cat_especials[1]) {
+					alert("Les categories especials han de ser diferents.");
+					error = true;
+				} else {
+					n_cat_especials = cat_especials.length;
+				}
+			}
+			if (error == false) {
+				cal_tirar = false;
+				torn = 0;
+				fixat = [false,false,false,false,false,false,false,false];
+				daus = [null,null,null,null,null,null,null,null];
+				obligatori = null;
+				tirada = 0;
+				marcador = {};
+				fcer = {};
+				for (var i = 0; i < n_jugadors; i ++) {
+					marcador[noms[i]] = [null,null,null,null,null,null];
+					fcer[noms[i]] = [false,false,false,false,false,false];
+					for (var j = 0; j < n_cat_especials; j ++) {
+						marcador[noms[i]].push(null);
+						fcer[noms[i]].push(false);
+					}
+				}
+
+				// creació taulell
+				const div_taulell = document.getElementById("taulell");
+				div_taulell.innerHTML = "";
+				var taula_taulell = document.createElement("table");
+				var tr1 = document.createElement("tr");
+				for (var i = 0; i < 4; i ++) {
+					var td = document.createElement("td");
+					const i_val = i;
+					td.id = "dau" + i.toString();
+					td.class = "dau";
+					td.onclick = function() {jugador_fixar(i_val)};
+					tr1.appendChild(td);
+				}
+				taula_taulell.appendChild(tr1);
+				var tr2 = document.createElement("tr");
+				for (var i = 0; i < 4; i ++) {
+					var td = document.createElement("td");
+					const i_val = i;
+					td.id = "dau" + (i+4).toString();
+					td.class = "dau";
+					td.onclick = function() {jugador_fixar(i_val+4);}
+					tr2.appendChild(td);
+				}
+				taula_taulell.appendChild(tr2);
+				div_taulell.appendChild(taula_taulell);
+				div_taulell.appendChild(document.createElement("br"));
+				var boto_taulell = document.createElement("button");
+				boto_taulell.onclick = function() {jugador_tirar();}
+				boto_taulell.innerHTML = "Tirar";
+				div_taulell.appendChild(boto_taulell);
+
+				// marcador
+				const div_marcador = document.getElementById("marcador");
+				div_marcador.innerHTML = "";
+				var taula_marcador = document.createElement("table");
+				var header_marcador = document.createElement("tr");
+				var headers = ["","V","N","J","Q","K","A"].concat(cat_especials).concat(["Suma"]);
+				for (var i = 0; i < headers.length; i ++) {
+					var th = document.createElement("th");
+					if (i > 0) {
+						th.innerHTML = headers[i][0].toUpperCase() + headers[i].slice(1);
+					}
+					header_marcador.appendChild(th);
+				}
+				taula_marcador.appendChild(header_marcador);
+				for (var i = 0; i < n_jugadors; i ++) {
+					var tr = document.createElement("tr");
+					var td_nom = document.createElement("td");
+					if (i == index_jugador) {
+						td_nom.innerHTML = noms[i];
+					} else {
+						td_nom.innerHTML = noms_html[noms[i]];
+					}
+					tr.appendChild(td_nom);
+					for (var j = 0; j < 6+n_cat_especials; j ++) {
+						var td_cat = document.createElement("td");
+						td_cat.id = (i+1).toString() + "-" + j.toString();
+						td_cat.class = "marcador";
+						if (i == index_jugador) {
+							const j_val = j;
+							td_cat.onclick = function() {jugador_puntuar(j_val);}
+						}
+						tr.appendChild(td_cat);
+					}
+					var td_suma = document.createElement("td");
+					td_suma.id = (i+1).toString() + "-suma";
+					tr.appendChild(td_suma);
+					taula_marcador.appendChild(tr);
+				}
+				div_marcador.appendChild(taula_marcador);
+				mostrar();
+				if (index_jugador != 0) {
+					rival();
+				}
 			}
 		}
-
-		mostrar();
 		
 		function jugador_tirar() {
 			if (torn%n_jugadors == index_jugador) {
@@ -183,6 +283,7 @@
 		}
 
 		function jugador_fixar(i) {
+			console.log(i);
 			if (torn%n_jugadors == index_jugador) {
 				fixar(i);
 			} else {
