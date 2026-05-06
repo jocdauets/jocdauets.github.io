@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script type="text/javascript" src="estrategies_solitari.js"></script>
 	<script type="text/javascript" src="jugadors.js"></script>
+	<script type="text/javascript" src="script.js"></script>
 	<style>
 		#marcador table, #marcador th, #marcador td {
 		  border: 1px solid black;
@@ -26,18 +27,21 @@
 		<label>&lt;Tomeu&gt;: </label><input type="number" id="ordre-tomeu" value=2/>
 		<br>
 		<label>Categories especials: </label>
-		<select id="categoria_especial1" value="1">
-			<option value="4/4">4/4</option>
+		<select id="categoria_especial1">
+			<option value="4/4" selected>4/4</option>
 			<option value="color">Color</option>
 			<option value="forma">Forma</option>
+			<option value="dauet(12)">Dauet (12)</option>
 		</select>
-		<select id="categoria_especial2" value="2">
+		<select id="categoria_especial2">
 			<option value="4/4">4/4</option>
-			<option value="color">Color</option>
+			<option value="color" selected>Color</option>
 			<option value="forma">Forma</option>
+			<option value="dauet(12)">Dauet (12)</option>
 		</select>
 		<br>
 		<button id="jugar" onclick="jugar()">Jugar</button>
+		<button id="baixar" onclick="baixar()">Baixar partides</button>
 	</div>
 
 	<br><br><br>
@@ -64,6 +68,9 @@
 		var tirada;
 		var marcador;
 		var fcer;
+		var partides = [];
+		const abc = ["B","C","D","F","G","H","J","K","L","M","N","P","Q","R","S","T","V","W","X","Y","Z"];
+        const codi = abc[Math.floor(Math.random()*21)] + abc[Math.floor(Math.random()*21)] + abc[Math.floor(Math.random()*21)] + abc[Math.floor(Math.random()*21)] + abc[Math.floor(Math.random()*21)];
 
 		function jugar() {
 			noms = [];
@@ -283,7 +290,6 @@
 		}
 
 		function jugador_fixar(i) {
-			console.log(i);
 			if (torn%n_jugadors == index_jugador) {
 				fixar(i);
 			} else {
@@ -410,6 +416,7 @@
 					for (var i = 0; i < n_jugadors; i ++) {
 						document.getElementById((i+1).toString() + "-suma").innerHTML = puntuacions_finals[noms[i]];
 					}
+					partides.push(puntuacions_finals);
 				} else if (torn%n_jugadors != index_jugador) {
 					rival();
 				}
@@ -532,6 +539,10 @@
 					}, 500);
 				}, 1000);
 			}
+		}
+
+		function baixar() {
+			descarregar(JSON.stringify(partides), "solitari_" + codi, "json");
 		}
 
 	</script>

@@ -146,6 +146,14 @@ function tomeu_guardar(daus, categoria) {
 			nous_daus[3] = daus[3];
 			nous_daus[4] = daus[4];
 		}
+	} else if (categoria == "dauet(12)") {
+		if (daus[0]*daus[1]*daus[2]*daus[3]*daus[4]*daus[5] == 0) {
+			for (var i = 0; i < 6; i ++) {
+				nous_daus[i] = Math.min(1,daus[i]);
+			}
+		} else {
+			return nous_daus;
+		}
 	}
 	return nous_daus;
 }
@@ -155,9 +163,15 @@ function tomeu_puntuar(daus, categoria) {
 	for (var i = 0; i < 6; i ++) {
 		suma += daus[i];
 	}
-	if (categoria == "color" || categoria == "4/4" || categoria == "forma") {
-		if (suma < 8) {
-			suma = suma - 2.5;
+	if (suma < 8) {
+		if (categoria == "forma") {
+			suma -= 2.1;
+		} else if (categoria == "color") {
+			suma -= 2.2;
+		} else if (categoria == "4/4") {
+			suma -= 2.3;
+		} else if (categoria == "dauet(12)") {
+			suma -= 2.4;
 		}
 	}
 	return suma;
@@ -195,19 +209,19 @@ function evaluar(categoria, daus) {
 			}
 		} else if (diferents.length == 2) {
 			if (diferents.includes(5) == true) {
-				if (diferents[0] <= 4) {
+				if (daus[diferents[0]] <= 4) {
 					return 4*(diferents[0]+1+6);
 				} else {
 					return 0;
 				}
-			} else if (diferents[0] == 4 && diferents[1] == 4) {
+			} else if (daus[diferents[0]] == 4 && daus[diferents[1]] == 4) {
 				return 4*(diferents[0]+diferents[1]+2);
 			} else {
 				return 0;
 			}
 		} else if (diferents.length == 3) {
 			if (diferents.includes(5) == true) {
-				if (diferents[0] <= 4 && diferents[1] <= 4) {
+				if (daus[diferents[0]] <= 4 && daus[diferents[1]] <= 4) {
 					return 4*(diferents[0]+diferents[1]+2);
 				} else {
 					return 0;
@@ -225,6 +239,12 @@ function evaluar(categoria, daus) {
 				suma += (i+1)*daus[i];
 			}
 			return suma;
+		} else {
+			return 0;
+		}
+	} else if (categoria == "dauet(12)") {
+		if (daus[0]*daus[1]*daus[2]*daus[3]*daus[4]*daus[5] != 0) {
+			return 12 + daus[0]-1 + (daus[1]-1)*2 + (daus[2]-1)*3 + (daus[3]-1)*4 + (daus[4]-1)*5 + (daus[5]-1)*6;
 		} else {
 			return 0;
 		}
