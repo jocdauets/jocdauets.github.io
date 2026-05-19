@@ -7,6 +7,7 @@
     <script type="text/javascript" src="tornejos.js"></script>
     <script type="text/javascript" src="script.js"></script>
     <script type="text/javascript" src="rdp_database.js"></script>
+    <script type="text/javascript" src="rdp.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <style>
     table, th, td {
@@ -48,8 +49,8 @@
             document.getElementById("adreces_interes").appendChild(li);
         }
 
-        const ultim = _rdp[_rdp.length-1];
-        const jugadors = Object.keys(ultim.daus);
+        const [ultim,grup] = calcular_rdp(_partides);
+        const jugadors = Object.keys(ultim);
         var taula = document.createElement("table");
         var header = document.createElement("tr");
         var header_posicio = document.createElement("th");
@@ -58,9 +59,12 @@
         header_jugadors.innerHTML = "Jugador/a";
         var header_daus = document.createElement("th");
         header_daus.innerHTML = "Daus";
+        var header_grup = document.createElement("th");
+        header_grup.innerHTML = "Grup";
         header.appendChild(header_posicio);
         header.appendChild(header_jugadors);
         header.appendChild(header_daus);
+        header.appendChild(header_grup);
         taula.appendChild(header);
 
         var posicions = {};
@@ -71,7 +75,7 @@
                 if (jugadors_afegits.includes(jugadors[i]) == false) {
                     if (afegir == false) {
                         afegir = jugadors[i];
-                    } else if (ultim.daus[jugadors[i]] > ultim.daus[afegir]) {
+                    } else if (ultim[jugadors[i]] > ultim[afegir]) {
                         afegir = jugadors[i];
                     }
                 }
@@ -80,7 +84,7 @@
                 jugadors_afegits.push(afegir);
                 posicions[afegir] = 1;
             } else {
-                if (ultim.daus[afegir] == ultim.daus[jugadors_afegits[jugadors_afegits.length-1]]) {
+                if (ultim[afegir] == ultim[jugadors_afegits[jugadors_afegits.length-1]]) {
                     posicions[afegir] = posicions[jugadors_afegits[jugadors_afegits.length-1]];
                     jugadors_afegits.push(afegir);
                 } else {
@@ -100,8 +104,11 @@
             cella_jugador.appendChild(link_jugador);
             fila.appendChild(cella_jugador);
             var cella_daus = document.createElement("td");
-            cella_daus.innerHTML = ultim.daus[afegir].toString();
+            cella_daus.innerHTML = ultim[afegir].toString();
             fila.appendChild(cella_daus);
+            var cella_grup = document.createElement("td");
+            cella_grup.innerHTML = ["Capdav.","Boldró","Cua"][grup[afegir]-1];
+            fila.appendChild(cella_grup);
             taula.appendChild(fila);
         }
 

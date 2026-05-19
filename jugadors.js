@@ -5,9 +5,11 @@ const llindar_condicions_estandard = {"v": 8, "n": 16, "j": 24, "q": 32, "k": 40
 function categories_especials(_partides){
 	categories = [];
 	for (var i = 0; i < _partides.length; i ++) {
-		for (var j = 0; j < _partides[i].categories_especials.length; j ++) {
-			if (categories.includes(_partides[i].categories_especials[j]) == false) {
-				categories.push(_partides[i].categories_especials[j]);
+		if (_partides[i].rdp_extra == false || _partides[i].rdp_extra == null) {
+			for (var j = 0; j < _partides[i].categories_especials.length; j ++) {
+				if (categories.includes(_partides[i].categories_especials[j]) == false) {
+					categories.push(_partides[i].categories_especials[j]);
+				}
 			}
 		}
 	}
@@ -19,7 +21,7 @@ function partides_amb_cert_jugador(jugador,_partides){
 	for(var i = 0; i < _partides.length; i ++){
 		var pertany = false;
 		for(var j = 0; j < _partides[i].jugadors.length; j ++){
-			if(jugador == _partides[i].jugadors[j]){
+			if(jugador == _partides[i].jugadors[j] && (_partides[i].rdp_extra == false || _partides[i].rdp_extra == null)){
 				pertany = true;
 			}
 		}
