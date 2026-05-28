@@ -559,3 +559,96 @@ function probabilitat_victoria(jugador1, jugador2, cat_especials, _partides) {
 
 	return [guanya1, empat, guanya2];
 }
+
+function mostrar_partida(partida) {
+	const div = document.createElement("div");
+	const categories = ["V","N","J","Q","K","A"].concat(partida.categories_especials);
+
+	// data
+	const p_data = document.createElement("p");
+	p_data.innerHTML = "<b>Data:</b> " + partida.data;
+	div.appendChild(p_data);
+
+	// trumfos
+	if (partida.trumfo != null) {
+		var penyores = [];
+		var tatxar = [];
+		for (var i = 0; i < partida.trumfo.length; i ++) {
+			for (var j = 0; j < partida.trumfo[i].length; j ++) {
+				if (partida.trumfo[i][j] == "penyora") {
+					penyores.push(categories[i]);
+				} else if (partida.trumfo[i][j] == "tatxar") {
+					tatxar.push(categories[i] + " (tatxat: -)");
+				} else if (partida.trumfo[i][j].split("-")[0] == "tatxar") {
+					tatxar.push(categories[i] + " (tatxat: " + categories[parseInt(partida.trumfo[i][j].split("-")[1])] + ")")
+				}
+			}
+		}
+		if (penyores.length > 0) {
+			const p_penyores = document.createElement("p");
+			p_penyores.innerHTML = "<b>Penyora:</b> ";
+			for (var i = 0; i < penyores.length; i ++) {
+				p_penyores.innerHTML += penyores[i];
+				if (i < penyores.length-1) {
+					p_penyores.innerHTML += ", ";
+				}
+			}
+			div.appendChild(p_penyores);
+		}
+		if (tatxar.length > 0) {
+			const p_tatxar = document.createElement("p");
+			p_tatxar.innerHTML = "<b>Tatxar:</b> ";
+			for (var i = 0; i < tatxar.length; i ++) {
+				p_tatxar.innerHTML += tatxar[i];
+				if (i < tatxar.length-1) {
+					p_tatxar.innerHTML += ", ";
+				}
+			}
+			div.appendChild(p_tatxar);
+		}
+	}
+
+	// taula
+	const taula = document.createElement("table");
+	const header = document.createElement("tr");
+	const header_noms = document.createElement("th");
+	header.appendChild(header_noms);
+	for (var i = 0; i < 6; i ++) {
+		const header_categoria = document.createElement("th");
+		header_categoria.innerHTML = ["V","N","J","Q","K","A"][i];
+		header.appendChild(header_categoria);
+	}
+	for (var i = 0; i < partida.categories_especials.length; i ++) {
+		const header_categoria = document.createElement("th");
+		header_categoria.innerHTML = partida.categories_especials[i];
+		header.appendChild(header_categoria);
+	}
+	const header_suma = document.createElement("th");
+	header_suma.innerHTML = "suma";
+	header.appendChild(header_suma);
+	taula.appendChild(header);
+
+	const puntuacions_finals = puntuacions(partida);
+
+	for (var i = 0; i < partida.jugadors.length; i ++) {
+		const fila = document.createElement("tr");
+		const nom = document.createElement("td");
+		const link = document.createElement("a");
+		link.innerHTML = partida.jugadors[i];
+		link.href = "/jugadors.html?jugador=" + partida.jugadors[i];
+        link.classList = ["link-cercar"];
+        nom.appendChild(link);
+        fila.appendChild(nom);
+        for (var j = 0; j < 6 + partida.categories_especials.length; j ++) {
+        	const punts = document.createElement("td");
+        	punts.innerHTML = partida.puntuacions[partida.jugadors[i]][j];
+        	fila.appendChild(punts);
+        }
+        const suma = document.createElement("td");
+        suma.innerHTML = puntuacions_finals[partida.jugadors[i]];
+        fila.appendChild(suma);
+        taula.appendChild(fila);
+	}
+	div.appendChild(taula);
+	return div;
+}
