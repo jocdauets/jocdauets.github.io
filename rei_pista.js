@@ -25,6 +25,7 @@ document.getElementById("ordre-partida").style.display = "none";
 document.getElementById("ordre-total").style.display = "none";
 document.getElementById("classificacio").style.display = "none";
 document.getElementById("desempat").style.display = "none";
+document.getElementById("popup").style.display = "none";
 input_puntuacions = [];
 casella_puntuacions = [];
 const taula = document.getElementById("taula-puntuacions");
@@ -324,7 +325,103 @@ function desempat_resolt() {
 }
 
 function espectacle_mostrar_guanyadors() {
-	return 0;
+	const popup = activar_popup();
+	var posicions = [];
+	var afegits = [];
+	const suma = calcular_suma();
+	var n = 1;
+	while (afegits.length < _NJUGADORS) {
+		var maxim = -1;
+		var afegir = [];
+		for (var i = 0; i < _NJUGADORS; i ++) {
+			if (afegits.includes(i) == false) {
+				if (suma[i] > maxim) {
+					maxim = suma[i];
+					afegir = [i];
+				} else if (suma[i] == maxim) {
+					afegir.push(i);
+				}
+			}
+		}
+		for (var i = 0; i < afegir.length; i ++) {
+			afegits.push(afegir[i]);
+			posicions.push(n);
+		}
+		n += afegir.length;
+	}
+
+	// html
+	const h1 = document.createElement("h1");
+	h1.innerHTML = "Classificació final"
+	popup.appendChild(h1);
+
+	// html table
+	const taula = document.createElement("table");
+	for (var i = 0; i < _NJUGADORS; i ++) {
+		const fila = document.createElement("tr");
+		
+		const posicio = document.createElement("td");
+		posicio.id = "popup-posicio-" + i.toString();
+		posicio.style.visibility = "hidden";
+		posicio.innerHTML = posicions[i];
+		fila.appendChild(posicio);
+
+		const nom = document.createElement("td");
+		nom.id = "popup-nom-" + i.toString();
+		nom.style.visibility = "hidden";
+		nom.innerHTML = jugant[afegits[i]];
+		fila.appendChild(nom);
+
+		const punts = document.createElement("td");
+		punts.id = "popup-punts-" + i.toString();
+		punts.style.visibility = "hidden";
+		punts.innerHTML = suma[afegits[i]];
+		fila.appendChild(punts);
+
+		taula.appendChild(fila);
+	}
+	popup.appendChild(taula);
+
+	// animacio
+	function aux(n) {
+		if (posicions.includes(n) == true) {
+			setTimeout(function() {
+				var indexs = [];
+				for (var j = 0; j < _NJUGADORS; j ++) {
+					if (posicions[j] == n) {
+						indexs.push(j);
+					}
+				}
+				for (var j = 0; j < indexs.length; j ++) {
+					document.getElementById("popup-posicio-" + indexs[j].toString()).style.visibility = "";
+				}
+				setTimeout(function() {
+					for (var j = 0; j < indexs.length; j ++) {
+						document.getElementById("popup-punts-" + indexs[j].toString()).style.visibility = "";
+					}
+					setTimeout(function() {
+						for (var j = 0; j < indexs.length; j ++) {
+							document.getElementById("popup-nom-" + indexs[j].toString()).style.visibility = "";
+						}
+						if (n >= 1) {
+							aux(n-1);
+						} else {
+							setTimeout(function() {
+								desactivar_popup();
+							}, 3000);
+						}
+					}, 3000);
+				}, 1000);
+			}, 1000);
+		} else if (n >= 1){
+			aux(n-1);
+		} else {
+			setTimeout(function() {
+				desactivar_popup();
+			}, 3000);
+		}
+	}
+	aux(_NJUGADORS);
 }
 
 function actualitzar_classificacio(index) {
@@ -493,6 +590,19 @@ function seguent_partida() {
 	}
 	actualitzar_ordre_total();
 	preguntar_ordre_partida();
+}
+
+function activar_popup() {
+	document.getElementById("div-principal").style.filter = "blur(5px)";
+	const popup = document.getElementById("popup")
+	popup.innerHTML = "";
+	popup.style.display = "";
+	return popup;
+}
+
+function desactivar_popup() {
+	document.getElementById("div-principal").style.filter = "";
+	document.getElementById("popup").style.display = "none";
 }
 
 function __omplir_puntuacions() {

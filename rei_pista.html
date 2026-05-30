@@ -11,60 +11,74 @@
 		input {
 			width: 70px;
 		}
+		.popup {
+			position: absolute;
+			top: 30%;
+			left: 30%;
+			bottom: 30%;
+			right: 30%;
+			border-style: outset;
+			background-color: white;
+			padding: 20px;
+		}
 	</style>
 </head>
 <body>
 
-	<div id="piscina-jugadors">
-		Nombre de jugadors: <input type="number" id="nombre-jugadors-totals">
-		<div id="piscina-jugadors-noms">
+	<div id="div-principal">
+		<div id="piscina-jugadors">
+			Nombre de jugadors: <input type="number" id="nombre-jugadors-totals">
+			<div id="piscina-jugadors-noms">
+			</div>
+			<button onclick="piscina_jugadors_completada()">Fet</button>
 		</div>
-		<button onclick="piscina_jugadors_completada()">Fet</button>
-	</div>
 
-	<div id="div-ordre-total">
-		<table>
-			<tr id="ordre-total"></tr>
-		</table>
-	</div>
-
-	<div id="ordre-partida">
-		<p>Ordre en la partida:</p>
-		<div id="ordre-partida-input">
+		<div id="div-ordre-total">
+			<table>
+				<tr id="ordre-total"></tr>
+			</table>
 		</div>
-		<button onclick="ordre_partida_completat()">Fet</button>
-	</div>
 
-	<div id="puntuacions">
-		<table id="taula-puntuacions">
-			<tr>
-				<th>Jugador/a</th>
-				<th>V</th>
-				<th>N</th>
-				<th>J</th>
-				<th>Q</th>
-				<th>K</th>
-				<th>A</th>
-				<th><select id="categoria-especial-1"></select></th>
-				<th><select id="categoria-especial-2"></select></th>
-				<th>Suma</th>
-			</tr>
-		</table>
-		<button id="dev-omplir-puntuacions" onclick="__omplir_puntuacions()">Omplir puntuacions</button>
-		<button id="finalitzar-partida" onclick="finalitzar_partida()">Finalitzar</button>
-		<button id="seguent-partida" onclick="seguent_partida()">Següent</button>
-	</div>
+		<div id="ordre-partida">
+			<p>Ordre en la partida:</p>
+			<div id="ordre-partida-input">
+			</div>
+			<button onclick="ordre_partida_completat()">Fet</button>
+		</div>
 
-	<div id="desempat">
-		Guanyador/a:
-		<select id="select-desempat"></select>
-		<br>
-		<button id="desempat-fet" onclick="desempat_resolt()">Desempatar</button>
-	</div>
+		<div id="puntuacions">
+			<table id="taula-puntuacions">
+				<tr>
+					<th>Jugador/a</th>
+					<th>V</th>
+					<th>N</th>
+					<th>J</th>
+					<th>Q</th>
+					<th>K</th>
+					<th>A</th>
+					<th><select id="categoria-especial-1"></select></th>
+					<th><select id="categoria-especial-2"></select></th>
+					<th>Suma</th>
+				</tr>
+			</table>
+			<button id="dev-omplir-puntuacions" onclick="__omplir_puntuacions()">Omplir puntuacions</button>
+			<button id="finalitzar-partida" onclick="finalitzar_partida()">Finalitzar</button>
+			<button id="seguent-partida" onclick="seguent_partida()">Següent</button>
+		</div>
 
-	<div id="classificacio">
-		<table id="taula-classificacio">
-		</table>
+		<div id="desempat">
+			Guanyador/a:
+			<select id="select-desempat"></select>
+			<br>
+			<button id="desempat-fet" onclick="desempat_resolt()">Desempatar</button>
+		</div>
+
+		<div id="classificacio">
+			<table id="taula-classificacio">
+			</table>
+		</div>
+	</div>
+	<div id="popup" class="popup">
 	</div>
 
 	<script type="text/javascript" src="rei_pista.js"></script>
