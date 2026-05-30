@@ -13,6 +13,10 @@ var suma_puntuacions = [];
 var ratxes = {};
 const _CATESP = ["4/4", "5/3", "2/2/2/2", "color", "forma", "dauet(12)", "buida"];
 const _DEVMODE = true;
+var partides = [];
+const data = new Date();
+const abc = ["B","C","D","F","G","H","J","K","L","M","N","P","Q","R","S","T","V","W","X","Y","Z"];
+const codi = abc[Math.floor(Math.random()*20)] + abc[Math.floor(Math.random()*0)] + abc[Math.floor(Math.random()*20)];
 
 // colors
 const _color_rei_classificacio = "yellow";
@@ -292,6 +296,23 @@ function calcular_suma() {
 }
 
 function baixar_partida() {
+	var partida = {
+		"jugadors": jugant,
+		"categories_especials": [document.getElementById("categoria-especial-1").value, document.getElementById("categoria-especial-2").value],
+		"puntuacions": {},
+		"trumfo": [[],[],[],[],[],[],[],[]],
+		"data": (data.getDate()).toString() + "-" + (data.getMonth()+1).toString() + "-" + data.getFullYear().toString(),
+		"puntua_rdp": true
+	};
+	for (var i = 0; i < _NJUGADORS; i ++) {
+		var punts = [];
+		for (var j = 0; j < 8; j ++) {
+			punts.push(input_puntuacions[i][j].value);
+		}
+		partida.puntuacions[jugant[i]] = punts;
+	}
+	partides.push(partida);
+	descarregar(JSON.stringify(partides), "dauets_RP_" + codi, "json");
 	return 0;
 }
 
@@ -351,7 +372,7 @@ function espectacle_mostrar_guanyadors() {
 	}
 
 	// html
-	const h1 = document.createElement("h1");
+	const h1 = document.createElement("p");
 	h1.innerHTML = "Classificació final"
 	popup.appendChild(h1);
 
