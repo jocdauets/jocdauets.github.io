@@ -153,7 +153,12 @@ _partides = [
 	{"jugadors":["Sergio","Andrés","Roger","Alejandro"],"categories_especials":["4/4","color"],"puntuacions":{"Sergio":[4,10,21,24,35,24,16,35],"Andrés":[6,4,12,24,20,12,28,35],"Roger":[2,8,18,24,15,36,36,23],"Alejandro":[2,8,9,24,30,24,24,39]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"27-5-2026"},
 	{"jugadors":["Roger","Joanna"],"categories_especials":["forma","2/2/2/2"],"puntuacions":{"Roger":[4,8,18,28,35,24,32,28],"Joanna":[2,10,21,20,35,12,32,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"31-5-2026"},
 	{"jugadors":["Giulia","Roger","Alice","Dani OG"],"categories_especials":["4/4","color"],"puntuacions":{"Giulia":[4,14,18,20,25,18,36,37],"Roger":[5,4,18,20,25,36,32,24],"Alice":[6,12,12,24,30,30,20,26],"Dani OG":[3,8,6,20,30,30,28,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"1-6-2026"},
-	{"jugadors":["Roger","Anti","Giulia"],"categories_especials":["4/4","color"],"puntuacions":{"Roger":[2,10,21,20,30,24,40,33],"Anti":[2,10,21,20,35,36,0,37],"Giulia":[2,16,21,24,20,30,0,40]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"1-6-2026"}
+	{"jugadors":["Roger","Anti","Giulia"],"categories_especials":["4/4","color"],"puntuacions":{"Roger":[2,10,21,20,30,24,40,33],"Anti":[2,10,21,20,35,36,0,37],"Giulia":[2,16,21,24,20,30,0,40]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"1-6-2026"},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["buida","forma"],"puntuacions":{"Roger":[3,0,15,20,30,12,0,35],"Joanna":[5,10,18,28,35,24,0,33]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-6-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Joanna":[2,4,15,28,15,18,26,40],"Roger":[5,6,21,24,35,12,58,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-6-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["forma","4/4"],"puntuacions":{"Joanna":[0,14,18,28,35,18,0,0],"Roger":[2,12,21,20,35,24,32,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-6-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["dauet(12)","5/3"],"puntuacions":{"Joanna":[7,16,18,24,30,30,19,29],"Roger":[0,16,21,20,30,36,41,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-6-2026"},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["buida","color"],"puntuacions":{"Roger":[5,6,15,24,30,0,0,42],"Joanna":[4,10,24,28,30,6,0,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-6-2026"}
 ]
 
 _tornejos = [
