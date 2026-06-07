@@ -159,9 +159,9 @@ _partides = [
 	{"jugadors":["Joanna","Roger"],"categories_especials":["forma","4/4"],"puntuacions":{"Joanna":[0,14,18,28,35,18,0,0],"Roger":[2,12,21,20,35,24,32,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-6-2026"},
 	{"jugadors":["Joanna","Roger"],"categories_especials":["dauet(12)","5/3"],"puntuacions":{"Joanna":[7,16,18,24,30,30,19,29],"Roger":[0,16,21,20,30,36,41,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-6-2026"},
 	{"jugadors":["Roger","Joanna"],"categories_especials":["buida","color"],"puntuacions":{"Roger":[5,6,15,24,30,0,0,42],"Joanna":[4,10,24,28,30,6,0,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-6-2026"},
-	{"jugadors":["Adri","Roger"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Adri":["3","12","6","24","30","30","50","0"],"Roger":["5","12","18","28","35","30","56","31"]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"7-6-2026","puntua_rdp":true},
-	{"jugadors":["Adri","Roger"],"categories_especials":["dauet(12)","5/3"],"puntuacions":{"Adri":["3","10","12","12","40","36","36","35"],"Roger":["8","8","18","28","35","30","14","35"]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"7-6-2026","puntua_rdp":true},
-	{"jugadors":["Roger","Adri"],"categories_especials":["2/2/2/2","forma"],"puntuacions":{"Roger":["1","2","21","24","25","18","28","15"],"Adri":["1","6","12","28","30","6","26","0"]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"7-6-2026","puntua_rdp":true}
+	{"jugadors":["Adri","Roger"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Adri":[3,12,6,24,30,30,50,0","Roger":[5,12,18,28,35,30,56,31]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"7-6-2026","puntua_rdp":true},
+	{"jugadors":["Adri","Roger"],"categories_especials":["dauet(12)","5/3"],"puntuacions":{"Adri":[3,10,12,12,40,36,36,35],"Roger":[8,8,18,28,35,30,14,35]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"7-6-2026","puntua_rdp":true},
+	{"jugadors":["Roger","Adri"],"categories_especials":["2/2/2/2","forma"],"puntuacions":{"Roger":[1,2,21,24,25,18,28,15],"Adri":[1,6,12,28,30,6,26,0]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"7-6-2026","puntua_rdp":true}
 ]
 
 _tornejos = [
