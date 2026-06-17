@@ -1,8 +1,11 @@
 function calcular_rdp(_partides) {
 	var rdp = {};
+	var rdp_historic = {};
 	for (var i = 0; i < _partides.length; i ++) {
 		var partida = _partides[i];
+		var afegir = false;
 		if (partida.rdp_extra == true) {
+			afegir = true;
 			for (var j = 0; j < partida.jugadors.length; j ++) {
 				jugador = partida.jugadors[j];
 				if (rdp[jugador] == null) {
@@ -12,6 +15,7 @@ function calcular_rdp(_partides) {
 				}
 			}
 		} else if (partida.puntua_rdp == true || partida.puntua_rdp == null) {
+			afegir = true;
 			var puntuacio_partida = puntuacions(partida);
 			for (var j = 0; j < partida.jugadors.length; j ++) {
 				if (rdp[partida.jugadors[j]] == null) {
@@ -19,20 +23,7 @@ function calcular_rdp(_partides) {
 				}
 			}
 			// càlcul rdp
-			var array_rdp_antic = Object.values(rdp);
-			var jugadors = Object.keys(rdp);
-			var quartil1 = calcQuartile(array_rdp_antic, 0.25);
-			var quartil3 = calcQuartile(array_rdp_antic, 0.75);
-			var lliga = {};
-			for (var j = 0; j < jugadors.length; j ++) {
-				if (rdp[jugadors[j]] < quartil1) {
-					lliga[jugadors[j]] = 3;
-				} else if (rdp[jugadors[j]] > quartil3) {
-					lliga[jugadors[j]] = 1;
-				} else {
-					lliga[jugadors[j]] = 2;
-				}
-			}
+			lliga = calcular_lliga(rdp);
 			var nou_rdp = {};
 			for (var j = 0; j < partida.jugadors.length; j ++) {
 				nou_rdp[partida.jugadors[j]] = 0;
@@ -73,7 +64,24 @@ function calcular_rdp(_partides) {
 				rdp[partida.jugadors[j]] += Math.round(nou_rdp[partida.jugadors[j]]);
 			}
 		}
+		if (afegir == true){
+			var dia = new Date();
+			dia.setDate(parseInt(partida.data.split("-")[0]));
+			dia.setMonth(parseInt(partida.data.split("-")[1])-1);
+			dia.setYear(parseInt(partida.data.split("-")[2]));
+			rdp_historic[dia] = {};
+			for (var j = 0; j < Object.keys(rdp).length; j ++) {
+				var jugador = Object.keys(rdp)[j];
+				rdp_historic[dia][jugador] = rdp[jugador];
+			}
+		}
 	}
+	return rdp_historic;
+}
+
+function calcular_lliga(rdp) {
+	var array_rdp_antic = Object.values(rdp);
+	var jugadors = Object.keys(rdp);
 	var quartil1 = calcQuartile(array_rdp_antic, 0.25);
 	var quartil3 = calcQuartile(array_rdp_antic, 0.75);
 	var lliga = {};
@@ -86,7 +94,7 @@ function calcular_rdp(_partides) {
 			lliga[jugadors[j]] = 2;
 		}
 	}
-	return [rdp,lliga];
+	return lliga;
 }
 
 
