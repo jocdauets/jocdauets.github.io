@@ -37,6 +37,12 @@
 
     <h2>Rànquing de Dauets Professional</h2>
     <div id="classificacio">
+        <select id="seleccionar-regio">
+            <option value="mundial">Mundial</option>
+        </select>
+        <br><br>
+        <div id="taula-classificacio">
+        </div>
     </div>
 
     <script>
@@ -49,70 +55,94 @@
             document.getElementById("adreces_interes").appendChild(li);
         }
 
-        const [ultim,grup] = calcular_rdp(_partides);
-        const jugadors = Object.keys(ultim);
-        var taula = document.createElement("table");
-        var header = document.createElement("tr");
-        var header_posicio = document.createElement("th");
-        header_posicio.innerHTML = "Posició";
-        var header_jugadors = document.createElement("th");
-        header_jugadors.innerHTML = "Jugador/a";
-        var header_daus = document.createElement("th");
-        header_daus.innerHTML = "Daus";
-        var header_grup = document.createElement("th");
-        header_grup.innerHTML = "Grup";
-        header.appendChild(header_posicio);
-        header.appendChild(header_jugadors);
-        header.appendChild(header_daus);
-        header.appendChild(header_grup);
-        taula.appendChild(header);
+        const regions = Object.keys(_regions);
+        for (var i = 0; i < regions.length; i ++) {
+            const opcio = document.createElement("option");
+            opcio.value = regions[i];
+            opcio.innerHTML = regions[i];
+            document.getElementById("seleccionar-regio").appendChild(opcio);
+        }
 
-        var posicions = {};
-        var jugadors_afegits = [];
-        while (jugadors_afegits.length < jugadors.length) {
-            var afegir = false;
-            for (var i = 0; i < jugadors.length; i ++) {
-                if (jugadors_afegits.includes(jugadors[i]) == false) {
-                    if (afegir == false) {
-                        afegir = jugadors[i];
-                    } else if (ultim[jugadors[i]] > ultim[afegir]) {
-                        afegir = jugadors[i];
+        actualitzar_taula_regional();
+
+        document.querySelector("select").addEventListener("change", actualitzar_taula_regional);
+
+        function actualitzar_taula_regional() {
+            const regio = document.getElementById("seleccionar-regio").value;
+
+            const [ultim,grup] = calcular_rdp(_partides);
+            const jugadors = Object.keys(ultim);
+            for (var i = jugadors.length-1; i >= 0; i --) {
+                if (regio != "mundial") {
+                    if (_regions[regio].includes(jugadors[i]) == false) {
+                        jugadors.splice(i,1);
                     }
                 }
             }
-            if (jugadors_afegits.length == 0) {
-                jugadors_afegits.push(afegir);
-                posicions[afegir] = 1;
-            } else {
-                if (ultim[afegir] == ultim[jugadors_afegits[jugadors_afegits.length-1]]) {
-                    posicions[afegir] = posicions[jugadors_afegits[jugadors_afegits.length-1]];
-                    jugadors_afegits.push(afegir);
-                } else {
-                    jugadors_afegits.push(afegir);
-                    posicions[afegir] = jugadors_afegits.length;
-                }
-            }
-            var fila = document.createElement("tr");
-            var cella_posicio = document.createElement("td");
-            cella_posicio.innerHTML = posicions[afegir].toString();
-            fila.appendChild(cella_posicio);
-            var cella_jugador = document.createElement("td");
-            var link_jugador = document.createElement("a");
-            link_jugador.href = "/jugadors.html?jugador=" + afegir;
-            link_jugador.classList = ["link-cercar"];
-            link_jugador.innerHTML = afegir;
-            cella_jugador.appendChild(link_jugador);
-            fila.appendChild(cella_jugador);
-            var cella_daus = document.createElement("td");
-            cella_daus.innerHTML = ultim[afegir].toString();
-            fila.appendChild(cella_daus);
-            var cella_grup = document.createElement("td");
-            cella_grup.innerHTML = ["Capdav.","Boldró","Cua"][grup[afegir]-1];
-            fila.appendChild(cella_grup);
-            taula.appendChild(fila);
-        }
+            var taula = document.createElement("table");
+            var header = document.createElement("tr");
+            var header_posicio = document.createElement("th");
+            header_posicio.innerHTML = "Posició";
+            var header_jugadors = document.createElement("th");
+            header_jugadors.innerHTML = "Jugador/a";
+            var header_daus = document.createElement("th");
+            header_daus.innerHTML = "Daus";
+            var header_grup = document.createElement("th");
+            header_grup.innerHTML = "Grup";
+            header.appendChild(header_posicio);
+            header.appendChild(header_jugadors);
+            header.appendChild(header_daus);
+            header.appendChild(header_grup);
+            taula.appendChild(header);
 
-        document.getElementById("classificacio").appendChild(taula);
+            var posicions = {};
+            var jugadors_afegits = [];
+            while (jugadors_afegits.length < jugadors.length) {
+                var afegir = false;
+                for (var i = 0; i < jugadors.length; i ++) {
+                    if (jugadors_afegits.includes(jugadors[i]) == false) {
+                        if (afegir == false) {
+                            afegir = jugadors[i];
+                        } else if (ultim[jugadors[i]] > ultim[afegir]) {
+                            afegir = jugadors[i];
+                        }
+                    }
+                }
+                if (jugadors_afegits.length == 0) {
+                    jugadors_afegits.push(afegir);
+                    posicions[afegir] = 1;
+                } else {
+                    if (ultim[afegir] == ultim[jugadors_afegits[jugadors_afegits.length-1]]) {
+                        posicions[afegir] = posicions[jugadors_afegits[jugadors_afegits.length-1]];
+                        jugadors_afegits.push(afegir);
+                    } else {
+                        jugadors_afegits.push(afegir);
+                        posicions[afegir] = jugadors_afegits.length;
+                    }
+                }
+                var fila = document.createElement("tr");
+                var cella_posicio = document.createElement("td");
+                cella_posicio.innerHTML = posicions[afegir].toString();
+                fila.appendChild(cella_posicio);
+                var cella_jugador = document.createElement("td");
+                var link_jugador = document.createElement("a");
+                link_jugador.href = "/jugadors.html?jugador=" + afegir;
+                link_jugador.classList = ["link-cercar"];
+                link_jugador.innerHTML = afegir;
+                cella_jugador.appendChild(link_jugador);
+                fila.appendChild(cella_jugador);
+                var cella_daus = document.createElement("td");
+                cella_daus.innerHTML = ultim[afegir].toString();
+                fila.appendChild(cella_daus);
+                var cella_grup = document.createElement("td");
+                cella_grup.innerHTML = ["Capdav.","Boldró","Cua"][grup[afegir]-1];
+                fila.appendChild(cella_grup);
+                taula.appendChild(fila);
+            }
+
+            document.getElementById("taula-classificacio").innerHTML = "";
+            document.getElementById("taula-classificacio").appendChild(taula);
+        }
     </script>
 </body>
 </html>
