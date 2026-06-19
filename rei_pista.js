@@ -1,7 +1,8 @@
 var nombre_jugadors_totals = 0;
 var jugadors_totals = [];
+var jugadors_historic = [];
 var ordre_total = [];
-const _NJUGADORS = 4;
+var _NJUGADORS = 0;
 var n_partida = -1;
 var esperant = [];
 var jugant = [];
@@ -30,52 +31,11 @@ document.getElementById("ordre-total").style.display = "none";
 document.getElementById("classificacio").style.display = "none";
 document.getElementById("desempat").style.display = "none";
 document.getElementById("popup").style.display = "none";
-input_puntuacions = [];
-casella_puntuacions = [];
-const taula = document.getElementById("taula-puntuacions");
-for (var i = 0; i < _NJUGADORS; i ++) {
-	var fila_input_puntuacions = [];
-	var fila_casella_puntuacions = [];
+document.getElementById("configuracio").style.display = "none";
 
-	const fila = document.createElement("tr");
-	
-	noms_puntuacions.push(document.createElement("td"));
-	noms_puntuacions[i].innerHTML = "Jugador/a";
-	fila.appendChild(noms_puntuacions[i]);
-
-	for (var j = 0; j < 8; j ++) {
-		fila_input_puntuacions.push(document.createElement("input"));
-		fila_input_puntuacions[j].type = "number";
-		const jj = j;
-		fila_input_puntuacions[j].addEventListener("change", function () {nova_puntuacio(jj);});
-		fila_casella_puntuacions.push(document.createElement("td"));
-		fila_casella_puntuacions[j].appendChild(fila_input_puntuacions[j]);
-		fila.appendChild(fila_casella_puntuacions[j]);
-	}
-	input_puntuacions.push(fila_input_puntuacions);
-	casella_puntuacions.push(fila_casella_puntuacions);
-
-	suma_puntuacions.push(document.createElement("td"));
-	fila.appendChild(suma_puntuacions[i]);
-
-	taula.appendChild(fila);
-}
-for (var i = 0; i < _CATESP.length; i ++) {
-	const s1 = document.createElement("option");
-	s1.innerHTML = _CATESP[i];
-	document.getElementById("categoria-especial-1").options.add(s1);
-	const s2 = document.createElement("option");
-	s2.innerHTML = _CATESP[i];
-	document.getElementById("categoria-especial-2").options.add(s2);
-}
-
-// dev options
-if (_DEVMODE == false) {
-	document.getElementById("dev-omplir-puntuacions").style.display="none";
-}
 
 function modificar_nombre_jugadors_totals() {
-	nombre_jugadors_totals = document.getElementById("nombre-jugadors-totals").value;
+	nombre_jugadors_totals = parseInt(document.getElementById("nombre-jugadors-totals").value);
 	const div = document.getElementById("piscina-jugadors-noms");
 	div.innerHTML = "";
 	for (var i = 0; i < nombre_jugadors_totals; i ++) {
@@ -93,7 +53,9 @@ function piscina_jugadors_completada() {
 		alert("Calen " + _NJUGADORS.toString() + " jugadors");
 	} else {
 		for (var i = 0; i < nombre_jugadors_totals; i ++) {
-			jugadors_totals.push(document.getElementById("input-nom-" + i.toString()).value);
+			var jugador = document.getElementById("input-nom-" + i.toString()).value
+			jugadors_totals.push(jugador);
+			jugadors_historic.push(jugador);
 			ratxes[jugadors_totals[i]] = [];
 		}
 		document.getElementById("piscina-jugadors").style.display = "none";
@@ -141,6 +103,8 @@ function actualitzar_ordre_total() {
 function preguntar_ordre_partida() {
 	document.getElementById("puntuacions").style.display = "none";
 	document.getElementById("ordre-partida").style.display = "";
+	document.getElementById("configuracio").style.display = "";
+	actualitzar_seleccions_configuracio();
 	const div = document.getElementById("ordre-partida-input");
 	div.innerHTML = "";
 	for (var i = 0; i < _NJUGADORS; i ++) {
@@ -155,40 +119,44 @@ function preguntar_ordre_partida() {
 }
 
 function ordre_partida_completat() {
-	var ordres = [];
-	for (var i = 0; i < _NJUGADORS; i ++) {
-		const input = document.getElementById("input-ordre-partida-" + i.toString());
-		if (input.value == null || input.value == "") {
-			alert("L'ordre està incomplet");
-			return -1;
-		} else if (ordres.includes(input.value)) {
-			alert("L'ordre és invàlid");
-			return -2;
-		} else {
-			ordres.push(input.value);
-		}
-	}
-	n_partida ++;
-	var copia_jugant = [];
-	for (var i = 0; i < _NJUGADORS; i ++) {
-		copia_jugant.push(jugant[i]);
-	}
-	jugant = [];
-	while (ordres.length > 0) {
-		var min = ordres[0];
-		var index = 0;
-
-		for (var i = 1; i < ordres.length; i ++) {
-			if (ordres[i] < min) {
-				min = ordres[i];
-				index = i;
+	if (_NJUGADORS <= 0) {
+		alert("No es poden jugar partides sense jugadors.");
+	} else {
+		var ordres = [];
+		for (var i = 0; i < _NJUGADORS; i ++) {
+			const input = document.getElementById("input-ordre-partida-" + i.toString());
+			if (input.value == null || input.value == "") {
+				alert("L'ordre està incomplet");
+				return -1;
+			} else if (ordres.includes(input.value)) {
+				alert("L'ordre és invàlid");
+				return -2;
+			} else {
+				ordres.push(input.value);
 			}
 		}
-		ordres.splice(index,1);
-		jugant.push(copia_jugant[index]);
-		copia_jugant.splice(index,1);
+		n_partida ++;
+		var copia_jugant = [];
+		for (var i = 0; i < _NJUGADORS; i ++) {
+			copia_jugant.push(jugant[i]);
+		}
+		jugant = [];
+		while (ordres.length > 0) {
+			var min = ordres[0];
+			var index = 0;
+
+			for (var i = 1; i < ordres.length; i ++) {
+				if (ordres[i] < min) {
+					min = ordres[i];
+					index = i;
+				}
+			}
+			ordres.splice(index,1);
+			jugant.push(copia_jugant[index]);
+			copia_jugant.splice(index,1);
+		}
+		iniciar_partida();
 	}
-	iniciar_partida();
 }
 
 function nova_puntuacio(columna) {
@@ -225,6 +193,50 @@ function iniciar_partida() {
 	document.getElementById("ordre-partida").style.display = "none";
 	document.getElementById("puntuacions").style.display = "";
 	document.getElementById("seguent-partida").style.display = "none";
+	document.getElementById("configuracio").style.display = "none";
+	input_puntuacions = [];
+	casella_puntuacions = [];
+	const taula = document.getElementById("taula-puntuacions");
+	for (var i = taula.children.length-1; i >= 1; i --) {
+		if (taula.children[i].id != "taula-puntuacions-header") {
+			taula.removeChild(taula.children[i]);
+		}
+	}
+	for (var i = 0; i < _NJUGADORS; i ++) {
+		var fila_input_puntuacions = [];
+		var fila_casella_puntuacions = [];
+
+		const fila = document.createElement("tr");
+		
+		noms_puntuacions.push(document.createElement("td"));
+		noms_puntuacions[i].innerHTML = jugant[i];
+		fila.appendChild(noms_puntuacions[i]);
+
+		for (var j = 0; j < 8; j ++) {
+			fila_input_puntuacions.push(document.createElement("input"));
+			fila_input_puntuacions[j].type = "number";
+			const jj = j;
+			fila_input_puntuacions[j].addEventListener("change", function () {nova_puntuacio(jj);});
+			fila_casella_puntuacions.push(document.createElement("td"));
+			fila_casella_puntuacions[j].appendChild(fila_input_puntuacions[j]);
+			fila.appendChild(fila_casella_puntuacions[j]);
+		}
+		input_puntuacions.push(fila_input_puntuacions);
+		casella_puntuacions.push(fila_casella_puntuacions);
+
+		suma_puntuacions.push(document.createElement("td"));
+		fila.appendChild(suma_puntuacions[i]);
+
+		taula.appendChild(fila);
+	}
+	for (var i = 0; i < _CATESP.length; i ++) {
+		const s1 = document.createElement("option");
+		s1.innerHTML = _CATESP[i];
+		document.getElementById("categoria-especial-1").options.add(s1);
+		const s2 = document.createElement("option");
+		s2.innerHTML = _CATESP[i];
+		document.getElementById("categoria-especial-2").options.add(s2);
+	}
 	for (var i = 0; i < _NJUGADORS; i ++) {
 		noms_puntuacions[i].innerHTML = jugant[i];
 		for (var j = 0; j < 8; j ++) {
@@ -307,7 +319,7 @@ function baixar_partida() {
 	for (var i = 0; i < _NJUGADORS; i ++) {
 		var punts = [];
 		for (var j = 0; j < 8; j ++) {
-			punts.push(input_puntuacions[i][j].value);
+			punts.push(parseInt(input_puntuacions[i][j].value));
 		}
 		partida.puntuacions[jugant[i]] = punts;
 	}
@@ -445,18 +457,22 @@ function espectacle_mostrar_guanyadors() {
 	aux(_NJUGADORS);
 }
 
-function actualitzar_classificacio(index) {
-	rei = jugant[index];
-	ratxes[rei][ratxes[rei].length-1] ++;
+function actualitzar_classificacio(index, sumar_ratxa=true) {
+	if (index == null) {
+		rei = null;
+	} else if (sumar_ratxa == true) {
+		rei = jugant[index];
+		ratxes[rei][ratxes[rei].length-1] ++;
+	}
 	document.getElementById("seguent-partida").style.display = "";
 
 	// ordenem classificació (els jugadors sense ratxa es queden fora)
 	ratxes_ord = ratxes_ordenades();
 	var jugadors_per_classificar = [];
 	var classificacio = [];
-	for (var i = 0; i < nombre_jugadors_totals; i ++) {
-		if (ratxes_ord[jugadors_totals[i]].length > 0) {
-			jugadors_per_classificar.push(jugadors_totals[i]);
+	for (var i = 0; i < jugadors_historic.length; i ++) {
+		if (ratxes_ord[jugadors_historic[i]].length > 0) {
+			jugadors_per_classificar.push(jugadors_historic[i]);
 		}
 	}
 	while (jugadors_per_classificar.length > 0) {
@@ -526,21 +542,21 @@ function actualitzar_classificacio(index) {
 
 function ratxes_ordenades() {
 	var ratxes_ordenades = {};
-	for (var i = 0; i < nombre_jugadors_totals; i ++) {
-		ratxes_ordenades[jugadors_totals[i]] = [];
+	for (var i = 0; i < jugadors_historic.length; i ++) {
+		ratxes_ordenades[jugadors_historic[i]] = [];
 		var comptades = [];
-		while (comptades.length < ratxes[jugadors_totals[i]].length) {
+		while (comptades.length < ratxes[jugadors_historic[i]].length) {
 			var maxim = -1;
 			var index = -1;
-			for (var j = 0; j < ratxes[jugadors_totals[i]].length; j ++) {
-				if (ratxes[jugadors_totals[i]][j] > maxim && comptades.includes(j) == false) {
-					maxim = ratxes[jugadors_totals[i]][j];
+			for (var j = 0; j < ratxes[jugadors_historic[i]].length; j ++) {
+				if (ratxes[jugadors_historic[i]][j] > maxim && comptades.includes(j) == false) {
+					maxim = ratxes[jugadors_historic[i]][j];
 					index = j;
 				}
 			}
 			comptades.push(index);
 			if (maxim > 0) {
-				ratxes_ordenades[jugadors_totals[i]].push(maxim);
+				ratxes_ordenades[jugadors_historic[i]].push(maxim);
 			}
 		}
 	}
@@ -550,9 +566,9 @@ function ratxes_ordenades() {
 function maxim_nombre_ratxes() {
 	ratxes_ord = ratxes_ordenades();
 	var max = -1;
-	for (var i = 0; i < nombre_jugadors_totals; i ++) {
-		if (ratxes_ord[jugadors_totals[i]].length > max) {
-			max = ratxes_ord[jugadors_totals[i]].length;
+	for (var i = 0; i < jugadors_historic.length; i ++) {
+		if (ratxes_ord[jugadors_historic[i]].length > max) {
+			max = ratxes_ord[jugadors_historic[i]].length;
 		}
 	}
 	return max;
@@ -611,6 +627,169 @@ function seguent_partida() {
 	}
 	actualitzar_ordre_total();
 	preguntar_ordre_partida();
+}
+
+function configuracio_nombre_jugadors() {
+	var n = parseInt(document.getElementById("configuracio-nombre-jugadors").value);
+	if (n > nombre_jugadors_totals) {
+		alert("Falten jugadors per jugar partides tant grans.");
+	} else {
+		if (n > _NJUGADORS) {
+			while (jugant.length < n) {
+				jugant.push(esperant[0]);
+				esperant.splice(0,1);
+			}
+		} else if (n < _NJUGADORS) {
+			while (jugant.length > n) {
+				esperant.unshift(jugant[jugant.length-1]);
+				jugant.splice(jugant.length-1,1);
+			}
+		}
+		_NJUGADORS = n;
+		for (var i = 0; i < nombre_jugadors_totals; i ++) {
+			if (i < _NJUGADORS) {
+				document.getElementById("ordre-total").children[i].style.backgroundColor = "lightGreen";
+			} else {
+				document.getElementById("ordre-total").children[i].style.backgroundColor = "white";
+			}
+		}
+	}
+	actualitzar_ordre_total();
+	preguntar_ordre_partida();
+	if (rei == null) {
+		actualitzar_classificacio(null, sumar_ratxa=false);
+	} else {
+		actualitzar_classificacio(jugant.indexOf(rei), sumar_ratxa=false);
+	}
+}
+
+function configuracio_afegir_jugador() {
+	var jugador = document.getElementById("configuracio-afegir-jugador").value;
+	if (jugador == "") {
+		alert("No hi has posat cap nom.");
+	} else if (jugadors_totals.includes(jugador)) {
+		alert("Aquest jugador ja està jugant.")
+	} else {
+		nombre_jugadors_totals ++;
+		if (jugadors_historic.includes(jugador) == false) {
+			jugadors_historic.push(jugador);
+		}
+		esperant.push(jugador);
+		jugadors_totals.push(jugador);
+		var td = document.createElement("td");
+		td.id = "ordre-total-" + (nombre_jugadors_totals-1).toString();
+		document.getElementById("ordre-total").appendChild(td);
+		ratxes[jugador] = [];
+	}
+	actualitzar_seleccions_configuracio();
+	actualitzar_ordre_total();
+	preguntar_ordre_partida();
+	if (rei == null) {
+		actualitzar_classificacio(null, sumar_ratxa=false);
+	} else {
+		actualitzar_classificacio(jugant.indexOf(rei), sumar_ratxa=false);
+	}
+}
+
+function configuracio_treure_jugador() {
+	var jugador = document.getElementById("configuracio-treure-jugador").value;
+	if (jugadors_totals.includes(jugador) == false) {
+		alert("Aquest jugador no està jugant.")
+	} else if (nombre_jugadors_totals == _NJUGADORS) {
+		alert("Calen " + _NJUGADORS.toString() + " jugadors per una partida.");
+	} else {
+		if (jugant.includes(jugador) == true) {
+			jugant.splice(jugant.indexOf(jugador),1);
+			jugant.push(esperant[0]);
+			esperant.splice(0,1);
+		} else {
+			esperant.splice(esperant.indexOf(jugador),1);
+		}
+		jugadors_totals.splice(jugadors_totals.indexOf(jugador),1);
+		nombre_jugadors_totals --;
+		document.getElementById("ordre-total").removeChild(document.getElementById("ordre-total-" + nombre_jugadors_totals.toString()));
+		if (rei == jugador) {
+			rei = null;
+			alert("S'ha eliminat el rei de la pista.");
+		}
+		actualitzar_seleccions_configuracio();
+		actualitzar_ordre_total();
+		preguntar_ordre_partida();
+		if (rei == null) {
+			actualitzar_classificacio(null, sumar_ratxa=false);
+		} else {
+			actualitzar_classificacio(jugant.indexOf(rei), sumar_ratxa=false);
+		}		
+	}
+}
+
+function configuracio_permutar_jugadors() {
+	var jugador1 = document.getElementById("configuracio-permutar-jugadors-1").value;
+	var jugador2 = document.getElementById("configuracio-permutar-jugadors-2").value;
+	if (jugador1 != jugador2) {
+		if (rei == jugador1 && esperant.includes(jugador2) == true) {
+			rei = null;
+			alert("S'ha eliminat el rei de la pista.");
+		} else if (rei == jugador2 && esperant.includes(jugador1) == true) {
+			rei = null;
+			alert("S'ha eliminat el rei de la pista.");
+		}
+		if (jugant.includes(jugador1) == true) {
+			if (jugant.includes(jugador2) == true) {
+				var i = jugant.indexOf(jugador1);
+				var j = jugant.indexOf(jugador2);
+				jugant[i] = jugador2;
+				jugant[j] = jugador1;
+			} else {
+				var i = jugant.indexOf(jugador1);
+				var j = esperant.indexOf(jugador2);
+				jugant[i] = jugador2;
+				esperant[j] = jugador1;
+				ratxes[jugador2].push(0);
+			}
+		} else {
+			if (jugant.includes(jugador2) == true) {
+				var i = esperant.indexOf(jugador1);
+				var j = jugant.indexOf(jugador2);
+				esperant[i] = jugador2;
+				jugant[j] = jugador1;
+				ratxes[jugador1].push(0);
+			} else {
+				var i = esperant.indexOf(jugador1);
+				var j = esperant.indexOf(jugador2);
+				esperant[i] = jugador2;
+				esperant[j] = jugador1;
+			}
+		}		
+	}
+	actualitzar_ordre_total();
+	preguntar_ordre_partida();
+	if (rei == null) {
+		actualitzar_classificacio(null, sumar_ratxa=false);
+	} else {
+		actualitzar_classificacio(jugant.indexOf(rei), sumar_ratxa=false);
+	}
+}
+
+function actualitzar_seleccions_configuracio() {
+	document.getElementById("configuracio-treure-jugador").innerHTML = "";
+	for (var i = 0; i < nombre_jugadors_totals; i ++) {
+		var opcio = document.createElement("option");
+		opcio.innerHTML = jugadors_totals[i];
+		document.getElementById("configuracio-treure-jugador").appendChild(opcio);
+	}
+	document.getElementById("configuracio-permutar-jugadors-1").innerHTML = "";
+	for (var i = 0; i < nombre_jugadors_totals; i ++) {
+		var opcio = document.createElement("option");
+		opcio.innerHTML = jugadors_totals[i];
+		document.getElementById("configuracio-permutar-jugadors-1").appendChild(opcio);
+	}
+	document.getElementById("configuracio-permutar-jugadors-2").innerHTML = "";
+	for (var i = 0; i < nombre_jugadors_totals; i ++) {
+		var opcio = document.createElement("option");
+		opcio.innerHTML = jugadors_totals[i];
+		document.getElementById("configuracio-permutar-jugadors-2").appendChild(opcio);
+	}
 }
 
 function activar_popup() {

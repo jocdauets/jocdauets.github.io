@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script type="text/javascript" src="script.js"></script>
+	<link rel="stylesheet" href="rei_pista.css">
 	<title>Rei de la Pista</title>
 	<style>
 		td, th {
@@ -49,7 +50,7 @@
 
 		<div id="puntuacions">
 			<table id="taula-puntuacions">
-				<tr>
+				<tr id="taula-puntuacions-header">
 					<th>Jugador/a</th>
 					<th>V</th>
 					<th>N</th>
@@ -62,7 +63,6 @@
 					<th>Suma</th>
 				</tr>
 			</table>
-			<button id="dev-omplir-puntuacions" onclick="__omplir_puntuacions()">Omplir puntuacions</button>
 			<button id="finalitzar-partida" onclick="finalitzar_partida()">Finalitzar</button>
 			<button id="seguent-partida" onclick="seguent_partida()">Següent</button>
 		</div>
@@ -74,11 +74,22 @@
 			<button id="desempat-fet" onclick="desempat_resolt()">Desempatar</button>
 		</div>
 
+		<div id="configuracio">
+			<b>Configuració</b><br>
+			Nombre de jugadors: <input type="number" id="configuracio-nombre-jugadors"><button onclick="configuracio_nombre_jugadors()">Fet</button><br>
+			Afegir jugador/a: <input type="text" id="configuracio-afegir-jugador"><button onclick="configuracio_afegir_jugador()">Fet</button><br>
+			Treure jugador/a: 
+			<select id="configuracio-treure-jugador"></select>
+			<button onclick="configuracio_treure_jugador()">Fet</button><br>
+			Permutar jugadors: <select id="configuracio-permutar-jugadors-1"></select> amb <select id="configuracio-permutar-jugadors-2"></select><button onclick="configuracio_permutar_jugadors()">Fet</button>
+		</div>
+
 		<div id="classificacio">
 			<table id="taula-classificacio">
 			</table>
 		</div>
 	</div>
+
 	<div id="popup" class="popup">
 	</div>
 

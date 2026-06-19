@@ -1,0 +1,97 @@
+/* Estil general */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 20px;
+    background-color: #f5f5f5;
+    color: #222;
+}
+
+h1, h2, h3 {
+    margin-top: 0;
+}
+
+/* Contenidors principals */
+#div-principal > div {
+    background: white;
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Taules */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    width: 70px;
+    border: 1px solid #ccc;
+    padding: 6px;
+    text-align: center;
+}
+
+th {
+    background-color: #e9ecef;
+}
+
+/* Inputs */
+input,
+select,
+button {
+    font-size: 14px;
+    padding: 6px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+}
+
+input {
+    width: 70px;
+}
+
+button {
+    cursor: pointer;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* Amagar els inputs de la taula de puntuacions */
+#taula-puntuacions input {
+    border: none;
+    background: transparent;
+    text-align: center;
+    appearance: textfield;
+}
+
+/* Popup */
+.popup {
+    text-align: center;
+    position: fixed;
+    top: 25%;
+    left: 25%;
+    right: 25%;
+    background: white;
+    border: 2px solid #666;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+}
+
+/* Classificació */
+#taula-classificacio th {
+    background-color: #d4edda;
+}
+
+/* Configuració */
+#configuracio {
+    background-color: #fff8e1;
+}
