@@ -209,7 +209,6 @@ function iniciar_partida() {
 		const fila = document.createElement("tr");
 		
 		noms_puntuacions.push(document.createElement("td"));
-		noms_puntuacions[i].innerHTML = jugant[i];
 		fila.appendChild(noms_puntuacions[i]);
 
 		for (var j = 0; j < 8; j ++) {
@@ -238,7 +237,8 @@ function iniciar_partida() {
 		document.getElementById("categoria-especial-2").options.add(s2);
 	}
 	for (var i = 0; i < _NJUGADORS; i ++) {
-		noms_puntuacions[i].innerHTML = jugant[i];
+		noms_puntuacions[i].innerHTML = "";
+		noms_puntuacions[i].appendChild(escriure_nom(jugant[i]));
 		for (var j = 0; j < 8; j ++) {
 			casella_puntuacions[i][j].style.backgroundColor = "white";
 			input_puntuacions[i][j].value = null;
@@ -402,7 +402,7 @@ function espectacle_mostrar_guanyadors() {
 		const nom = document.createElement("td");
 		nom.id = "popup-nom-" + i.toString();
 		nom.style.visibility = "hidden";
-		nom.innerHTML = jugant[afegits[i]];
+		nom.appendChild(escriure_nom(jugant[afegits[i]]));
 		fila.appendChild(nom);
 
 		const punts = document.createElement("td");
@@ -519,7 +519,8 @@ function actualitzar_classificacio(index, sumar_ratxa=true) {
 			tr.appendChild(td_posicio);
 
 			const td_nom = document.createElement("td");
-			td_nom.innerHTML = classificacio[i][j];
+			//td_nom.innerHTML = classificacio[i][j];
+			td_nom.appendChild(escriure_nom(classificacio[i][j]));
 			tr.appendChild(td_nom);
 
 			var ratxa = ratxes_ord[classificacio[i][j]];
@@ -805,6 +806,47 @@ function desactivar_popup() {
 	document.getElementById("popup").style.display = "none";
 }
 
+function escriure_nom(jugador) {
+	var div = document.createElement("div");
+	div.innerHTML = jugador + " ";
+	if (jugador == rei) {
+		var corona = document.createElement("img");
+		corona.src = "./corona.svg";
+		corona.height = 10;
+		div.innerHTML += " ";
+		div.appendChild(corona);
+	}
+	if (_regions["L'Escala"].includes(jugador)) {
+		var img = document.createElement("img");
+		img.src = "./escuts/regio_lescala.png";
+		img.height = 15;
+		div.innerHTML += " ";
+		div.appendChild(img);
+	}
+	if (_regions["Wesseling-Bonn"].includes(jugador)) {
+		var img = document.createElement("img");
+		img.src = "./escuts/regio_wesseling.png";
+		img.height = 12;
+		div.innerHTML += " ";
+		div.appendChild(img);
+	}
+	if (_regions["Barna"].includes(jugador)) {
+		var img = document.createElement("img");
+		img.src = "./escuts/regio_barna.png";
+		img.height = 18;
+		div.innerHTML += " ";
+		div.appendChild(img);
+	}
+	if (_regions["Lichtenberg"].includes(jugador)) {
+		var img = document.createElement("img");
+		img.src = "./escuts/regio_lichtenberg.png";
+		img.height = 12;
+		div.innerHTML += " ";
+		div.appendChild(img);
+	}
+	return div;
+}
+
 function __omplir_puntuacions() {
 	for (var i = 0; i < _NJUGADORS; i ++) {
 		for (var j = 0; j < 8; j ++) {
@@ -812,4 +854,11 @@ function __omplir_puntuacions() {
 			nova_puntuacio(j);
 		}
 	}
+}
+
+_regions = {
+	"L'Escala": ["Adri", "Dani", "Albert", "Andreu", "Carla", "Teresa", "Maria", "Quim", "Robert"],
+	"Wesseling-Bonn": ["Roger", "Sergio", "Giulia", "Lucas", "Raúl", "Jorge", "Alice", "Diego", "Jofre", "Alejandro", "Joanna", "Anti", "Andrés", "Murci", "Dani OG", "Javi"],
+	"Lichtenberg": ["Roger", "Theresa", "Justus", "Merle", "Lia", "Joanna", "Jan", "Greta", "Heidi"],
+	"Barna": ["Andreu", "Teresa", "Andreu M", "Míriam", "Aniol", "Quim"]
 }
