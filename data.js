@@ -177,7 +177,8 @@ _partides = [
 	{"jugadors":["Teresa","Albert","Aniol","Míriam"],"categories_especials":["buida","4/4"],"puntuacions":{"Teresa":[4,10,21,32,35,12,0,36],"Albert":[3,16,21,24,35,18,0,36],"Aniol":[6,6,15,20,25,30,0,32],"Míriam":[5,10,24,32,30,30,0,36]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"20-6-2026","puntua_rdp":true},
 	{"jugadors":["Míriam","Teresa","Adri","Aniol"],"categories_especials":["dauet(12)","4/4"],"puntuacions":{"Míriam":[5,12,21,24,30,30,21,32],"Teresa":[5,14,21,24,35,24,19,32],"Adri":[3,8,9,24,35,12,36,36],"Aniol":[6,4,15,28,35,30,19,44]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"20-6-2026","puntua_rdp":true},
 	{"jugadors":["Andreu","Adri","Albert","Aniol","Míriam"],"categories_especials":["2/2/2/2","dauet(12)"],"puntuacions":{"Andreu":[2,10,18,16,30,24,32,20],"Adri":[4,14,21,24,30,30,22,20],"Albert":[3,10,12,16,25,24,20,22],"Aniol":[3,12,18,24,25,24,28,20],"Míriam":[7,8,12,28,20,36,22,20]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"20-6-2026","puntua_rdp":true},
-	{"jugadors":["Carla","Aniol","Robert"],"categories_especials":["4/4","forma"],"puntuacions":{"Carla":[7,2,18,28,35,6,36,29],"Aniol":[4,8,18,28,35,24,36,14],"Robert":[1,12,18,28,15,12,28,32]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"20-6-2026","puntua_rdp":true}
+	{"jugadors":["Carla","Aniol","Robert"],"categories_especials":["4/4","forma"],"puntuacions":{"Carla":[7,2,18,28,35,6,36,29],"Aniol":[4,8,18,28,35,24,36,14],"Robert":[1,12,18,28,15,12,28,32]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"20-6-2026","puntua_rdp":true},
+	{"jugadors":["Albert","Adri","Robert","Roger"],"categories_especials":["4/2/2","4/4"],"puntuacions":{"Albert":[2,26,15,20,30,18,50,36],"Adri":[7,8,15,24,30,6,24,0],"Robert":[7,10,21,20,35,18,28,28],"Roger":[5,12,15,20,25,30,54,32]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-6-2026"}
 ]
 
 _tornejos = [
