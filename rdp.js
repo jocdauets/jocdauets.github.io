@@ -53,7 +53,11 @@ function calcular_rdp(_partides) {
 			}
 			mitjana_taula = mitjana_taula/partida.jugadors.length;
 			for (var j = 0; j < partida.jugadors.length; j ++) {
-				nou_rdp[partida.jugadors[j]] += 10*(puntuacio_partida[partida.jugadors[j]]/mitjana_taula - 1);
+				if (partida.sistema_daus == 1) {
+					nou_rdp[partida.jugadors[j]] += 10*(puntuacio_partida[partida.jugadors[j]]/mitjana_taula - 1);
+				} else {
+					nou_rdp[partida.jugadors[j]] += 3*(puntuacio_partida[partida.jugadors[j]]/mitjana_taula - 1);
+				}
 			}
 			if (partida.multiplicador_rdp != null) {
 				for (var j = 0; j < partida.jugadors.length; j ++) {
@@ -61,7 +65,16 @@ function calcular_rdp(_partides) {
 				}
 			}
 			for (var j = 0; j < partida.jugadors.length; j ++) {
-				rdp[partida.jugadors[j]] += Math.round(nou_rdp[partida.jugadors[j]]);
+				var increment = 0;
+				if (partida.sistema_daus == 1) {
+					increment = Math.round(nou_rdp[partida.jugadors[j]]);
+				} else {
+					increment = Math.round(nou_rdp[partida.jugadors[j]]);
+					if (increment <= -5 && (partida.multiplicador_rdp == 1 || partida.multiplicador_rdp == null)) {
+						increment ++;
+					}
+				}
+				rdp[partida.jugadors[j]] += increment;
 			}
 		}
 		if (afegir == true){

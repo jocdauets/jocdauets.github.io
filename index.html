@@ -81,27 +81,21 @@
 
             //const [ultim,grup] = calcular_rdp(_partides);
             const rdp_historic = calcular_rdp(_partides);
-            console.log(rdp_historic);
             var ultim = null;
             var ultima_data = null;
             for (var i = 0; i < Object.keys(rdp_historic).length; i ++) {
                 const data_provisional = new Date(Object.keys(rdp_historic)[i]);
-                console.log(data_provisional, data);
                 if (ultima_data == null && data_provisional <= data) {
                     ultima_data = data_provisional;
                     ultim = rdp_historic[ultima_data];
-                    console.log("ok");
                 } else if (ultima_data != null) {
                     if (ultima_data < data_provisional && data_provisional <= data) {
                         ultima_data = data_provisional;
-                        ultim = rdp_historic[ultima_data];
-                        console.log("ok");
+                        ultim = rdp_historic[ultima_data]
                     }
                 }
             }
             var grup = calcular_lliga(ultim);
-            console.log(ultim);
-            console.log(grup);
             const jugadors = Object.keys(ultim);
             for (var i = jugadors.length-1; i >= 0; i --) {
                 if (regio != "mundial") {
