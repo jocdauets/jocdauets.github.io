@@ -187,7 +187,8 @@ _partides = [
 	{"jugadors":["Adri","Carla"],"categories_especials":["buida","buida"],"puntuacions":{"Adri":[2,10,21,24,30,30,0,0],"Carla":[6,4,15,28,30,6,0,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-6-2026", "sistema_daus": 1},
 	{"jugadors":["Adri","Carla"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Adri":[4,12,15,24,30,24,24,24],"Carla":[4,6,18,28,25,12,52,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-6-2026", "sistema_daus": 1},
 	{"jugadors":["Carla","Adri"],"categories_especials":["4/4","color"],"puntuacions":{"Carla":[5,6,18,16,35,12,32,30],"Adri":[5,10,24,20,35,30,36,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-6-2026", "sistema_daus": 1},
-	{"jugadors":["Adri","Carla"],"categories_especials":["dauet(12)","4/4"],"puntuacions":{"Adri":[3,4,15,16,30,24,39,20],"Carla":[5,10,15,24,35,6,0,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-6-2026", "sistema_daus": 1}
+	{"jugadors":["Adri","Carla"],"categories_especials":["dauet(12)","4/4"],"puntuacions":{"Adri":[3,4,15,16,30,24,39,20],"Carla":[5,10,15,24,35,6,0,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-6-2026", "sistema_daus": 1},
+	{"jugadors":["Carla","Teresa","Andreu","Dani","Robert","Roger"],"categories_especials":["4/4","5/3"],"puntuacions":{"Carla":[5,8,24,28,35,36,36,0],"Teresa":[3,10,15,28,35,36,32,37],"Andreu":[7,4,18,28,30,30,36,27],"Dani":[7,14,15,32,25,18,16,37],"Robert":[2,10,12,32,20,36,24,29],"Roger":[4,4,21,24,30,12,24,29]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"23-6-2026","puntua_rdp":true}
 ]
 
 _tornejos = [
