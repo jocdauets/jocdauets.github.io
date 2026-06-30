@@ -33,16 +33,43 @@ function calcular_rdp(_partides) {
 					if (puntuacio_partida[partida.jugadors[j]] < puntuacio_partida[partida.jugadors[k]]) {
 						nou_rdp[partida.jugadors[j]] --;
 						nou_rdp[partida.jugadors[k]] ++;
-						if (lliga[partida.jugadors[k]] > lliga[partida.jugadors[j]]) {
-							nou_rdp[partida.jugadors[j]] --;
-							nou_rdp[partida.jugadors[k]] ++;
+						if (partida.sistema_daus == 1 || partida.sistema_daus == 2) {
+							if (lliga[partida.jugadors[k]] > lliga[partida.jugadors[j]]) {
+								nou_rdp[partida.jugadors[j]] --;
+								nou_rdp[partida.jugadors[k]] ++;
+							}
 						}
 					} else if (puntuacio_partida[partida.jugadors[k]] < puntuacio_partida[partida.jugadors[j]]) {
 						nou_rdp[partida.jugadors[k]] --;
 						nou_rdp[partida.jugadors[j]] ++;
-						if (lliga[partida.jugadors[j]] > lliga[partida.jugadors[k]]) {
-							nou_rdp[partida.jugadors[k]] --;
-							nou_rdp[partida.jugadors[j]] ++;
+						if (partida.sistema_daus == 1 || partida.sistema_daus == 2) {
+							if (lliga[partida.jugadors[j]] > lliga[partida.jugadors[k]]) {
+								nou_rdp[partida.jugadors[k]] --;
+								nou_rdp[partida.jugadors[j]] ++;
+							}
+						}
+					}
+				}
+			}
+			if (partida.sistema_daus == null) {
+				for (var j = 0; j < partida.jugadors.length; j ++) {
+					var jugador = partida.jugadors[j];
+					var max = null;
+					var millors = [];
+					for (var k = 0; k < partida.jugadors.length; k ++) {
+						if (k != j && lliga[jugador] < lliga[partida.jugadors[j]] && puntuacio_partida[jugador] < puntuacio_partida[partida.jugadors[k]]) {
+							if (max == null || puntuacio_partida[partida.jugadors[k]] > max) {
+								max = puntuacio_partida[partida.jugadors[k]];
+								millors = [partida.jugadors[k]];
+							} else if (puntuacio_partida[partida.jugadors[k]] == max) {
+								millors.push(partida.jugadors[k]);
+							}
+						}
+					}
+					if (max != null) {
+						nou_rdp[jugador] -= 1;
+						for (var k = 0; k < millors.length; k ++) {
+							nou_rdp[millors[k]] += 1/millors.length;
 						}
 					}
 				}
@@ -55,8 +82,10 @@ function calcular_rdp(_partides) {
 			for (var j = 0; j < partida.jugadors.length; j ++) {
 				if (partida.sistema_daus == 1) {
 					nou_rdp[partida.jugadors[j]] += 10*(puntuacio_partida[partida.jugadors[j]]/mitjana_taula - 1);
-				} else {
+				} else if (partida.sistema_daus == 2) {
 					nou_rdp[partida.jugadors[j]] += 3*(puntuacio_partida[partida.jugadors[j]]/mitjana_taula - 1);
+				} else if (partida.sistema_daus == 3 || partida.sistema_daus == null) {
+					nou_rdp[partida.jugadors[j]] += 5*(puntuacio_partida[partida.jugadors[j]]/mitjana_taula - 1);
 				}
 			}
 			if (partida.multiplicador_rdp != null) {
@@ -68,7 +97,7 @@ function calcular_rdp(_partides) {
 				var increment = 0;
 				if (partida.sistema_daus == 1) {
 					increment = Math.round(nou_rdp[partida.jugadors[j]]);
-				} else {
+				} else if (partida.sistema_daus == 2 || partida.sistema_daus == null) {
 					increment = Math.round(nou_rdp[partida.jugadors[j]]);
 					if (increment <= -5 && (partida.multiplicador_rdp == 1 || partida.multiplicador_rdp == null)) {
 						increment ++;
