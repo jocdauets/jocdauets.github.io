@@ -57,7 +57,7 @@ function calcular_rdp(_partides) {
 					var max = null;
 					var millors = [];
 					for (var k = 0; k < partida.jugadors.length; k ++) {
-						if (k != j && lliga[jugador] < lliga[partida.jugadors[j]] && puntuacio_partida[jugador] < puntuacio_partida[partida.jugadors[k]]) {
+						if (lliga[jugador] < lliga[partida.jugadors[k]] && puntuacio_partida[jugador] < puntuacio_partida[partida.jugadors[k]]) {
 							if (max == null || puntuacio_partida[partida.jugadors[k]] > max) {
 								max = puntuacio_partida[partida.jugadors[k]];
 								millors = [partida.jugadors[k]];
