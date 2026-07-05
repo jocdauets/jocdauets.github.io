@@ -202,7 +202,10 @@ _partides = [
 	{"jugadors":["Carla","Adri","Punky","RK"],"categories_especials":["dauet(12)","2/2/2/2"],"puntuacions":{"Carla":[6,12,18,32,35,18,16,24],"Adri":[5,6,18,24,25,24,35,26],"Punky":[4,8,18,28,35,18,22,28],"RK":[6,4,18,20,30,40,21,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"2-7-2026"},
 	{"jugadors":["Punky","Carla","Adri"],"categories_especials":["dauet(12)","4/4"],"puntuacions":{"Punky":[6,10,24,12,35,18,0,24],"Carla":[1,8,18,24,30,24,0,40],"Adri":[3,12,18,24,40,30,23,28]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"2-7-2026"},
 	{"jugadors":["Adri","Punky","Carla"],"categories_especials":["color","4/4"],"puntuacions":{"Adri":[1,10,15,20,35,24,37,32],"Punky":[4,8,21,12,25,6,27,36],"Carla":[6,10,21,28,25,30,25,32]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"2-7-2026"},
-	{"jugadors":["Joanna","Roger"],"categories_especials":["2/2/2/2","dauet(12)"],"puntuacions":{"Joanna":[4,10,18,24,40,12,22,22],"Roger":[2,10,21,24,35,18,44,17]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-7-2026"}
+	{"jugadors":["Joanna","Roger"],"categories_especials":["2/2/2/2","dauet(12)"],"puntuacions":{"Joanna":[4,10,18,24,40,12,22,22],"Roger":[2,10,21,24,35,18,44,17]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-7-2026"},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["buida","forma"],"puntuacions":{"Roger":[2,10,21,16,40,24,0,36],"Joanna":[4,10,18,24,30,12,0,34]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-7-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Joanna":[3,4,18,24,35,0,48,26],"Roger":[7,10,18,24,30,12,22,46]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-7-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["color","5/3"],"puntuacions":{"Joanna":[3,8,12,24,30,6,0,34],"Roger":[5,12,18,28,30,30,23,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-7-2026"}
 ]
 
 _tornejos = [
