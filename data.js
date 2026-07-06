@@ -209,7 +209,8 @@ _partides = [
 	{"jugadors":["Joanna","Roger"],"categories_especials":["2/2/2/2","dauet(12)"],"puntuacions":{"Joanna":[4,10,18,24,40,12,22,22],"Roger":[2,10,21,24,35,18,44,17]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-7-2026"},
 	{"jugadors":["Roger","Joanna"],"categories_especials":["buida","forma"],"puntuacions":{"Roger":[2,10,21,16,40,24,0,36],"Joanna":[4,10,18,24,30,12,0,34]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-7-2026"},
 	{"jugadors":["Joanna","Roger"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Joanna":[3,4,18,24,35,0,48,26],"Roger":[7,10,18,24,30,12,22,46]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-7-2026"},
-	{"jugadors":["Joanna","Roger"],"categories_especials":["color","5/3"],"puntuacions":{"Joanna":[3,8,12,24,30,6,0,34],"Roger":[5,12,18,28,30,30,23,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-7-2026"}
+	{"jugadors":["Joanna","Roger"],"categories_especials":["color","5/3"],"puntuacions":{"Joanna":[3,8,12,24,30,6,0,34],"Roger":[5,12,18,28,30,30,23,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-7-2026"},
+	{"jugadors":["Giulia","Dani Ibai","Lucía","Pedro","Roger"],"categories_especials":["4/4","color"],"puntuacions":{"Giulia":[7,6,18,32,30,24,36,35],"Dani Ibai":[3,10,9,28,30,18,28,24],"Lucía":[4,8,21,12,30,24,36,25],"Pedro":[5,6,18,16,35,18,28,30],"Roger":[13,14,18,24,30,24,36,42]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"6-7-2026"}
 ]
 
 _tornejos = [
@@ -308,5 +309,5 @@ _regions = {
 	"Barna": ["Andreu", "Teresa", "Andreu M", "Míriam", "Aniol", "Quim"],
 	"Lichtenberg": ["Roger", "Theresa", "Justus", "Merle", "Lia", "Joanna", "Jan", "Greta", "Heidi", "Helena", "Volker"],
 	"L'Escala": ["Adri", "Dani", "Albert", "Andreu", "Carla", "Teresa", "Maria", "Quim", "Robert", "Punky", "RK"],
-	"Wesseling-Bonn": ["Roger", "Sergio", "Giulia", "Lucas", "Raúl", "Jorge", "Alice", "Diego", "Jofre", "Alejandro", "Joanna", "Anti", "Andrés", "Murci", "Dani OG", "Javi"]
+	"Wesseling-Bonn": ["Roger", "Sergio", "Giulia", "Lucas", "Raúl", "Jorge", "Alice", "Diego", "Jofre", "Alejandro", "Joanna", "Anti", "Andrés", "Murci", "Dani OG", "Javi", "Lucía", "Pedro", "Dani Ibai"]
 }
