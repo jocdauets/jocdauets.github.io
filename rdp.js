@@ -139,6 +139,49 @@ function calcular_lliga(rdp) {
 	return lliga;
 }
 
+function calcular_rdp_data(data, _partides) {
+	data.setHours(23);
+    data.setMinutes(59);
+    data.setSeconds(59);
+
+    //const [ultim,grup] = calcular_rdp(_partides);
+    const rdp_historic = calcular_rdp(_partides);
+    var ultim = null;
+    var ultima_data = null;
+    for (var i = 0; i < Object.keys(rdp_historic).length; i ++) {
+        const data_provisional = new Date(Object.keys(rdp_historic)[i]);
+        if (ultima_data == null && data_provisional <= data) {
+            ultima_data = data_provisional;
+            ultim = rdp_historic[ultima_data];
+        } else if (ultima_data != null) {
+            if (ultima_data < data_provisional && data_provisional <= data) {
+                ultima_data = data_provisional;
+                ultim = rdp_historic[ultima_data]
+            }
+        }
+    }
+    return ultim;
+}
+
+function __text_actualitzacio_setmanal(data, _partides) {
+	const anterior = new Date();
+	anterior.setDate(data.getDate()-7);
+	const s_anterior = new Date();
+	s_anterior.setDate(anterior.getDate()+1)
+
+	const rdp = calcular_rdp_data(data, _partides);
+	const rdp_anterior = calcular_rdp_data(anterior, _partides);
+	const lliga = calcular_lliga(rdp);
+	const lliga_anterior = calcular_lliga(rdp);
+
+	var text = "*Actualització setmana " + s_anterior.getDate().toString() + "/" + (s_anterior.getMonth()+1).toString() + "-" + data.getDate().toString() + "/" + (data.getMonth()+1).toString() + "*\n\n\n";
+	
+	// Grup capdavanter mundial
+	text += "_Grup capdavanter mundial 🌍_\n\n";
+
+	return text;
+}
+
 
 /** Calculate the 'q' quartile of an array of values
 *
