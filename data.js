@@ -311,7 +311,8 @@ _tornejos = [
 
 _regions = {
 	"Barna": ["Andreu", "Teresa", "Andreu M", "Míriam", "Aniol", "Quim"],
+	"Chicago": ["Dani Ibai"],
 	"Lichtenberg": ["Roger", "Theresa", "Justus", "Merle", "Lia", "Joanna", "Jan", "Greta", "Heidi", "Helena", "Volker"],
 	"L'Escala": ["Adri", "Dani", "Albert", "Andreu", "Carla", "Teresa", "Maria", "Quim", "Robert", "Punky", "RK"],
-	"Wesseling-Bonn": ["Roger", "Sergio", "Giulia", "Lucas", "Raúl", "Jorge", "Alice", "Diego", "Jofre", "Alejandro", "Joanna", "Anti", "Andrés", "Murci", "Dani OG", "Javi", "Lucía", "Pedro", "Dani Ibai", "Miguel"]
+	"Wesseling-Bonn": ["Roger", "Sergio", "Giulia", "Lucas", "Raúl", "Jorge", "Alice", "Diego", "Jofre", "Alejandro", "Joanna", "Anti", "Andrés", "Murci", "Dani OG", "Javi", "Lucía", "Pedro", "Miguel"]
 }
