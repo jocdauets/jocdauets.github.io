@@ -47,6 +47,7 @@ function escriure_nom(jugador, link=false, factor=1) {
 		var a = document.createElement("a");
 		a.href = "/jugadors.html?jugador=" + jugador;
 		a.innerHTML = jugador;
+		a.classList = ["link-cercar"];
 		div.appendChild(a);
 	} else {
 		div.innerHTML = jugador + " ";

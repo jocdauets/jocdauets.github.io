@@ -1,4 +1,4 @@
-function calcular_rdp(_partides) {
+function calcular_rdp(_partides, show=null) {
 	var rdp = {};
 	var rdp_historic = {};
 	for (var i = 0; i < _partides.length; i ++) {
@@ -23,7 +23,12 @@ function calcular_rdp(_partides) {
 				}
 			}
 			// càlcul rdp
-			lliga = calcular_lliga(rdp);
+			var lliga = calcular_lliga(rdp);
+			if (show == i) {
+				for (var j = 0; j < partida.jugadors.length; j ++) {
+					console.log("Grup " + partida.jugadors[j] + ": " + lliga[partida.jugadors[j]]);
+				}
+			}
 			var nou_rdp = {};
 			for (var j = 0; j < partida.jugadors.length; j ++) {
 				nou_rdp[partida.jugadors[j]] = 0;
@@ -33,8 +38,11 @@ function calcular_rdp(_partides) {
 					if (puntuacio_partida[partida.jugadors[j]] < puntuacio_partida[partida.jugadors[k]]) {
 						nou_rdp[partida.jugadors[j]] --;
 						nou_rdp[partida.jugadors[k]] ++;
+						if (i == show) {
+							console.log(partida.jugadors[k] + " +1 | " + partida.jugadors[j] + " -1");
+						}
 						if (partida.sistema_daus == 1 || partida.sistema_daus == 2) {
-							if (lliga[partida.jugadors[k]] > lliga[partida.jugadors[j]]) {
+							if (lliga[partida.jugadors[k]] > lliga[partida.jugadors[j]]) {								
 								nou_rdp[partida.jugadors[j]] --;
 								nou_rdp[partida.jugadors[k]] ++;
 							}
@@ -42,6 +50,9 @@ function calcular_rdp(_partides) {
 					} else if (puntuacio_partida[partida.jugadors[k]] < puntuacio_partida[partida.jugadors[j]]) {
 						nou_rdp[partida.jugadors[k]] --;
 						nou_rdp[partida.jugadors[j]] ++;
+						if (i == show) {
+							console.log(partida.jugadors[j] + " +1 | " + partida.jugadors[k] + " -1");
+						}
 						if (partida.sistema_daus == 1 || partida.sistema_daus == 2) {
 							if (lliga[partida.jugadors[j]] > lliga[partida.jugadors[k]]) {
 								nou_rdp[partida.jugadors[k]] --;
@@ -51,7 +62,7 @@ function calcular_rdp(_partides) {
 					}
 				}
 			}
-			if (partida.sistema_daus == null) {
+			if (partida.sistema_daus == null || partida.sistema_daus == 3) {
 				for (var j = 0; j < partida.jugadors.length; j ++) {
 					var jugador = partida.jugadors[j];
 					var max = null;
@@ -68,8 +79,14 @@ function calcular_rdp(_partides) {
 					}
 					if (max != null) {
 						nou_rdp[jugador] -= 1;
+						if (show == i) {
+							console.log(jugador + " -1");
+						}
 						for (var k = 0; k < millors.length; k ++) {
 							nou_rdp[millors[k]] += 1/millors.length;
+							if (show == i) {
+								console.log(millors[k] + " +" + (1/millors.length).toString());
+							}
 						}
 					}
 				}
@@ -79,13 +96,25 @@ function calcular_rdp(_partides) {
 				mitjana_taula += puntuacio_partida[partida.jugadors[j]];
 			}
 			mitjana_taula = mitjana_taula/partida.jugadors.length;
+			if (show == i) {
+				console.log("Mitjana taula: " + mitjana_taula.toString());
+			}
 			for (var j = 0; j < partida.jugadors.length; j ++) {
 				if (partida.sistema_daus == 1) {
 					nou_rdp[partida.jugadors[j]] += 10*(puntuacio_partida[partida.jugadors[j]]/mitjana_taula - 1);
+					if (show == i) {
+						console.log(partida.jugadors[j] + ": " + (10*(puntuacio_partida[partida.jugadors[j]]/mitjana_taula - 1)).toString());
+					}
 				} else if (partida.sistema_daus == 2) {
 					nou_rdp[partida.jugadors[j]] += 3*(puntuacio_partida[partida.jugadors[j]]/mitjana_taula - 1);
+					if (show == i) {
+						console.log(partida.jugadors[j] + ": " + (3*(puntuacio_partida[partida.jugadors[j]]/mitjana_taula - 1)).toString());
+					}
 				} else if (partida.sistema_daus == 3 || partida.sistema_daus == null) {
 					nou_rdp[partida.jugadors[j]] += 5*(puntuacio_partida[partida.jugadors[j]]/mitjana_taula - 1);
+					if (show == i) {
+						console.log(partida.jugadors[j] + ": " + (5*(puntuacio_partida[partida.jugadors[j]]/mitjana_taula - 1)).toString());
+					}
 				}
 			}
 			if (partida.multiplicador_rdp != null) {
@@ -93,17 +122,24 @@ function calcular_rdp(_partides) {
 					nou_rdp[partida.jugadors[j]] *= partida.multiplicador_rdp;
 				}
 			}
+
 			for (var j = 0; j < partida.jugadors.length; j ++) {
 				var increment = 0;
 				if (partida.sistema_daus == 1) {
 					increment = Math.round(nou_rdp[partida.jugadors[j]]);
-				} else if (partida.sistema_daus == 2 || partida.sistema_daus == null) {
+				} else if (partida.sistema_daus == 2 || partida.sistema_daus == 3 || partida.sistema_daus == null) {
 					increment = Math.round(nou_rdp[partida.jugadors[j]]);
 					if (increment <= -5 && (partida.multiplicador_rdp == 1 || partida.multiplicador_rdp == null)) {
+						if (show == i) {
+							console.log("Punt de gràcia: " + partida.jugadors[j] + " +1");
+						}
 						increment ++;
 					}
 				}
 				rdp[partida.jugadors[j]] += increment;
+			}
+			if (show == i) {
+				console.log(nou_rdp);
 			}
 		}
 		if (afegir == true){
