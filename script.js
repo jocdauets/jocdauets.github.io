@@ -40,3 +40,44 @@ function descarregar(text, nom, extensio=txt) {
 	a.click();
 	window.URL.revokeObjectURL(url);
 }
+
+function escriure_nom(jugador, link=false, factor=1) {
+	var div = document.createElement("div");
+	if (link == true) {
+		var a = document.createElement("a");
+		a.href = "/jugadors.html?jugador=" + jugador;
+		a.innerHTML = jugador;
+		div.appendChild(a);
+	} else {
+		div.innerHTML = jugador + " ";
+	}
+	if (_regions["L'Escala"].includes(jugador)) {
+		var img = document.createElement("img");
+		img.src = "./escuts/regio_lescala.png";
+		img.height = 15*factor;
+		div.innerHTML += " ";
+		div.appendChild(img);
+	}
+	if (_regions["Wesseling-Bonn"].includes(jugador)) {
+		var img = document.createElement("img");
+		img.src = "./escuts/regio_wesseling.png";
+		img.height = 12*factor;
+		div.innerHTML += " ";
+		div.appendChild(img);
+	}
+	if (_regions["Barna"].includes(jugador)) {
+		var img = document.createElement("img");
+		img.src = "./escuts/regio_barna.png";
+		img.height = 18*factor;
+		div.innerHTML += " ";
+		div.appendChild(img);
+	}
+	if (_regions["Lichtenberg"].includes(jugador)) {
+		var img = document.createElement("img");
+		img.src = "./escuts/regio_lichtenberg.png";
+		img.height = 12*factor;
+		div.innerHTML += " ";
+		div.appendChild(img);
+	}
+	return div;
+}

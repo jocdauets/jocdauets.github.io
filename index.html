@@ -75,26 +75,7 @@
         function actualitzar_taula_regional() {
             const regio = document.getElementById("seleccionar-regio").value;
             const data = new Date(document.getElementById("seleccionar-data").value);
-            data.setHours(23);
-            data.setMinutes(59);
-            data.setSeconds(59);
-
-            //const [ultim,grup] = calcular_rdp(_partides);
-            const rdp_historic = calcular_rdp(_partides);
-            var ultim = null;
-            var ultima_data = null;
-            for (var i = 0; i < Object.keys(rdp_historic).length; i ++) {
-                const data_provisional = new Date(Object.keys(rdp_historic)[i]);
-                if (ultima_data == null && data_provisional <= data) {
-                    ultima_data = data_provisional;
-                    ultim = rdp_historic[ultima_data];
-                } else if (ultima_data != null) {
-                    if (ultima_data < data_provisional && data_provisional <= data) {
-                        ultima_data = data_provisional;
-                        ultim = rdp_historic[ultima_data]
-                    }
-                }
-            }
+            var ultim = calcular_rdp_data(data, _partides);
             var grup = calcular_lliga(ultim);
             const jugadors = Object.keys(ultim);
             for (var i = jugadors.length-1; i >= 0; i --) {
@@ -149,13 +130,11 @@
                 var cella_posicio = document.createElement("td");
                 cella_posicio.innerHTML = posicions[afegir].toString();
                 fila.appendChild(cella_posicio);
+
                 var cella_jugador = document.createElement("td");
-                var link_jugador = document.createElement("a");
-                link_jugador.href = "/jugadors.html?jugador=" + afegir;
-                link_jugador.classList = ["link-cercar"];
-                link_jugador.innerHTML = afegir;
-                cella_jugador.appendChild(link_jugador);
+                cella_jugador.appendChild(escriure_nom(afegir, link=true));
                 fila.appendChild(cella_jugador);
+
                 var cella_daus = document.createElement("td");
                 cella_daus.innerHTML = ultim[afegir].toString();
                 fila.appendChild(cella_daus);

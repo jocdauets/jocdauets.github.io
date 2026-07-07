@@ -84,11 +84,12 @@
 			resultats.innerHTML = "";
 
 			// Títol
-			document.getElementById("titol").innerHTML = "<h1>" + jugador;
+			document.getElementById("titol").innerHTML = "";
+			var h1 = document.createElement("h1");
+			h1.appendChild(escriure_nom(jugador, link=false, factor=2));
+			document.getElementById("titol").appendChild(h1);
 			const prm = puntuacio_relativa_mitjana(jugador, _partides);
 			if (prm != -1) {
-				document.getElementById("titol").innerHTML = "<h1>" + jugador + " (" + (Math.round(prm + percentatge_victories(jugador,_partides)/10)).toString() + ")</h1>";
-
 				// General
 				var div_general = document.createElement("div");
 				var text = "";
