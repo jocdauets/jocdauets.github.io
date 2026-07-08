@@ -214,7 +214,10 @@ _partides = [
 	{"jugadors":["Roger","Lucas","Diego","Pedro"],"categories_especials":["5/3","forma"],"puntuacions":{"Roger":[0,12,24,24,30,24,37,32],"Lucas":[3,2,21,16,30,12,39,0],"Diego":[0,2,18,28,25,24,29,26],"Pedro":[1,6,15,20,30,24,45,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"6-7-2026"},
 	{"jugadors":["Miguel","Dani Ibai","Roger"],"categories_especials":["2/2/2/2","forma"],"puntuacions":{"Miguel":[5,6,21,32,30,12,26,21],"Dani Ibai":[6,8,24,28,35,24,36,26],"Roger":[4,2,15,24,30,18,26,66]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"7-7-2026"},
 	{"jugadors":["Dani Ibai","Alejandro","Pedro","Roger"],"categories_especials":["4/4","dauet(12)"],"puntuacions":{"Dani Ibai":[3,2,21,20,30,18,32,0],"Alejandro":[7,6,18,20,35,6,36,22],"Pedro":[3,6,12,16,35,24,0,14],"Roger":[7,10,24,24,40,36,28,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"7-7-2026"},
-	{"jugadors":["Pedro","Roger","Dani Ibai"],"categories_especials":["forma","dauet(12)"],"puntuacions":{"Pedro":[4,14,18,20,30,36,33,22],"Roger":[5,2,24,20,45,12,36,15],"Dani Ibai":[8,10,15,28,40,36,21,41]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"7-7-2026"}
+	{"jugadors":["Pedro","Roger","Dani Ibai"],"categories_especials":["forma","dauet(12)"],"puntuacions":{"Pedro":[4,14,18,20,30,36,33,22],"Roger":[5,2,24,20,45,12,36,15],"Dani Ibai":[8,10,15,28,40,36,21,41]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"7-7-2026"},
+	{"jugadors":["Adri","Maria"],"categories_especials":["dauet(12)","color"],"puntuacions":{"Adri":[1,8,12,28,20,24,23,36],"Maria":[5,6,21,16,35,12,17,35]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-7-2026"},
+	{"jugadors":["Maria","Adri"],"categories_especials":["color","forma"],"puntuacions":{"Maria":[5,2,15,12,35,36,36,21],"Adri":[3,6,12,28,35,24,26,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-7-2026"},
+	{"jugadors":["Maria","Adri"],"categories_especials":["fauet(12)","forma"],"puntuacions":{"Maria":[2,12,12,28,35,24,18,34],"Adri":[5,2,15,32,40,24,20,25]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-7-2026"}
 ]
 
 _tornejos = [
