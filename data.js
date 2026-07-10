@@ -221,7 +221,8 @@ _partides = [
 	{"jugadors":["Pedro","Roger"],"categories_especials":["4/4","buida"],"puntuacions":{"Pedro":[1,6,21,24,30,18,36,0],"Roger":[3,14,21,24,30,30,32,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-7-2026"},
 	{"jugadors":["Roger","Pedro","Max"],"categories_especials":["4/4","color"],"puntuacions":{"Roger":[5,10,18,24,30,24,36,31],"Pedro":[4,12,18,20,30,30,36,28],"Max":[6,14,12,20,35,36,32,23]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-7-2026"},
 	{"jugadors":["Max","Roger"],"categories_especials":["5/3","color"],"puntuacions":{"Max":[4,12,12,20,30,12,0,0],"Roger":[5,10,9,24,35,36,35,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-7-2026"},
-	{"jugadors":["Anti","Roger","Murci"],"categories_especials":["4/4","forma"],"puntuacions":{"Anti":[6,8,18,20,35,30,36,33],"Roger":[1,8,12,24,25,18,0,0],"Murci":[3,2,21,28,35,30,28,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"9-7-2026"}
+	{"jugadors":["Anti","Roger","Murci"],"categories_especials":["4/4","forma"],"puntuacions":{"Anti":[6,8,18,20,35,30,36,33],"Roger":[1,8,12,24,25,18,0,0],"Murci":[3,2,21,28,35,30,28,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"9-7-2026"},
+	{"jugadors":["Alejandro","Roger"],"categories_especials":["4/4","color"],"puntuacions":{"Alejandro":[6,24,15,24,20,12,36,24],"Roger":[1,10,18,20,20,24,0,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"9-7-2026"}
 ]
 
 _tornejos = [
