@@ -41,6 +41,9 @@
     .classificacio-grup {
         width: 70px;
     }
+    .classificacio-cua {
+        background-color: #BA656A;
+    }
     .classificacio-primer {
         background-color: #FFD700;
     }
@@ -209,6 +212,9 @@
                     fila.classList = ["classificacio-segon"];
                 } else if (posicions[afegir] == 3) {
                     fila.classList = ["classificacio-tercer"];
+                }
+                if (grup[afegir] == 3) {
+                    fila.classList += ["classificacio-cua"];
                 }
                 taula.appendChild(fila);
             }
