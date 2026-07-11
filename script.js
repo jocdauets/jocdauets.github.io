@@ -52,6 +52,27 @@ function escriure_nom(jugador, link=false, factor=1) {
 	} else {
 		div.innerHTML = jugador + " ";
 	}
+	if (_regions["Barna"].includes(jugador)) {
+		var img = document.createElement("img");
+		img.src = "./escuts/regio_barna.png";
+		img.height = 18*factor;
+		div.innerHTML += " ";
+		div.appendChild(img);
+	}
+	if (_regions["Chicago"].includes(jugador)) {
+		var img = document.createElement("img");
+		img.src = "./escuts/regio_chicago.png";
+		img.height = 12*factor;
+		div.innerHTML += " ";
+		div.appendChild(img);
+	}
+	if (_regions["Lichtenberg"].includes(jugador)) {
+		var img = document.createElement("img");
+		img.src = "./escuts/regio_lichtenberg.png";
+		img.height = 12*factor;
+		div.innerHTML += " ";
+		div.appendChild(img);
+	}
 	if (_regions["L'Escala"].includes(jugador)) {
 		var img = document.createElement("img");
 		img.src = "./escuts/regio_lescala.png";
@@ -62,20 +83,6 @@ function escriure_nom(jugador, link=false, factor=1) {
 	if (_regions["Wesseling-Bonn"].includes(jugador)) {
 		var img = document.createElement("img");
 		img.src = "./escuts/regio_wesseling.png";
-		img.height = 12*factor;
-		div.innerHTML += " ";
-		div.appendChild(img);
-	}
-	if (_regions["Barna"].includes(jugador)) {
-		var img = document.createElement("img");
-		img.src = "./escuts/regio_barna.png";
-		img.height = 18*factor;
-		div.innerHTML += " ";
-		div.appendChild(img);
-	}
-	if (_regions["Lichtenberg"].includes(jugador)) {
-		var img = document.createElement("img");
-		img.src = "./escuts/regio_lichtenberg.png";
 		img.height = 12*factor;
 		div.innerHTML += " ";
 		div.appendChild(img);
