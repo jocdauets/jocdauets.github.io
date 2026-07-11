@@ -14,9 +14,32 @@
       border: 1px solid black;
       border-collapse: collapse;
     }
+    tr {
+        height: 25px;
+    }
     td {
-        width: 60pt;
         text-align: center;
+    }
+    .classificacio-posicio {
+        width: 30px;
+        border-right-style: hidden;
+    }
+    .classificacio-jugador {
+        width: 100px;
+        text-align: left;
+        padding: 0px 10px;
+        border-left-style: hidden;
+    }
+    .classificacio-daus {
+        width: 30px;
+        border-right-style: hidden;
+    }
+    .classificacio-increment {
+        width: 35px;
+        border-left-style: hidden;
+    }
+    .classificacio-grup {
+        width: 70px;
     }
     </style>
     <title>Dauets</title>
@@ -75,8 +98,17 @@
         function actualitzar_taula_regional() {
             const regio = document.getElementById("seleccionar-regio").value;
             const data = new Date(document.getElementById("seleccionar-data").value);
+            var ultim_diumenge = new Date(document.getElementById("seleccionar-data").value);
+            if (ultim_diumenge.getDay() == 0) {
+                ultim_diumenge.setDate(ultim_diumenge.getDate()-7);
+            } else {
+                ultim_diumenge.setDate(ultim_diumenge.getDate()-ultim_diumenge.getDay());
+            }
+            console.log(ultim_diumenge);
+
             var ultim = calcular_rdp_data(data, _partides);
             var grup = calcular_lliga(ultim);
+            var ultima_setmana = calcular_rdp_data(ultim_diumenge, _partides);
             const jugadors = Object.keys(ultim);
             for (var i = jugadors.length-1; i >= 0; i --) {
                 if (regio != "mundial") {
@@ -88,13 +120,15 @@
             var taula = document.createElement("table");
             var header = document.createElement("tr");
             var header_posicio = document.createElement("th");
-            header_posicio.innerHTML = "Posició";
+            header_posicio.classList = ["classificacio-posicio"];
             var header_jugadors = document.createElement("th");
             header_jugadors.innerHTML = "Jugador/a";
             var header_daus = document.createElement("th");
             header_daus.innerHTML = "Daus";
+            header_daus.setAttribute("colspan", 2);
             var header_grup = document.createElement("th");
             header_grup.innerHTML = "Grup";
+            header_grup.classList = ["classificacio-grup"];
             header.appendChild(header_posicio);
             header.appendChild(header_jugadors);
             header.appendChild(header_daus);
@@ -129,17 +163,37 @@
                 var fila = document.createElement("tr");
                 var cella_posicio = document.createElement("td");
                 cella_posicio.innerHTML = posicions[afegir].toString();
+                cella_posicio.classList = ["classificacio-posicio"];
                 fila.appendChild(cella_posicio);
 
                 var cella_jugador = document.createElement("td");
+                cella_jugador.classList = ["classificacio-jugador"];
                 cella_jugador.appendChild(escriure_nom(afegir, link=true));
                 fila.appendChild(cella_jugador);
 
                 var cella_daus = document.createElement("td");
                 cella_daus.innerHTML = ultim[afegir].toString();
+                cella_daus.classList = ["classificacio-daus"];
                 fila.appendChild(cella_daus);
+
+                var cella_increment = document.createElement("td");
+                cella_increment.classList = ["classificacio-increment"];
+                var increment = 0;
+                if (Object.keys(ultima_setmana).includes(afegir)) {
+                    increment = ultim[afegir]-ultima_setmana[afegir];
+                } else {
+                    increment = ultim[afegir]-50;
+                }
+                if (increment > 0) {
+                    cella_increment.innerHTML = "(+" + increment.toString() + ")";
+                } else if (increment < 0) {
+                    cella_increment.innerHTML = "(" + increment.toString() + ")";
+                }
+                fila.append(cella_increment);
+
                 var cella_grup = document.createElement("td");
                 cella_grup.innerHTML = ["Capdav.","Boldró","Cua"][grup[afegir]-1];
+                cella_grup.classList = ["classificacio-grup"];
                 fila.appendChild(cella_grup);
                 taula.appendChild(fila);
             }
