@@ -82,6 +82,10 @@
         </div>
     </div>
 
+    <div id="salo-fama">
+        <h2>Saló de la fama</h2>
+    </div>
+
     <script>
         for (var i = 0; i < _tornejos.length; i ++) {
             var li = document.createElement("li");
@@ -106,6 +110,95 @@
         document.getElementById("seleccionar-data").valueAsDate = new Date();
 
         actualitzar_taula_regional();
+
+        // Saló de la fama
+        var millor_puntuacio = -100;
+        var millors = [];
+        var segona_millor_puntuacio = -100;
+        var segons_millors = [];
+        var tercera_millor_puntuacio = -100;
+        var tercers_millors = [];
+        for (var i = 0; i < _partides.length; i ++) {
+            var partida = _partides[i];
+
+            if (partida.rdp_extra == null || partida.rdp_extra == false) {
+                var resultats = puntuacions(partida);
+                for (var j = 0; j < partida.jugadors.length; j ++) {
+                    var jugador = partida.jugadors[j];
+                    if (resultats[jugador] > millor_puntuacio) {
+                        tercera_millor_puntuacio = segona_millor_puntuacio;
+                        tercers_millors = segons_millors;
+                        segona_millor_puntuacio = millor_puntuacio;
+                        segons_millors = millors;
+                        millor_puntuacio = resultats[jugador];
+                        millors = [jugador];
+                    } else if (resultats[jugador] == millor_puntuacio) {
+                        if (millors.includes(jugador) == false) {
+                            millors.push(jugador);
+                        }
+                    } else if (resultats[jugador] > segona_millor_puntuacio) {
+                        tercera_millor_puntuacio = segona_millor_puntuacio;
+                        tercers_millors = segons_millors;
+                        segona_millor_puntuacio = resultats[jugador];
+                        segons_millors = [jugador];
+                    } else if (resultats[jugador] == segona_millor_puntuacio) {
+                        if (segons_millors.includes(jugador) == false) {
+                            segons_millors.push(jugador);
+                        }
+                    } else if (resultats[jugador] > tercera_millor_puntuacio) {
+                        tercera_millor_puntuacio = resultats[jugador];
+                        tercers_millors = [jugador];
+                    } else if (resultats[jugador] == tercera_millor_puntuacio) {
+                        if (tercers_millors.includes(jugador) == false) {
+                            tercers_millors.push(jugador);
+                        }
+                    }
+                }
+            }
+        }
+
+        const salo_fama = document.getElementById("salo-fama");
+            
+        var p = document.createElement("p");
+        p.innerHTML = "1.- " + millor_puntuacio.toString() + " (";
+        for (var j = 0; j < millors.length; j ++) {
+            if (j > 0) {
+                p.innerHTML += ", ";
+            }
+            p.appendChild(escriure_nom(millors[j], link=true).children[0]);
+            p.innerHTML += " ";
+            p.appendChild(escriure_nom(millors[j], link=true).children[1]);
+        }
+        p.innerHTML += ")";
+        salo_fama.appendChild(p);
+
+        var p = document.createElement("p");
+        p.innerHTML = "2.- " + segona_millor_puntuacio.toString() + " (";
+        for (var j = 0; j < segons_millors.length; j ++) {
+            if (j > 0) {
+                p.innerHTML += ", ";
+            }
+            p.appendChild(escriure_nom(segons_millors[j], link=true).children[0]);
+            p.innerHTML += " ";
+            p.appendChild(escriure_nom(segons_millors[j], link=true).children[1]);
+        }
+        p.innerHTML += ")";
+        salo_fama.appendChild(p);
+
+        var p = document.createElement("p");
+        p.innerHTML = "3.- " + tercera_millor_puntuacio.toString() + " (";
+        for (var j = 0; j < tercers_millors.length; j ++) {
+            if (j > 0) {
+                p.innerHTML += ", ";
+            }
+            p.appendChild(escriure_nom(tercers_millors[j], link=true).children[0]);
+            p.innerHTML += " ";
+            p.appendChild(escriure_nom(tercers_millors[j], link=true).children[1]);
+        }
+        p.innerHTML += ")";
+        salo_fama.appendChild(p);
+
+        //////////////////////////
 
         function actualitzar_taula_regional() {
             const regio = document.getElementById("seleccionar-regio").value;
