@@ -41,6 +41,15 @@
     .classificacio-grup {
         width: 70px;
     }
+    .classificacio-primer {
+        background-color: #FFD700;
+    }
+    .classificacio-segon {
+        background-color: #D3D3D3;
+    }
+    .classificacio-tercer {
+        background-color: #D69657;
+    }
     </style>
     <title>Dauets</title>
 </head>
@@ -104,7 +113,6 @@
             } else {
                 ultim_diumenge.setDate(ultim_diumenge.getDate()-ultim_diumenge.getDay());
             }
-            console.log(ultim_diumenge);
 
             var ultim = calcular_rdp_data(data, _partides);
             var grup = calcular_lliga(ultim);
@@ -195,6 +203,13 @@
                 cella_grup.innerHTML = ["Capdav.","Boldró","Cua"][grup[afegir]-1];
                 cella_grup.classList = ["classificacio-grup"];
                 fila.appendChild(cella_grup);
+                if (posicions[afegir] == 1) {
+                    fila.classList = ["classificacio-primer"];
+                } else if (posicions[afegir] == 2) {
+                    fila.classList = ["classificacio-segon"];
+                } else if (posicions[afegir] == 3) {
+                    fila.classList = ["classificacio-tercer"];
+                }
                 taula.appendChild(fila);
             }
 
