@@ -224,7 +224,8 @@ _partides = [
 	{"jugadors":["Anti","Roger","Murci"],"categories_especials":["4/4","forma"],"puntuacions":{"Anti":[6,8,18,20,35,30,36,33],"Roger":[1,8,12,24,25,18,0,0],"Murci":[3,2,21,28,35,30,28,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"9-7-2026"},
 	{"jugadors":["Alejandro","Roger"],"categories_especials":["4/4","color"],"puntuacions":{"Alejandro":[6,24,15,24,20,12,36,24],"Roger":[1,10,18,20,20,24,0,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"9-7-2026"},
 	{"jugadors":["Ioanna","Alejandro","Diego","Roger","Charls"],"categories_especials":["4/4","color"],"puntuacions":{"Ioanna":[5,10,21,20,20,0,36,0],"Alejandro":[6,10,15,24,30,30,36,24],"Diego":[4,16,12,20,35,48,36,25],"Roger":[2,8,30,28,35,12,36,26],"Charls":[5,10,21,20,30,30,0,28]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"11-7-2026"},
-	{"jugadors":["Joanna","Volker","Nicole","Helena"],"categories_especials":["4/4","color"],"puntuacions":{"Joanna":[1,4,18,24,35,6,28,23],"Volker":[2,6,18,28,30,24,32,25],"Nicole":[10,12,12,28,40,12,36,32],"Helena":[5,10,21,24,30,18,36,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"11-7-2026"}
+	{"jugadors":["Joanna","Volker","Nicole","Helena"],"categories_especials":["4/4","color"],"puntuacions":{"Joanna":[1,4,18,24,35,6,28,23],"Volker":[2,6,18,28,30,24,32,25],"Nicole":[10,12,12,28,40,12,36,32],"Helena":[5,10,21,24,30,18,36,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"11-7-2026"},
+	{"jugadors":["Heidi","Greta","Joanna","Roger","Volker","Helena"],"categories_especials":["4/4","color"],"puntuacions":{"Heidi":[2,10,6,28,25,42,32,36],"Greta":[4,12,21,28,35,12,0,26],"Joanna":[3,14,21,28,30,36,44,20],"Roger":[4,8,15,24,25,30,36,23],"Volker":[6,8,21,28,35,18,28,24],"Helena":[5,4,18,28,25,18,36,25]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-7-2026"}
 ]
 
 _tornejos = [
