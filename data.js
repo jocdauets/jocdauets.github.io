@@ -261,7 +261,9 @@ _partides = [
 	{"jugadors":["Punky","Adri"],"categories_especials":["dauet(12)","2/2/2/2"],"puntuacions":{"Punky":[3,10,3,24,30,30,17,70],"Adri":[3,14,15,24,35,30,0,54]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-7-2026"},
 	{"jugadors":["Punky","Adri"],"categories_especials":["dauet(12)","2/2/2/2"],"puntuacions":{"Punky":[5,12,18,16,35,12,42,24],"Adri":[6,10,18,24,25,0,0,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-7-2026"},
 	{"jugadors":["Punky","Adri"],"categories_especials":["color","4/4"],"puntuacions":{"Punky":[7,6,21,20,30,30,23,0],"Adri":[2,6,12,16,35,36,0,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-7-2026"},
-	{"jugadors":["Punky","Adri"],"categories_especials":["forma","5/3"],"puntuacions":{"Punky":[2,10,15,28,30,6,28,30],"Adri":[1,10,21,20,40,6,35,20]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-7-2026"}
+	{"jugadors":["Punky","Adri"],"categories_especials":["forma","5/3"],"puntuacions":{"Punky":[2,10,15,28,30,6,28,30],"Adri":[1,10,21,20,40,6,35,20]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-7-2026"},
+	{"jugadors":["Pedro","Roger"],"categories_especials":["Dauet(12)","4/4"],"puntuacions":{"Pedro":[3,12,15,20,30,18,19,44],"Roger":[4,12,21,20,30,42,23,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"17-7-2026"},
+	{"jugadors":["Roger","Pedro"],"categories_especials":["4/2/2","VNK"],"puntuacions":{"Roger":[4,4,9,28,30,24,40,0],"Pedro":[6,14,18,44,25,36,36,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"17-7-2026"}
 ]
 
 _tornejos = [
