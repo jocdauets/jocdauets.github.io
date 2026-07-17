@@ -357,7 +357,7 @@ _tornejos = [
 ]
 
 _regions = {
-	"Barna": ["Andreu", "Teresa", "Andreu M", "Míriam", "Aniol", "Quim"],
+	"Barna": ["Andreu", "Teresa", "Andreu M", "Míriam", "Aniol", "Quim", "Joan", "Aina", "Guerau"],
 	"Chicago": ["Dani Ibai"],
 	"Lichtenberg": ["Roger", "Theresa", "Justus", "Merle", "Lia", "Joanna", "Jan", "Greta", "Heidi", "Helena", "Volker", "Nicole"],
 	"L'Escala": ["Adri", "Dani", "Albert", "Andreu", "Carla", "Teresa", "Maria", "Quim", "Robert", "Punky", "RK", "Marta", "Mariona", "Anamary", "Elena", "Oscar"],
