@@ -363,6 +363,6 @@ _regions = {
 	"Barna": ["Andreu", "Teresa", "Andreu M", "Míriam", "Aniol", "Quim", "Joan", "Aina", "Guerau"],
 	"Chicago": ["Dani Ibai"],
 	"Lichtenberg": ["Roger", "Theresa", "Justus", "Merle", "Lia", "Joanna", "Jan", "Greta", "Heidi", "Helena", "Volker", "Nicole"],
-	"L'Escala": ["Adri", "Dani", "Albert", "Andreu", "Carla", "Teresa", "Maria", "Quim", "Robert", "Punky", "RK", "Marta", "Mariona", "Anamary", "Elena", "Oscar"],
+	"L'Escala": ["Adri", "Dani", "Albert", "Andreu", "Carla", "Teresa", "Maria", "Quim", "Robert", "Punky", "RK", "Marta", "Mariona", "Anamary", "Elena", "Oscar", "Drac Català", "Dani H", "Beni", "Dolors"],
 	"Wesseling-Bonn": ["Roger", "Sergio", "Giulia", "Lucas", "Raúl", "Jorge", "Alice", "Diego", "Jofre", "Alejandro", "Joanna", "Anti", "Andrés", "Murci", "Dani OG", "Javi", "Lucía", "Pedro", "Miguel", "Max", "Dani Ibai", "Ioanna", "Charls", "Йордан"]
 }
