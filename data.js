@@ -274,7 +274,8 @@ _partides = [
 	{"jugadors":["Anamary","Elena","Adri"],"categories_especials":["dauet(12)","forma"],"puntuacions":{"Anamary":[5,12,18,24,35,30,21,26],"Elena":[1,12,21,20,35,42,18,18],"Adri":[4,10,21,32,30,36,22,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"19-7-2026"},
 	{"jugadors":["Adri","Anamary","Elena"],"categories_especials":["4/4","buida"],"puntuacions":{"Adri":[3,8,18,20,30,24,32,0],"Anamary":[4,10,15,28,40,24,24,0],"Elena":[7,12,21,32,25,12,32,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"19-7-2026"},
 	{"jugadors":["Volker","Roger","Joanna","Justus"],"categories_especials":["4/4","color"],"puntuacions":{"Volker":[1,4,15,24,35,30,36,0],"Roger":[2,6,18,24,35,36,24,23],"Joanna":[3,10,21,16,40,18,36,34],"Justus":[2,8,18,28,30,24,32,25]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"20-7-2026"},
-	{"jugadors":["Justus","Volker","Helena","Roger","Joanna"],"categories_especials":["4/4","color"],"puntuacions":{"Justus":[5,10,18,24,35,36,40,33],"Volker":[7,14,24,24,30,24,0,0],"Helena":[4,20,18,28,30,30,36,29],"Roger":[6,6,18,28,35,24,36,0],"Joanna":[3,8,12,24,20,6,0,20]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"20-7-2026"}
+	{"jugadors":["Justus","Volker","Helena","Roger","Joanna"],"categories_especials":["4/4","color"],"puntuacions":{"Justus":[5,10,18,24,35,36,40,33],"Volker":[7,14,24,24,30,24,0,0],"Helena":[4,20,18,28,30,30,36,29],"Roger":[6,6,18,28,35,24,36,0],"Joanna":[3,8,12,24,20,6,0,20]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"20-7-2026"},
+	{"jugadors":["Volker","Justus","Helena"],"categories_especials":["4/4", "color"],"puntuacions":{"Volker":[1,14,15,20,40,36,0,39],"Justus":[3,4,24,20,25,12,32,35],"Helena":[4,6,15,28,25,24,0,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-7-2026"}
 ]
 
 _tornejos = [
