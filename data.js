@@ -285,7 +285,12 @@ _partides = [
 	{"jugadors":["Joanna","Roger","Pedro","Alejandro"],"categories_especials":["4/4","dauet(12)"],"puntuacions":{"Joanna":[3,8,18,20,30,30,16,18],"Roger":[2,6,21,20,25,30,0,19],"Pedro":[5,6,24,28,35,24,36,39],"Alejandro":[5,12,15,24,25,30,36,18]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-7-2026"},
 	{"jugadors":["Joanna","Roger","Pedro","Alejandro"],"categories_especials":["2/2/2/2","forma"],"puntuacions":{"Joanna":[1,22,12,24,30,12,0,0],"Roger":[0,10,24,52,35,12,28,26],"Pedro":[8,12,18,28,35,30,58,33],"Alejandro":[7,8,15,24,25,18,28,31]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-7-2026"},
 	{"jugadors":["Joanna","Roger"],"categories_especials":["5/3","color"],"puntuacions":{"Joanna":[3,6,21,24,30,12,34,40],"Roger":[7,10,21,24,35,30,27,48]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-7-2026"},
-	{"jugadors":["Joanna","Roger"],"categories_especials":["4/4","buida"],"puntuacions":{"Joanna":[5,8,18,24,35,6,36,0],"Roger":[5,10,18,18,35,18,32,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-7-2026"}
+	{"jugadors":["Joanna","Roger"],"categories_especials":["4/4","buida"],"puntuacions":{"Joanna":[5,8,18,24,35,6,36,0],"Roger":[5,10,18,18,35,18,32,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-7-2026"},
+	{"jugadors":["Helena","Volker"],"categories_especials":["4/4","color"],"puntuacions":{"Helena":[6,6,24,24,30,36,32,20],"Volker":[6,2,18,16,30,18,28,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Helena","Volker"],"categories_especials":["4/4","color"],"puntuacions":{"Helena":[6,2,20,30,35,24,40,0],"Volker":[6,6,24,15,15,30,32,35]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Volker","Helena"],"categories_especials":["4/4","color"],"puntuacions":{"Volker":[4,12,21,24,30,0,0,0],"Helena":[5,10,18,24,35,24,28,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Helena","Volker"],"categories_especials":["4/4","color"],"puntuacions":{"Helena":[7,14,18,24,30,18,28,35],"Volker":[7,10,18,28,30,24,24,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Helena","Volker"],"categories_especials":["4/4","color"],"puntuacions":{"Helena":[3,14,18,28,30,6,0,28],"Volker":[5,16,12,28,40,18,0,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"}
 ]
 
 _tornejos = [
