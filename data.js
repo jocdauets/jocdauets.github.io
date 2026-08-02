@@ -313,7 +313,8 @@ _partides = [
 	{"jugadors":["Volker","Helena"],"categories_especials":["4/4","color"],"puntuacions":{"Volker":[7,12,18,20,30,30,0,0],"Helena":[3,12,24,24,25,30,36,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"30-7-2026"},
 	{"jugadors":["Anti","Jorge","Javi","Roger"],"categories_especials":["5/3","forma"],"puntuacions":{"Anti":[6,0,12,24,10,30,45,0],"Jorge":[5,12,18,32,20,18,23,30],"Javi":[1,14,15,28,40,30,34,31],"Roger":[1,8,12,16,35,12,34,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"31-7-2026"},
 	{"jugadors":["Йордан","Javi","Raúl","Malena","Roger"],"categories_especials":["4/4","forma"],"puntuacions":{"Йордан":[1,8,18,28,30,18,36,33],"Javi":[3,6,15,24,30,24,36,32],"Raúl":[1,14,18,16,40,24,28,31],"Malena":[3,14,18,24,35,30,36,30],"Roger":[3,6,12,24,20,24,28,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"31-7-2026"},
-	{"jugadors":["Juan","Roger","Javi","Giulia","Sergio"],"categories_especials":["4/4","color"],"puntuacions":{"Juan":[5,8,18,28,40,24,32,25],"Roger":[6,6,15,24,35,24,36,42],"Javi":[5,8,18,28,30,12,36,34],"Giulia":[5,4,24,28,35,36,28,0],"Sergio":[3,14,15,24,35,24,20,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"31-7-2026"}
+	{"jugadors":["Juan","Roger","Javi","Giulia","Sergio"],"categories_especials":["4/4","color"],"puntuacions":{"Juan":[5,8,18,28,40,24,32,25],"Roger":[6,6,15,24,35,24,36,42],"Javi":[5,8,18,28,30,12,36,34],"Giulia":[5,4,24,28,35,36,28,0],"Sergio":[3,14,15,24,35,24,20,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"31-7-2026"},
+	{"jugadors":["Zahira","Christian","Adri"],"categories_especials":["color","4/4"],"puntuacions":{"Zahira":[6,8,18,24,35,36,22,36],"Christian":[1,12,15,12,30,24,0,16],"Adri":[5,10,18,24,20,18,35,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"1-8-2026"}
 ]
 
 _tornejos = [
@@ -412,6 +413,6 @@ _regions = {
 	"Barna": ["Andreu", "Teresa", "Andreu M", "Míriam", "Aniol", "Quim", "Joan", "Aina", "Guerau", "Nona"],
 	"Chicago": ["Dani Ibai"],
 	"Lichtenberg": ["Roger", "Theresa", "Justus", "Merle", "Lia", "Joanna", "Jan", "Greta", "Heidi", "Helena", "Volker", "Nicole"],
-	"L'Escala": ["Adri", "Dani", "Albert", "Andreu", "Carla", "Teresa", "Maria", "Quim", "Robert", "Punky", "RK", "Marta", "Mariona", "Anamary", "Elena", "Oscar", "Drac Català", "Dani H", "Beni", "Dolors", "Nona", "Txell", "Gabri", "Kiara", "Michelle", "Arnau", "Adrià"],
+	"L'Escala": ["Adri", "Dani", "Albert", "Andreu", "Carla", "Teresa", "Maria", "Quim", "Robert", "Punky", "RK", "Marta", "Mariona", "Anamary", "Elena", "Oscar", "Drac Català", "Dani H", "Beni", "Dolors", "Nona", "Txell", "Gabri", "Kiara", "Michelle", "Arnau", "Adrià", "Zahira", "Christian"],
 	"Wesseling-Bonn": ["Roger", "Sergio", "Giulia", "Lucas", "Raúl", "Jorge", "Alice", "Diego", "Jofre", "Alejandro", "Joanna", "Anti", "Andrés", "Murci", "Dani OG", "Javi", "Lucía", "Pedro", "Miguel", "Max", "Dani Ibai", "Ioanna", "Charls", "Йордан", "Elia", "Malena", "Juan"]
 }
