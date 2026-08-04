@@ -314,7 +314,21 @@ _partides = [
 	{"jugadors":["Anti","Jorge","Javi","Roger"],"categories_especials":["5/3","forma"],"puntuacions":{"Anti":[6,0,12,24,10,30,45,0],"Jorge":[5,12,18,32,20,18,23,30],"Javi":[1,14,15,28,40,30,34,31],"Roger":[1,8,12,16,35,12,34,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"31-7-2026"},
 	{"jugadors":["Йордан","Javi","Raúl","Malena","Roger"],"categories_especials":["4/4","forma"],"puntuacions":{"Йордан":[1,8,18,28,30,18,36,33],"Javi":[3,6,15,24,30,24,36,32],"Raúl":[1,14,18,16,40,24,28,31],"Malena":[3,14,18,24,35,30,36,30],"Roger":[3,6,12,24,20,24,28,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"31-7-2026"},
 	{"jugadors":["Juan","Roger","Javi","Giulia","Sergio"],"categories_especials":["4/4","color"],"puntuacions":{"Juan":[5,8,18,28,40,24,32,25],"Roger":[6,6,15,24,35,24,36,42],"Javi":[5,8,18,28,30,12,36,34],"Giulia":[5,4,24,28,35,36,28,0],"Sergio":[3,14,15,24,35,24,20,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"31-7-2026"},
-	{"jugadors":["Zahira","Christian","Adri"],"categories_especials":["color","4/4"],"puntuacions":{"Zahira":[6,8,18,24,35,36,22,36],"Christian":[1,12,15,12,30,24,0,16],"Adri":[5,10,18,24,20,18,35,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"1-8-2026"}
+	{"jugadors":["Zahira","Christian","Adri"],"categories_especials":["color","4/4"],"puntuacions":{"Zahira":[6,8,18,24,35,36,22,36],"Christian":[1,12,15,12,30,24,0,16],"Adri":[5,10,18,24,20,18,35,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"1-8-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["7/1","forma"],"puntuacions":{"Joanna":[3,6,24,28,25,24,38,33],"Roger":[5,0,18,20,30,24,38,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"2-8-2026"},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["4/4","suma"],"puntuacions":{"Roger":[5,2,18,24,35,36,36,37],"Joanna":[3,8,18,20,25,25,36,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"4-8-2026"}
+	{"jugadors":["Roger","Joanna"],"categories_especials":["4/4","color"],"puntuacions":{"Roger":[5,6,18,24,35,12,36,0],"Joanna":[3,4,15,20,25,18,36,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"2-8-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["7/1","dauet(12)"],"puntuacions":{"Joanna":[4,14,18,20,30,18,36,17],"Roger":[4,10,18,20,65,24,11,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"2-8-2026"},
+	{"jugadors":["Adri","Christian"],"categories_especials":["4/4","color"],"puntuacions":{"Adri":[5,8,21,24,35,42,32,23],"Christian":[4,12,15,28,35,24,36,28]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Christian","Adri"],"categories_especials":["4/4","color"],"puntuacions":{"Christian":[5,14,18,32,25,18,0,0],"Adri":[3,14,15,12,25,24,24,27]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Adri","Punky"],"categories_especials":["dauet(12)","3/3/2"],"puntuacions":{"Adri":[3,14,15,32,35,18,21,36],"Punky":[3,8,18,16,35,18,39,33]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Punky","Adri"],"categories_especials":["color","forma"],"puntuacions":{"Punky":[5,14,21,24,30,24,27,33],"Adri":[4,6,15,20,30,24,23,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Adri","Punky"],"categories_especials":["2/2/2/2","2/2/2/2"],"puntuacions":{"Adri":[4,10,21,24,25,30,52,22],"Punky":[6,4,18,20,30,12,52,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Adri","Punky"],"categories_especials":["4/4","color"],"puntuacions":{"Adri":[5,10,21,20,35,12,36,42],"Punky":[4,16,18,24,35,18,28,32]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Adri","Punky"],"rdp_extra":true,"rdp":{"Adri":-2,"Punky":2}, "data": "3-8-2026"},
+	{"jugadors":["Dani","Adri","Roger","Joanna","Robert"],"categories_especials":["7/1","color"],"puntuacions":{"Dani":[5,8,21,20,25,24,0,25],"Adri":[5,10,18,24,20,12,0,27],"Roger":[2,2,18,24,30,24,37,23],"Joanna":[3,6,18,8,30,12,41,25],"Robert":[7,14,21,16,20,30,33,20]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Teresa","Giovanni","Joanna","Dr Magí","Andreu"],"categories_especials":["4/4","dauet(12)"],"puntuacions":{"Teresa":[7,8,15,20,35,24,36,18],"Giovanni":[3,14,18,28,15,18,36,19],"Joanna":[1,8,18,24,30,30,32,21],"Dr Magí":[6,12,24,24,30,30,28,19],"Andreu":[4,4,24,24,40,24,32,19]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Dr Magí","Andreu","Teresa","Giovanni","Roger","Adri"],"categories_especials":["suma","dauet(21)"],"puntuacions":{"Dr Magí":[7,14,18,24,25,36,35,28],"Andreu":[6,10,15,24,40,30,32,27],"Teresa":[4,10,30,24,25,30,42,26],"Giovanni":[6,6,21,24,30,24,24,27],"Roger":[3,8,21,28,35,24,45,0],"Adri":[8,12,15,28,30,30,40,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"}
 ]
 
 _tornejos = [
@@ -410,9 +424,10 @@ _tornejos = [
 ]
 
 _regions = {
-	"Barna": ["Andreu", "Teresa", "Andreu M", "Míriam", "Aniol", "Quim", "Joan", "Aina", "Guerau", "Nona"],
+	"Barna": ["Andreu", "Teresa", "Andreu M", "Míriam", "Aniol", "Quim", "Joan", "Aina", "Guerau", "Nona", "Dr Magí", "Giovanni"],
 	"Chicago": ["Dani Ibai"],
 	"Lichtenberg": ["Roger", "Theresa", "Justus", "Merle", "Lia", "Joanna", "Jan", "Greta", "Heidi", "Helena", "Volker", "Nicole"],
-	"L'Escala": ["Adri", "Dani", "Albert", "Andreu", "Carla", "Teresa", "Maria", "Quim", "Robert", "Punky", "RK", "Marta", "Mariona", "Anamary", "Elena", "Oscar", "Drac Català", "Dani H", "Beni", "Dolors", "Nona", "Txell", "Gabri", "Kiara", "Michelle", "Arnau", "Adrià", "Zahira", "Christian"],
+	"L'Escala": ["Adri", "Dani", "Albert", "Andreu", "Carla", "Teresa", "Maria", "Quim", "Robert", "Punky", "RK", "Marta", "Mariona", "Anamary", "Elena", "Oscar", "Drac Català", "Dani H", "Beni", "Dolors", "Nona", "Txell", "Gabri", "Arnau", "Adrià", "Dr Magí", "Giovanni"],
+	"L'Escala-Carrefour": ["Adri", "Zahira", "Christian", "Kiara", "Michelle"],
 	"Wesseling-Bonn": ["Roger", "Sergio", "Giulia", "Lucas", "Raúl", "Jorge", "Alice", "Diego", "Jofre", "Alejandro", "Joanna", "Anti", "Andrés", "Murci", "Dani OG", "Javi", "Lucía", "Pedro", "Miguel", "Max", "Dani Ibai", "Ioanna", "Charls", "Йордан", "Elia", "Malena", "Juan"]
 }
