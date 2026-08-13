@@ -360,7 +360,11 @@ _partides = [
 	{"jugadors":["Christian","Adri"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Christian":[7,12,12,28,25,12,22,46],"Adri":[6,6,21,24,35,6,54,35]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"11-8-2026"},
 	{"jugadors":["Adri","Christian"],"categories_especials":["4/4","color"],"puntuacions":{"Adri":[5,14,21,24,30,24,36,0],"Christian":[7,10,18,24,25,18,24,34]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"11-8-2026"},
 	{"jugadors":["Roger","Joanna"],"categories_especials":["2/2/2/2","sum"],"puntuacions":{"Roger":[1,12,15,24,25,12,24,26],"Joanna":[2,12,21,20,25,24,28,38]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
-	{"jugadors":["Roger","Joanna"],"categories_especials":["7/1","sum"],"puntuacions":{"Roger":[2,10,18,24,30,24,0,39],"Joanna":[4,6,18,32,30,30,39,41]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"}
+	{"jugadors":["Roger","Joanna"],"categories_especials":["7/1","sum"],"puntuacions":{"Roger":[2,10,18,24,30,24,0,39],"Joanna":[4,6,18,32,30,30,39,41]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Carla","Joanna","Roger"],"categories_especials":["2/2/2/2","5/3"],"puntuacions":{"Carla":[5,14,18,28,30,24,56,37],"Joanna":[2,8,21,28,35,18,28,29],"Roger":[7,14,21,20,40,24,50,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Carla","Joanna","Roger"],"categories_especials":["2/2/2/2","7/1"],"puntuacions":{"Carla":[2,4,18,24,35,24,56,31],"Joanna":[4,10,24,20,40,30,46,26],"Roger":[5,8,18,24,35,30,28,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Carla","Joanna","Roger"],"categories_especials":["2/2/2/2","sum"],"puntuacions":{"Carla":[2,10,21,16,25,24,48,36],"Joanna":[3,14,15,20,40,24,24,37],"Roger":[3,12,21,24,35,18,24,34]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["sum","dauet(12)"],"puntuacions":{"Joanna":[3,12,18,28,35,0,39,40],"Roger":[4,8,18,24,30,24,37,21]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-8-2026"}
 ]
 
 _tornejos = [
