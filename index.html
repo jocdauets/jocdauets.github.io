@@ -78,6 +78,8 @@
         <br><br>
         Data: <input type="date" id="seleccionar-data">
         <br><br>
+        <button id="mostrar-increment-rdp">Setmanal</button>
+        <br><br>
         <div id="taula-classificacio">
         </div>
     </div>
@@ -87,6 +89,8 @@
     </div>
 
     <script>
+        var increment_setmanal = 1;
+
         for (var i = 0; i < _tornejos.length; i ++) {
             var li = document.createElement("li");
             var link = document.createElement("a");
@@ -106,6 +110,7 @@
 
         document.getElementById("seleccionar-regio").addEventListener("change", actualitzar_taula_regional);
         document.getElementById("seleccionar-data").addEventListener("change", actualitzar_taula_regional);
+        document.getElementById("mostrar-increment-rdp").addEventListener("click", canviar_tipus_increment_rdp);
 
         document.getElementById("seleccionar-data").valueAsDate = new Date();
 
@@ -203,11 +208,16 @@
         function actualitzar_taula_regional() {
             const regio = document.getElementById("seleccionar-regio").value;
             const data = new Date(document.getElementById("seleccionar-data").value);
-            var ultim_diumenge = new Date(document.getElementById("seleccionar-data").value);
-            if (ultim_diumenge.getDay() == 0) {
-                ultim_diumenge.setDate(ultim_diumenge.getDate()-7);
+            if (increment_setmanal == 1) {
+                var ultim_diumenge = new Date(document.getElementById("seleccionar-data").value);
+                if (ultim_diumenge.getDay() == 0) {
+                    ultim_diumenge.setDate(ultim_diumenge.getDate()-7);
+                } else {
+                    ultim_diumenge.setDate(ultim_diumenge.getDate()-ultim_diumenge.getDay());
+                }
             } else {
-                ultim_diumenge.setDate(ultim_diumenge.getDate()-ultim_diumenge.getDay());
+                var ultim_diumenge = new Date(document.getElementById("seleccionar-data").value);
+                ultim_diumenge.setDate(ultim_diumenge.getDate()-1);
             }
 
             var ultim = calcular_rdp_data(data, _partides);
@@ -314,6 +324,16 @@
 
             document.getElementById("taula-classificacio").innerHTML = "";
             document.getElementById("taula-classificacio").appendChild(taula);
+        }
+
+        function canviar_tipus_increment_rdp() {
+            increment_setmanal = (increment_setmanal+1)%2;
+            if (increment_setmanal == 1) {
+                document.getElementById("mostrar-increment-rdp").innerHTML = "Setmanal";
+            } else {
+                document.getElementById("mostrar-increment-rdp").innerHTML = "Diari";
+            }
+            actualitzar_taula_regional();
         }
     </script>
 </body>
