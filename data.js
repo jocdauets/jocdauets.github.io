@@ -364,7 +364,12 @@ _partides = [
 	{"jugadors":["Carla","Joanna","Roger"],"categories_especials":["2/2/2/2","5/3"],"puntuacions":{"Carla":[5,14,18,28,30,24,56,37],"Joanna":[2,8,21,28,35,18,28,29],"Roger":[7,14,21,20,40,24,50,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
 	{"jugadors":["Carla","Joanna","Roger"],"categories_especials":["2/2/2/2","7/1"],"puntuacions":{"Carla":[2,4,18,24,35,24,56,31],"Joanna":[4,10,24,20,40,30,46,26],"Roger":[5,8,18,24,35,30,28,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
 	{"jugadors":["Carla","Joanna","Roger"],"categories_especials":["2/2/2/2","sum"],"puntuacions":{"Carla":[2,10,21,16,25,24,48,36],"Joanna":[3,14,15,20,40,24,24,37],"Roger":[3,12,21,24,35,18,24,34]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
-	{"jugadors":["Joanna","Roger"],"categories_especials":["sum","dauet(12)"],"puntuacions":{"Joanna":[3,12,18,28,35,0,39,40],"Roger":[4,8,18,24,30,24,37,21]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-8-2026"}
+	{"jugadors":["Maria","Adri"],"categories_especials":["color","forma"],"puntuacions":{"Maria":[6,4,18,28,20,24,20,60],"Adri":[1,6,9,48,35,24,25,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Adri","Maria"],"categories_especials":["4/4","2/2/2/2"],"puntuacions":{"Adri":[4,16,18,24,35,30,44,34],"Maria":[1,14,18,16,35,12,12,20]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Maria","Adri"],"categories_especials":["dauet(12)","sum"],"puntuacions":{"Maria":[2,16,18,16,30,24,19,37],"Adri":[3,12,24,28,30,24,42,41]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Maria","Adri"],"categories_especials":["dauet(12)","sum"],"puntuacions":{"Maria":[6,10,18,24,35,12,24,44],"Adri":[2,8,12,20,30,30,33,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["sum","dauet(12)"],"puntuacions":{"Joanna":[3,12,18,28,35,0,39,40],"Roger":[4,8,18,24,30,24,37,21]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-8-2026"},
+	{"jugadors":["Arnau C4","Adri"],"categories_especials":["dauet(12)","color"],"puntuacions":{"Arnau C4":[4,10,21,24,25,12,18,24],"Adri":[4,8,21,20,40,24,17,33]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-8-2026"}
 ]
 
 _tornejos = [
