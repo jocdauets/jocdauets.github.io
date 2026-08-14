@@ -371,7 +371,10 @@ _partides = [
 	{"jugadors":["Joanna","Roger"],"categories_especials":["sum","dauet(12)"],"puntuacions":{"Joanna":[3,12,18,28,35,0,39,40],"Roger":[4,8,18,24,30,24,37,21]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-8-2026"},
 	{"jugadors":["Arnau C4","Adri"],"categories_especials":["dauet(12)","color"],"puntuacions":{"Arnau C4":[4,10,21,24,25,12,18,24],"Adri":[4,8,21,20,40,24,17,33]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-8-2026"},
 	{"jugadors":["Quim","Joanna","Roger"],"categories_especials":["2/2/2/2","5/3"],"puntuacions":{"Quim":[1,12,15,24,30,36,36,0],"Joanna":[5,8,27,44,30,30,50,29],"Roger":[3,12,15,28,30,18,52,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-8-2026"},
-	{"jugadors":["Roger","Quim","Carla","Joanna"],"categories_especials":["buida","color"],"puntuacions":{"Roger":[3,6,18,20,35,18,0,32],"Quim":[4,16,18,24,40,30,0,39],"Carla":[3,6,18,24,65,24,0,25],"Joanna":[5,16,21,32,35,18,0,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-8-2026"}
+	{"jugadors":["Roger","Quim","Carla","Joanna"],"categories_especials":["buida","color"],"puntuacions":{"Roger":[3,6,18,20,35,18,0,32],"Quim":[4,16,18,24,40,30,0,39],"Carla":[3,6,18,24,65,24,0,25],"Joanna":[5,16,21,32,35,18,0,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-8-2026"},
+	{"jugadors":["Pol Garcia","Adri"],"categories_especials":["4/4","Col"],"puntuacions":{"Pol Garcia":[6,12,15,20,35,18,20,29],"Adri":[6,8,21,20,35,18,32,25]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-8-2026"},
+	{"jugadors":["Teresa","Mimics","Dr Magí"],"categories_especials":["4/4","dauet(12)"],"puntuacions":{"Teresa":[1,10,18,32,30,36,36,14],"Mimics":[1,14,18,24,35,30,36,21],"Dr Magí":[4,8,21,24,25,18,28,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-8-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["sum","color"],"puntuacions":{"Joanna":[5,8,24,40,30,12,38,23],"Roger":[5,8,21,24,20,24,29,35]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-8-2026"}
 ]
 
 _tornejos = [
