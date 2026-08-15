@@ -374,7 +374,8 @@ _partides = [
 	{"jugadors":["Roger","Quim","Carla","Joanna"],"categories_especials":["buida","color"],"puntuacions":{"Roger":[3,6,18,20,35,18,0,32],"Quim":[4,16,18,24,40,30,0,39],"Carla":[3,6,18,24,65,24,0,25],"Joanna":[5,16,21,32,35,18,0,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-8-2026"},
 	{"jugadors":["Pol Garcia","Adri"],"categories_especials":["4/4","Col"],"puntuacions":{"Pol Garcia":[6,12,15,20,35,18,20,29],"Adri":[6,8,21,20,35,18,32,25]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-8-2026"},
 	{"jugadors":["Teresa","Mimics","Dr Magí"],"categories_especials":["4/4","dauet(12)"],"puntuacions":{"Teresa":[1,10,18,32,30,36,36,14],"Mimics":[1,14,18,24,35,30,36,21],"Dr Magí":[4,8,21,24,25,18,28,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-8-2026"},
-	{"jugadors":["Joanna","Roger"],"categories_especials":["sum","color"],"puntuacions":{"Joanna":[5,8,24,40,30,12,38,23],"Roger":[5,8,21,24,20,24,29,35]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-8-2026"}
+	{"jugadors":["Joanna","Roger"],"categories_especials":["sum","color"],"puntuacions":{"Joanna":[5,8,24,40,30,12,38,23],"Roger":[5,8,21,24,20,24,29,35]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-8-2026"},
+	{"jugadors":["Dr Magí","Trebor","Teresa","Mimics"],"categories_especials":["2/2/2/2","dauet(12)"],"puntuacions":{"Dr Magí":[1,8,9,32,35,36,28,30],"Trebor":[1,10,12,20,40,12,24,19],"Teresa":[4,12,18,28,35,30,36,0],"Mimics":[7,10,12,28,40,30,24,15]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"15-8-2026"}
 ]
 
 _tornejos = [
@@ -471,7 +472,7 @@ _tornejos = [
 
 _regions = {
 	"Barna": ["Andreu", "Teresa", "Míriam", "Aniol", "Quim", "Joan", "Aina", "Guerau", "Nona", "Arnau", "Sheila"],
-	"Cambrils-Salou": ["Teresa", "Dr Magí", "Andreu", "Giovanni", "Andreu", "Mimics"],
+	"Cambrils-Salou": ["Teresa", "Dr Magí", "Andreu", "Giovanni", "Andreu", "Mimics", "Trebor"],
 	"Chicago": ["Dani Ibai"],
 	"Lichtenberg": ["Roger", "Theresa", "Justus", "Merle", "Lia", "Joanna", "Jan", "Greta", "Heidi", "Helena", "Volker", "Nicole"],
 	"L'Escala": ["Adri", "Dani", "Albert", "Andreu", "Carla", "Teresa", "Maria", "Quim", "Robert", "Punky", "RK", "Marta", "Mariona", "Anamary", "Elena", "Oscar", "Drac Català", "Dani H", "Beni", "Dolors", "Nona", "Txell", "Gabri", "Eva", "Jordi", "Anna", "Tano"],
