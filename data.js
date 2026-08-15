@@ -375,7 +375,11 @@ _partides = [
 	{"jugadors":["Pol Garcia","Adri"],"categories_especials":["4/4","Col"],"puntuacions":{"Pol Garcia":[6,12,15,20,35,18,20,29],"Adri":[6,8,21,20,35,18,32,25]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-8-2026"},
 	{"jugadors":["Teresa","Mimics","Dr Magí"],"categories_especials":["4/4","dauet(12)"],"puntuacions":{"Teresa":[1,10,18,32,30,36,36,14],"Mimics":[1,14,18,24,35,30,36,21],"Dr Magí":[4,8,21,24,25,18,28,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-8-2026"},
 	{"jugadors":["Joanna","Roger"],"categories_especials":["sum","color"],"puntuacions":{"Joanna":[5,8,24,40,30,12,38,23],"Roger":[5,8,21,24,20,24,29,35]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-8-2026"},
-	{"jugadors":["Dr Magí","Trebor","Teresa","Mimics"],"categories_especials":["2/2/2/2","dauet(12)"],"puntuacions":{"Dr Magí":[1,8,9,32,35,36,28,30],"Trebor":[1,10,12,20,40,12,24,19],"Teresa":[4,12,18,28,35,30,36,0],"Mimics":[7,10,12,28,40,30,24,15]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"15-8-2026"}
+	{"jugadors":["Dr Magí","Trebor","Teresa","Mimics"],"categories_especials":["2/2/2/2","dauet(12)"],"puntuacions":{"Dr Magí":[1,8,9,32,35,36,28,30],"Trebor":[1,10,12,20,40,12,24,19],"Teresa":[4,12,18,28,35,30,36,0],"Mimics":[7,10,12,28,40,30,24,15]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"15-8-2026"},
+	{"jugadors":["Dani","Albert","Robert","Quim","Andreu","Adri","Maria"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Dani":[3,14,15,24,35,24,58,0],"Albert":[6,14,18,20,30,18,52,26],"Robert":[6,10,15,28,25,36,50,31],"Quim":[7,10,15,24,25,24,40,26],"Andreu":[4,10,18,28,30,30,50,26],"Adri":[12,12,9,20,30,24,20,33],"Maria":[5,6,15,20,25,42,26,27]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"15-8-2026"},
+	{"jugadors":["Aaron","Adri"],"categories_especials":["4/4","color"],"puntuacions":{"Aaron":[5,12,21,24,30,36,28,27],"Adri":[4,12,15,16,30,24,36,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"15-8-2026"},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["sum","dauet(12)"],"puntuacions":{"Roger":[6,14,21,24,15,30,38,19],"Joanna":[6,12,18,24,30,42,39,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"15-8-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["7/1","5/3"],"puntuacions":{"Joanna":[3,10,18,28,30,18,31,43],"Roger":[3,10,18,24,35,30,0,27]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"15-8-2026"}
 ]
 
 _tornejos = [
@@ -476,6 +480,6 @@ _regions = {
 	"Chicago": ["Dani Ibai"],
 	"Lichtenberg": ["Roger", "Theresa", "Justus", "Merle", "Lia", "Joanna", "Jan", "Greta", "Heidi", "Helena", "Volker", "Nicole"],
 	"L'Escala": ["Adri", "Dani", "Albert", "Andreu", "Carla", "Teresa", "Maria", "Quim", "Robert", "Punky", "RK", "Marta", "Mariona", "Anamary", "Elena", "Oscar", "Drac Català", "Dani H", "Beni", "Dolors", "Nona", "Txell", "Gabri", "Eva", "Jordi", "Anna", "Tano"],
-	"L'Escala-Carrefour": ["Adri", "Zahira", "Christian", "Kiara", "Michelle", "Arnau C4", "Adrià", "Eric", "Natalia", "Pol S", "Ayman", "Pol Garcia"],
+	"L'Escala-Carrefour": ["Adri", "Zahira", "Christian", "Kiara", "Michelle", "Arnau C4", "Adrià", "Eric", "Natalia", "Pol S", "Ayman", "Pol Garcia", "Aaron"],
 	"Wesseling-Bonn": ["Roger", "Sergio", "Giulia", "Lucas", "Raúl", "Jorge", "Alice", "Diego", "Jofre", "Alejandro", "Joanna", "Anti", "Andrés", "Murci", "Dani OG", "Javi", "Lucía", "Pedro", "Miguel", "Max", "Dani Ibai", "Ioanna", "Charls", "Йордан", "Elia", "Malena", "Juan"]
 }
