@@ -1,98 +1,480 @@
-function dibuixar_taula_llista(llista, header=false){
-	if (header == false) {
-		var text = "<table>";
-		for (var i = 0; i < llista.length; i ++) {
-			text += "<tr>";
-			for (var j =  0; j < llista[i].length; j ++) {
-				text += "<td>" + llista[i][j].toString() + "</td>";
-			}
-			text += "</tr>";
-		}
-		return text;
-	} else {
-		var indices = [];
-		for (var i = 0; i < llista[0].length; i ++) {
-			if (header.includes(llista[0][i])) {
-				indices.push(i);
-			}
-		}
-		var nova_llista = [];
-		for (var i = 0; i < llista.length; i ++) {
-			var fila = [];
-			for (var j = 0; j < llista[i].length; j ++) {
-				if (indices.includes(j)) {
-					fila.push(llista[i][j]);
-				}
-			}
-			nova_llista.push(fila);
-		}
-		return dibuixar_taula_llista(nova_llista);
-	}
-}
+_partides = [
+	{
+		"jugadors": ["Jofre", "Roger", "Raúl"],
+		"categories_especials": ["dauet(5)", "4/4"],
+		"puntuacions": {
+			"Jofre": [1,12,21,28,30,18,12,36],
+			"Roger": [3,12,15,24,35,42,15,32],
+			"Raúl": [3,10,15,24,35,24,14,28]
+		},
+		"trumfo": [[], [], [], [], ["tatxar"], [], [], []],
+		"data": "26-01-2026",
+		"puntua_rdp": false
+	},
+	{
+		"jugadors": ["Raúl", "Jofre", "Roger"],
+		"categories_especials": ["color", "5/3"],
+		"puntuacions": {
+			"Raúl": [4,12,18,20,25,6,42,29],
+			"Jofre": [5,10,15,28,35,24,36,0],
+			"Roger": [2,8,18,20,30,18,42,69]
+		},
+		"trumfo": [[], [], [], [], [], [], ["tatxar"], []],
+		"data": "26-01-2026",
+		"puntua_rdp": false
+	},
+	{
+		"jugadors": ["Roger", "Joanna", "Raúl", "Jofre"],
+		"categories_especials": ["5/3", "dauet(5)"],
+		"puntuacions": {
+			"Roger": [5,10,21,24,35,36,34,0],
+			"Joanna": [3,10,15,24,40,12,0,27],
+			"Raúl": [2,10,12,20,30,12,37,0],
+			"Jofre": [7,16,18,24,35,36,25,13]
+		},
+		"trumfo": [[], [], [], [], ["tatxar-6"], [], [], []],
+		"data": "31-01-2026",
+		"puntua_rdp": false
+	},
+	{
+		"jugadors": ["Raúl", "Jofre", "Roger"],
+		"categories_especials": ["color", "4/4"],
+		"puntuacions": {
+			"Raúl": [7,6,18,20,30,6,31,36],
+			"Jofre": [4,6,18,28,35,18,0,36],
+			"Roger": [4,4,21,28,35,24,29,0]
+		},
+		"trumfo": [[], [], [], [], [], [], ["tatxar-5"], []],
+		"data": "01-02-2026",
+		"puntua_rdp": false
+	},
+	{
+		"jugadors": ["Roger", "Raúl", "Jofre"],
+		"categories_especials": ["4/4", "forma"],
+		"puntuacions": {
+			"Roger": [4,4,18,20,30,24,32,32],
+			"Raúl": [3,14,12,24,35,30,28,37],
+			"Jofre": [4,6,18,24,30,18,36,33]
+		},
+		"trumfo": [[], [], [], [], [], [], [], ["tatxar-6"]],
+		"data": "01-02-2026",
+		"puntua_rdp": false
+	},
+	{
+		"jugadors": ["Raúl", "Jofre", "Roger"],
+		"categories_especials": ["joc", "dauet(5)"],
+		"puntuacions": {
+			"Raúl": [4,12,15,16,30,30,22,0],
+			"Jofre": [3,10,21,28,25,24,28,13],
+			"Roger": [5,8,21,24,50,30,24,0]
+		},
+		"trumfo": [[], [], ["tatxar"], [], [], [], [], []],
+		"data": "08-02-2026",
+		"puntua_rdp": false
+	},
+	{
+		"jugadors": ["Carla", "Andreu", "Maria", "Dani"],
+		"categories_especials": ["forma", "4/4"],
+		"puntuacions": {
+			"Carla": [3,6,18,24,25,6,25,28],
+			"Andreu": [4,6,15,24,30,36,18,44],
+			"Maria": [4,4,18,12,30,12,0,36],
+			"Dani": [7,2,15,20,30,36,12,28]
+		},
+		"trumfo": [[], ["penyora"], [], [], [], [], [], []],
+		"data": "29-03-2026",
+		"puntua_rdp": false
+	},
+	{
+		"jugadors": ["Joanna", "Teresa", "Maria", "Albert"],
+		"categories_especials": ["dauet(12)", "forma"],
+		"puntuacions": {
+			"Joanna": [7,12,18,24,25,36,20,65],
+			"Teresa": [6,10,18,20,30,30,37,34],
+			"Maria": [7,8,18,28,35,6,20,31],
+			"Albert": [6,12,15,24,25,24,35,28]
+		},
+		"data": "29-03-2026",
+		"puntua_rdp": false
+	},
+	{
+		"jugadors": ["Albert", "Roger", "Carla", "Robert"],
+		"categories_especials": ["buida","buida"],
+		"puntuacions": {
+			"Albert": [7,14,18,28,35,48,0,0],
+			"Roger": [6,16,18,32,35,6,0,0],
+			"Carla": [7,6,21,12,25,24,0,0],
+			"Robert": [5,12,21,28,25,18,0,0]
+		},
+		"data": "29-03-2026",
+		"puntua_rdp": false
+	},
+	{
+		"jugadors": ["Jofre", "Roger", "Raúl"],
+		"categories_especials": ["dauet(10)", "color"],
+		"puntuacions": {
+			"Jofre": [7,10,24,24,30,12,16,33],
+			"Roger": [3,10,21,24,55,18,18,39],
+			"Raúl": [4,12,15,28,30,18,17,42]
+		},
+		"trumfo": [[], [], [], [], ["tatxar-3"], [], [], []],
+		"data": "13-04-2026",
+		"puntua_rdp": false
+	},
+	{"jugadors":["Roger","Raúl"],"categories_especials":["4/4","color"],"puntuacions":{"Roger":[1,4,21,24,25,24,36,26],"Raúl":[2,14,21,20,35,12,36,39]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-4-2026", "puntua_rdp": false},
+	{"jugadors":["Roger","Andreu","Teresa","Robert"],"categories_especials":["dauet(12)","buida"],"puntuacions":{"Roger":[5,8,12,20,30,24,20,0],"Andreu":[8,10,18,28,30,18,18,0],"Teresa":[6,10,18,20,25,30,18,0],"Robert":[8,14,24,20,30,30,21,0]},"trumfo":[["penyora"],[""],[""],[""],[""],[""],[""],[""]],"data":"25-4-2026", "puntua_rdp": false},
+	{"jugadors":["Adri","Roger","Dani","Joanna","Andreu","Albert","Robert","Carla","Teresa","Maria","Quim"],"rdp_extra":true,"rdp":{"Adri":50,"Roger":25,"Dani":13,"Joanna":6,"Andreu":3,"Albert":2,"Robert":1,"Carla":0,"Teresa":0,"Maria":0,"Quim":0}, "data":"25-4-2026"},
+	{"jugadors":["Adri","Carla"],"categories_especials":["dauet(12)","2/2/2/2"],"puntuacions":{"Adri":[3,12,18,28,30,30,0,44],"Carla":[8,12,21,24,30,24,16,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-4-2026", "sistema_daus": 1},
+	{"jugadors":["Carla","Adri"],"categories_especials":["4/4","color"],"puntuacions":{"Carla":[8,8,18,16,25,18,36,26],"Adri":[2,8,24,12,40,18,40,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-4-2026", "sistema_daus": 1},
+	{"jugadors":["Carla","Adri"],"categories_especials":["5/3","forma"],"puntuacions":{"Carla":[5,14,18,12,35,18,0,20],"Adri":[3,14,15,28,25,30,31,23]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-4-2026", "sistema_daus": 1},
+	{"jugadors":["Carla","Adri"],"categories_especials":["4/4","dauet(12)"],"puntuacions":{"Carla":[7,12,18,28,35,30,28,17],"Adri":[4,14,18,28,35,30,32,18]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-4-2026", "sistema_daus": 1},
+	{"jugadors":["Carla","Adri"],"categories_especials":["4/4","dauet(12)"],"puntuacions":{"Carla":[1,6,18,28,20,36,28,24],"Adri":[6,10,18,28,30,18,32,16]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-4-2026", "sistema_daus": 1},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["4/4","forma"],"puntuacions":{"Joanna":[4,10,21,20,30,36,28,32],"Roger":[3,14,15,28,30,30,36,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"29-4-2026", "sistema_daus": 1},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["color","2/2/2/2"],"puntuacions":{"Roger":[4,8,15,24,25,12,39,20],"Joanna":[2,10,21,28,30,24,49,26]},"trumfo":[[""],[""],[""],["tatxar-0"],[""],[""],[""],[""]],"data":"30-4-2026", "sistema_daus": 1},
+	{"jugadors":["Albert","Carla","Robert"],"categories_especials":["5/3","buida"],"puntuacions":{"Albert":[5,14,18,32,40,12,30,0],"Carla":[7,4,24,24,35,6,37,0],"Robert":[8,14,21,28,35,42,37,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"30-4-2026", "sistema_daus": 1},
+	{"jugadors":["Robert","Albert","Carla"],"categories_especials":["dauet(12)","buida"],"puntuacions":{"Robert":[7,12,12,24,20,12,16,0],"Albert":[2,12,18,28,30,12,24,0],"Carla":[7,12,30,28,35,24,42,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"30-4-2026", "sistema_daus": 1},
+	{"jugadors":["Albert","Carla","Robert"],"categories_especials":["dauet(12)","buida"],"puntuacions":{"Albert":[2,8,18,20,40,24,36,0],"Carla":[5,10,12,24,30,30,20,0],"Robert":[5,10,12,28,35,18,19,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"30-4-2026", "sistema_daus": 1},
+	{"jugadors":["Joanna","Roger","Jan","Theresa","Merle"],"categories_especials":["4/4","color"],"puntuacions":{"Joanna":[5,10,24,24,25,30,0,26],"Roger":[3,10,15,20,25,30,40,39],"Jan":[2,12,15,28,35,24,28,0],"Theresa":[6,14,18,28,50,12,28,36],"Merle":[6,8,21,24,30,18,36,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"1-5-2026", "sistema_daus": 1},
+	{"jugadors":["Raúl","Jofre","Roger"],"categories_especials":["forma","2/2/2/2"],"puntuacions":{"Raúl":[13,2,24,12,40,36,26,30],"Jofre":[6,14,12,24,35,18,32,26],"Roger":[4,4,18,28,35,18,27,24]},"trumfo":[[""],[""],[""],[""],[""],["tatxar-6"],[""],[""]],"data":"5-5-2026", "sistema_daus": 1},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["color","dauet(12)"],"puntuacions":{"Roger":[3,8,18,28,20,30,35,39],"Joanna":[5,20,18,28,30,36,0,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"9-5-2026", "sistema_daus": 1},
+	{"jugadors":["Roger","Joanna"],"rdp_extra":true,"rdp":{"Roger":-3,"Joanna":3}, "data": "9-5-2026"},
+	{"jugadors":["Carla","Maria","Adri"],"categories_especials":["5/3","forma"],"puntuacions":{"Carla":[2,12,21,28,35,18,27,31],"Maria":[2,8,12,20,25,24,37,32],"Adri":[5,14,9,24,35,24,29,32]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"10-5-2026", "sistema_daus": 1},
+	{"jugadors":["Maria","Carla","Albert","Adri"],"categories_especials":["2/2/2/2","dauet(12)"],"puntuacions":{"Maria":[2,10,21,28,35,30,46,18],"Carla":[6,14,18,16,30,30,52,20],"Albert":[5,14,18,24,35,24,42,34],"Adri":[3,10,18,24,35,24,54,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"10-5-2026", "sistema_daus": 1},
+	{"jugadors":["Roger","Joanna","Justus"],"categories_especials":["2/2/2/2","dauet(12)"],"puntuacions":{"Roger":[4,10,24,24,30,12,28,21],"Joanna":[3,14,18,4,35,36,28,16],"Justus":[4,6,21,20,30,30,28,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"15-5-2026", "sistema_daus": 1},
+	{"jugadors":["Roger","Justus"],"categories_especials":["4/4","color"],"puntuacions":{"Roger":[6,6,18,28,30,24,36,35],"Justus":[5,10,24,28,35,24,28,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"15-5-2026", "sistema_daus": 1},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["forma","dauet(12)"],"puntuacions":{"Joanna":[3,8,6,20,30,30,34,23],"Roger":[1,12,24,24,35,18,32,19]},"trumfo":[[""],[""],["tatxar-5"],[""],[""],[""],[""],[""]],"data":"16-5-2026", "sistema_daus": 1},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["5/3","color"],"puntuacions":{"Joanna":[4,6,24,20,35,18,35,25],"Roger":[4,12,12,24,30,18,37,34]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-5-2026", "sistema_daus": 1},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["buida","forma"],"puntuacions":{"Joanna":[2,8,9,20,35,12,0,34],"Roger":[6,10,24,20,35,36,0,38]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-5-2026", "sistema_daus": 1},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["forma","2/2/2/2"],"puntuacions":{"Roger":[7,6,18,28,25,24,36,22],"Joanna":[4,4,6,28,30,18,34,60]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"17-5-2026", "sistema_daus": 1},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["forma","2/2/2/2"],"puntuacions":{"Joanna":[2,14,15,44,30,30,22,46],"Roger":[5,8,18,20,35,24,34,46]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"17-5-2026", "sistema_daus": 1},
+	{"jugadors":["Roger","Joanna","Justus"],"categories_especials":["dauet(12)","color"],"puntuacions":{"Roger":[7,10,15,32,35,30,20,29],"Joanna":[4,14,21,16,25,24,0,28],"Justus":[3,14,15,28,30,24,41,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"23-5-2026", "sistema_daus": 1},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["2/2/2/2","forma"],"puntuacions":{"Joanna":[6,12,18,20,35,6,50,0],"Roger":[3,14,21,20,35,18,30,28]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-5-2026", "sistema_daus": 1},
+	{"jugadors":["Joanna","Roger","Theresa","Lia"],"categories_especials":["4/4","color"],"puntuacions":{"Joanna":[5,12,24,28,20,36,36,46],"Roger":[3,12,18,20,35,36,0,0],"Theresa":[3,14,21,28,30,18,44,22],"Lia":[7,6,15,24,30,36,32,27]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-5-2026", "sistema_daus": 1},
+	{"jugadors":["Sergio","Andrés","Roger","Alejandro"],"categories_especials":["4/4","color"],"puntuacions":{"Sergio":[4,10,21,24,35,24,16,35],"Andrés":[6,4,12,24,20,12,28,35],"Roger":[2,8,18,24,15,36,36,23],"Alejandro":[2,8,9,24,30,24,24,39]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"27-5-2026", "sistema_daus": 1},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["forma","2/2/2/2"],"puntuacions":{"Roger":[4,8,18,28,35,24,32,28],"Joanna":[2,10,21,20,35,12,32,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"31-5-2026", "sistema_daus": 1},
+	{"jugadors":["Giulia","Roger","Alice","Dani OG"],"categories_especials":["4/4","color"],"puntuacions":{"Giulia":[4,14,18,20,25,18,36,37],"Roger":[5,4,18,20,25,36,32,24],"Alice":[6,12,12,24,30,30,20,26],"Dani OG":[3,8,6,20,30,30,28,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"1-6-2026", "sistema_daus": 1},
+	{"jugadors":["Roger","Anti","Giulia"],"categories_especials":["4/4","color"],"puntuacions":{"Roger":[2,10,21,20,30,24,40,33],"Anti":[2,10,21,20,35,36,0,37],"Giulia":[2,16,21,24,20,30,0,40]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"1-6-2026", "sistema_daus": 1},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["buida","forma"],"puntuacions":{"Roger":[3,0,15,20,30,12,0,35],"Joanna":[5,10,18,28,35,24,0,33]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-6-2026", "sistema_daus": 1},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Joanna":[2,4,15,28,15,18,26,40],"Roger":[5,6,21,24,35,12,58,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-6-2026", "sistema_daus": 1},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["forma","4/4"],"puntuacions":{"Joanna":[0,14,18,28,35,18,0,0],"Roger":[2,12,21,20,35,24,32,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-6-2026", "sistema_daus": 1},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["dauet(12)","5/3"],"puntuacions":{"Joanna":[7,16,18,24,30,30,19,29],"Roger":[0,16,21,20,30,36,41,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-6-2026", "sistema_daus": 1},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["buida","color"],"puntuacions":{"Roger":[5,6,15,24,30,0,0,42],"Joanna":[4,10,24,28,30,6,0,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-6-2026", "sistema_daus": 1},
+	{"jugadors":["Adri","Roger"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Adri":[3,12,6,24,30,30,50,0],"Roger":[5,12,18,28,35,30,56,31]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"7-6-2026","puntua_rdp":true, "sistema_daus": 1},
+	{"jugadors":["Adri","Roger"],"categories_especials":["dauet(12)","5/3"],"puntuacions":{"Adri":[3,10,12,12,40,36,36,35],"Roger":[8,8,18,28,35,30,14,35]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"7-6-2026","puntua_rdp":true, "sistema_daus": 1},
+	{"jugadors":["Roger","Adri"],"categories_especials":["2/2/2/2","forma"],"puntuacions":{"Roger":[1,2,21,24,25,18,28,15],"Adri":[1,6,12,28,30,6,26,0]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"7-6-2026","puntua_rdp":true, "sistema_daus": 1},
+	{"jugadors":["Roger","Giulia","Jorge"],"categories_especials":["4/4","color"],"puntuacions":{"Roger":[6,14,18,28,40,36,28,23],"Giulia":[7,14,18,28,30,24,36,42],"Jorge":[4,8,21,24,30,30,36,27]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-6-2026", "sistema_daus": 1},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["forma","forma"],"puntuacions":{"Joanna":[1,4,15,28,15,18,0,0],"Roger":[2,4,12,28,35,30,30,32]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-6-2026", "sistema_daus": 1},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["4/4","4/4"],"puntuacions":{"Roger":[4,6,18,24,30,18,36,40],"Joanna":[2,6,18,28,30,12,44,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-6-2026", "sistema_daus": 1},
+	{"jugadors":["Giulia","Roger","Jorge"],"categories_especials":["5/3","forma"],"puntuacions":{"Giulia":[2,16,15,24,15,24,37,0],"Roger":[4,14,15,16,30,18,37,0],"Jorge":[4,12,9,28,35,12,20,19]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"15-6-2026", "sistema_daus": 1},
+	{"jugadors":["Anti","Murci","Roger"],"categories_especials":["4/4","color"],"puntuacions":{"Anti":[6,8,18,20,35,30,0,30],"Murci":[1,14,21,24,35,18,40,0],"Roger":[4,8,21,24,55,42,28,23]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"15-6-2026", "sistema_daus": 1},
+	{"jugadors":["Roger","Giulia"],"categories_especials":["4/4","forma"],"puntuacions":{"Roger":[4,10,24,28,25,30,28,31],"Giulia":[7,10,18,24,30,24,36,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"15-6-2026", "sistema_daus": 1},
+	{"jugadors":["Roger","Giulia"],"categories_especials":["color","dauet(12)"],"puntuacions":{"Roger":[7,14,15,12,25,24,26,32],"Giulia":[2,12,21,24,25,24,40,35]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"15-6-2026", "sistema_daus": 1},
+	{"jugadors":["Murci","Lucas","Jorge"],"categories_especials":["4/4","color"],"puntuacions":{"Murci":[8,8,15,16,30,24,36,33],"Lucas":[3,14,12,24,35,30,36,25],"Jorge":[6,12,21,28,30,24,44,31]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-6-2026", "sistema_daus": 1},
+	{"jugadors":["Sergio","Javi","Roger","Lucas","Diego"],"categories_especials":["4/4","color"],"puntuacions":{"Sergio":[4,12,15,20,35,30,36,43],"Javi":[6,6,15,20,25,18,36,23],"Roger":[2,6,18,20,65,24,0,21],"Lucas":[4,14,15,20,25,30,36,44],"Diego":[5,10,15,20,25,36,36,35]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-6-2026", "sistema_daus": 1},
+	{"jugadors":["Greta","Heidi","Joanna"],"categories_especials":["color","4/4"],"puntuacions":{"Greta":[7,8,21,24,25,24,35,20],"Heidi":[2,8,24,20,25,12,36,0],"Joanna":[5,2,15,28,40,18,25,32]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"19-6-2026", "sistema_daus": 1},
+	{"jugadors":["Roger","Robert"],"categories_especials":["buida","4/2/2"],"puntuacions":{"Roger":[4,10,21,28,30,36,0,32],"Robert":[6,8,18,24,15,24,0,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"19-6-2026", "sistema_daus": 1},
+	{"jugadors":["Adri","Albert","Roger","Teresa"],"categories_especials":["buida","forma"],"puntuacions":{"Adri":[7,14,18,20,30,24,0,30],"Albert":[7,12,15,28,35,24,0,30],"Roger":[5,4,18,28,35,6,0,30],"Teresa":[2,10,15,24,55,30,0,22]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"20-6-2026","puntua_rdp":true, "sistema_daus": 1},
+	{"jugadors":["Teresa","Albert","Aniol","Míriam"],"categories_especials":["buida","4/4"],"puntuacions":{"Teresa":[4,10,21,32,35,12,0,36],"Albert":[3,16,21,24,35,18,0,36],"Aniol":[6,6,15,20,25,30,0,32],"Míriam":[5,10,24,32,30,30,0,36]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"20-6-2026","puntua_rdp":true, "sistema_daus": 1},
+	{"jugadors":["Míriam","Teresa","Adri","Aniol"],"categories_especials":["dauet(12)","4/4"],"puntuacions":{"Míriam":[5,12,21,24,30,30,21,32],"Teresa":[5,14,21,24,35,24,19,32],"Adri":[3,8,9,24,35,12,36,36],"Aniol":[6,4,15,28,35,30,19,44]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"20-6-2026","puntua_rdp":true, "sistema_daus": 1},
+	{"jugadors":["Andreu","Adri","Albert","Aniol","Míriam"],"categories_especials":["2/2/2/2","dauet(12)"],"puntuacions":{"Andreu":[2,10,18,16,30,24,32,20],"Adri":[4,14,21,24,30,30,22,20],"Albert":[3,10,12,16,25,24,20,22],"Aniol":[3,12,18,24,25,24,28,20],"Míriam":[7,8,12,28,20,36,22,20]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"20-6-2026","puntua_rdp":true, "sistema_daus": 1},
+	{"jugadors":["Carla","Aniol","Robert"],"categories_especials":["4/4","forma"],"puntuacions":{"Carla":[7,2,18,28,35,6,36,29],"Aniol":[4,8,18,28,35,24,36,14],"Robert":[1,12,18,28,15,12,28,32]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"20-6-2026","puntua_rdp":true, "sistema_daus": 1},
+	{"jugadors":["Albert","Adri","Robert","Roger"],"categories_especials":["4/2/2","4/4"],"puntuacions":{"Albert":[2,26,15,20,30,18,50,36],"Adri":[7,8,15,24,30,6,24,0],"Robert":[7,10,21,20,35,18,28,28],"Roger":[5,12,15,20,25,30,54,32]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-6-2026", "sistema_daus": 1},
+	{"jugadors":["Adri","Robert","Roger"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Adri":[6,10,18,20,30,18,28,44],"Robert":[5,12,18,24,35,30,88,39],"Roger":[4,10,21,20,30,0,60,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-6-2026", "sistema_daus": 1},
+    {"jugadors":["Adri","Roger"],"categories_especials":["color","forma"],"puntuacions":{"Adri":[4,8,18,20,30,24,30,34],"Roger":[4,6,18,12,35,6,0,31]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-6-2026", "sistema_daus": 1},
+	{"jugadors":["Adri","Roger"],"categories_especials":["4/4","buida"],"puntuacions":{"Adri":[3,12,18,28,30,18,32,0],"Roger":[4,8,18,24,25,36,36,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-6-2026", "sistema_daus": 1},
+	{"jugadors":["Adri","Carla","Roger"],"categories_especials":["color","4/4"],"puntuacions":{"Adri":[2,10,21,28,35,36,23,12],"Carla":[4,6,9,12,30,12,35,28],"Roger":[1,2,21,20,20,24,26,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-6-2026", "sistema_daus": 1},
+	{"jugadors":["Adri","Carla","Roger"],"categories_especials":["dauet(12)","dauet(12)"],"puntuacions":{"Adri":[4,16,21,28,30,12,19,42],"Carla":[5,10,15,20,35,12,20,18],"Roger":[7,10,15,20,30,18,19,23]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-6-2026", "sistema_daus": 1},
+	{"jugadors":["Adri","Carla"],"categories_especials":["buida","buida"],"puntuacions":{"Adri":[2,10,21,24,30,30,0,0],"Carla":[6,4,15,28,30,6,0,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-6-2026", "sistema_daus": 1},
+	{"jugadors":["Adri","Carla"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Adri":[4,12,15,24,30,24,24,24],"Carla":[4,6,18,28,25,12,52,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-6-2026", "sistema_daus": 1},
+	{"jugadors":["Carla","Adri"],"categories_especials":["4/4","color"],"puntuacions":{"Carla":[5,6,18,16,35,12,32,30],"Adri":[5,10,24,20,35,30,36,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-6-2026", "sistema_daus": 1},
+	{"jugadors":["Adri","Carla"],"categories_especials":["dauet(12)","4/4"],"puntuacions":{"Adri":[3,4,15,16,30,24,39,20],"Carla":[5,10,15,24,35,6,0,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-6-2026", "sistema_daus": 1},
+	{"jugadors":["Carla","Teresa","Andreu","Dani","Robert","Roger"],"categories_especials":["4/4","5/3"],"puntuacions":{"Carla":[5,8,24,28,35,36,36,0],"Teresa":[3,10,15,28,35,36,32,37],"Andreu":[7,4,18,28,30,30,36,27],"Dani":[7,14,15,32,25,18,16,37],"Robert":[2,10,12,32,20,36,24,29],"Roger":[4,4,21,24,30,12,24,29]},"trumfo":[[],[],[],[],[],[],[],[]],"data":"23-6-2026","puntua_rdp":true, "sistema_daus": 2},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["4/4","forma"],"puntuacions":{"Roger":[5,6,9,20,30,36,28,38],"Joanna":[3,6,15,28,35,30,32,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-6-2026", "sistema_daus": 2},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["5/3","forma"],"puntuacions":{"Joanna":[5,8,18,24,25,36,30,32],"Roger":[0,8,12,24,35,30,28,32]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-6-2026", "sistema_daus": 2},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["dauet(12)","2/2/2/2"],"puntuacions":{"Joanna":[4,12,18,28,35,42,23,54],"Roger":[4,10,18,24,40,42,20,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-6-2026", "sistema_daus": 2},
+	{"jugadors":["Theresa","Joanna"],"categories_especials":["4/4","color"],"puntuacions":{"Theresa":[8,12,18,28,30,18,28,40],"Joanna":[6,12,12,20,40,24,28,31]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"27-6-2026", "sistema_daus": 2},
+	{"jugadors":["Justus","Heidi","Greta"],"categories_especials":["4/4","color"],"puntuacions":{"Justus":[3,8,12,28,30,6,28,24],"Heidi":[3,6,18,12,30,12,28,27],"Greta":[4,8,18,24,35,24,28,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"30-6-2026"},
+	{"jugadors":["Greta","Justus","Heidi"],"categories_especials":["4/4","color"],"puntuacions":{"Greta":[1,10,18,28,15,24,0,27],"Justus":[4,8,18,12,30,30,36,26],"Heidi":[3,6,15,32,30,24,36,34]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"30-6-2026"},
+	{"jugadors":["Justus","Helena","Volker"],"categories_especials":["4/4","color"],"puntuacions":{"Justus":[5,4,9,20,30,30,36,25],"Helena":[5,6,15,32,25,24,36,24],"Volker":[2,10,24,20,30,24,28,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"30-6-2026"},
+	{"jugadors":["Volker","Joanna","Helena","Justus"],"categories_especials":["4/4","color"],"puntuacions":{"Volker":[7,14,18,20,30,54,28,27],"Joanna":[5,8,18,24,35,30,44,23],"Helena":[7,14,18,12,25,30,44,0],"Justus":[3,12,21,24,40,24,28,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"30-6-2026"},
+	{"jugadors":["Volker","Helena","Justus"],"categories_especials":["4/4","color"],"puntuacions":{"Volker":[6,2,12,20,35,24,36,0],"Helena":[5,16,12,24,30,30,0,37],"Justus":[6,10,18,16,25,18,28,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"1-7-2026"},
+	{"jugadors":["Murci","Jorge","Roger","Giulia"],"categories_especials":["2/2/2/2","forma"],"puntuacions":{"Murci":[2,12,18,24,40,18,20,18],"Jorge":[2,8,6,24,25,6,76,0],"Roger":[1,4,21,28,35,30,34,0],"Giulia":[5,10,24,28,30,36,24,48]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"1-7-2026"},
+	{"jugadors":["Carla","Adri","Punky","RK"],"categories_especials":["dauet(12)","2/2/2/2"],"puntuacions":{"Carla":[6,12,18,32,35,18,16,24],"Adri":[5,6,18,24,25,24,35,26],"Punky":[4,8,18,28,35,18,22,28],"RK":[6,4,18,20,30,40,21,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"2-7-2026"},
+	{"jugadors":["Punky","Carla","Adri"],"categories_especials":["dauet(12)","4/4"],"puntuacions":{"Punky":[6,10,24,12,35,18,0,24],"Carla":[1,8,18,24,30,24,0,40],"Adri":[3,12,18,24,40,30,23,28]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"2-7-2026"},
+	{"jugadors":["Adri","Punky","Carla"],"categories_especials":["color","4/4"],"puntuacions":{"Adri":[1,10,15,20,35,24,37,32],"Punky":[4,8,21,12,25,6,27,36],"Carla":[6,10,21,28,25,30,25,32]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"2-7-2026"},
+	{"jugadors":["Quim","Carla","Albert","Adri"],"categories_especials":["buida","color"],"puntuacions":{"Quim":[5,4,21,20,25,30,0,37],"Carla":[4,14,6,24,30,18,0,17],"Albert":[1,14,18,24,30,30,0,43],"Adri":[4,16,15,28,45,24,0,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"4-7-2026"},
+	{"jugadors":["Carla","Albert","Adri","Quim"],"categories_especials":["4/4","2/2/2/2"],"puntuacions":{"Carla":[2,14,18,28,40,30,0,24],"Albert":[3,10,15,24,35,18,36,56],"Adri":[2,18,9,20,20,24,16,48],"Quim":[4,2,18,20,30,30,36,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"4-7-2026"},
+	{"jugadors":["Adri","Quim","Carla","Albert"],"categories_especials":["2/2/2/2","5/3"],"puntuacions":{"Adri":[4,16,21,16,30,24,26,27],"Quim":[3,8,15,20,25,12,50,29],"Carla":[4,24,21,28,35,24,22,35],"Albert":[6,4,15,32,25,12,58,35]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"4-7-2026"},
+	{"jugadors":["Adri","Quim","Carla"],"categories_especials":["4/4","forma"],"puntuacions":{"Adri":[3,6,21,20,25,18,32,34],"Quim":[2,4,24,16,35,36,44,35],"Carla":[4,10,21,24,35,18,52,31]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"4-7-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["2/2/2/2","dauet(12)"],"puntuacions":{"Joanna":[4,10,18,24,40,12,22,22],"Roger":[2,10,21,24,35,18,44,17]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-7-2026"},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["buida","forma"],"puntuacions":{"Roger":[2,10,21,16,40,24,0,36],"Joanna":[4,10,18,24,30,12,0,34]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-7-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Joanna":[3,4,18,24,35,0,48,26],"Roger":[7,10,18,24,30,12,22,46]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-7-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["color","5/3"],"puntuacions":{"Joanna":[3,8,12,24,30,6,0,34],"Roger":[5,12,18,28,30,30,23,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-7-2026"},
+	{"jugadors":["Giulia","Dani Ibai","Lucía","Pedro","Roger"],"categories_especials":["4/4","color"],"puntuacions":{"Giulia":[7,6,18,32,30,24,36,35],"Dani Ibai":[3,10,9,28,30,18,28,24],"Lucía":[4,8,21,12,30,24,36,25],"Pedro":[5,6,18,16,35,18,28,30],"Roger":[13,14,18,24,30,24,36,42]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"6-7-2026"},
+	{"jugadors":["Roger","Lucas","Diego","Pedro"],"categories_especials":["5/3","forma"],"puntuacions":{"Roger":[0,12,24,24,30,24,37,32],"Lucas":[3,2,21,16,30,12,39,0],"Diego":[0,2,18,28,25,24,29,26],"Pedro":[1,6,15,20,30,24,45,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"6-7-2026"},
+	{"jugadors":["Miguel","Dani Ibai","Roger"],"categories_especials":["2/2/2/2","forma"],"puntuacions":{"Miguel":[5,6,21,32,30,12,26,21],"Dani Ibai":[6,8,24,28,35,24,36,26],"Roger":[4,2,15,24,30,18,26,66]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"7-7-2026"},
+	{"jugadors":["Dani Ibai","Alejandro","Pedro","Roger"],"categories_especials":["4/4","dauet(12)"],"puntuacions":{"Dani Ibai":[3,2,21,20,30,18,32,0],"Alejandro":[7,6,18,20,35,6,36,22],"Pedro":[3,6,12,16,35,24,0,14],"Roger":[7,10,24,24,40,36,28,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"7-7-2026"},
+	{"jugadors":["Pedro","Roger","Dani Ibai"],"categories_especials":["forma","dauet(12)"],"puntuacions":{"Pedro":[4,14,18,20,30,36,33,22],"Roger":[5,2,24,20,45,12,36,15],"Dani Ibai":[8,10,15,28,40,36,21,41]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"7-7-2026"},
+	{"jugadors":["Adri","Maria"],"categories_especials":["dauet(12)","color"],"puntuacions":{"Adri":[1,8,12,28,20,24,23,36],"Maria":[5,6,21,16,35,12,17,35]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-7-2026"},
+	{"jugadors":["Maria","Adri"],"categories_especials":["color","forma"],"puntuacions":{"Maria":[5,2,15,12,35,36,36,21],"Adri":[3,6,12,28,35,24,26,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-7-2026"},
+	{"jugadors":["Maria","Adri"],"categories_especials":["dauet(12)","forma"],"puntuacions":{"Maria":[2,12,12,28,35,24,18,34],"Adri":[5,2,15,32,40,24,20,25]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-7-2026"},
+	{"jugadors":["Pedro","Roger"],"categories_especials":["4/4","buida"],"puntuacions":{"Pedro":[1,6,21,24,30,18,36,0],"Roger":[3,14,21,24,30,30,32,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-7-2026"},
+	{"jugadors":["Roger","Pedro","Max"],"categories_especials":["4/4","color"],"puntuacions":{"Roger":[5,10,18,24,30,24,36,31],"Pedro":[4,12,18,20,30,30,36,28],"Max":[6,14,12,20,35,36,32,23]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-7-2026"},
+	{"jugadors":["Max","Roger"],"categories_especials":["5/3","color"],"puntuacions":{"Max":[4,12,12,20,30,12,0,0],"Roger":[5,10,9,24,35,36,35,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-7-2026"},
+	{"jugadors":["Anti","Roger","Murci"],"categories_especials":["4/4","forma"],"puntuacions":{"Anti":[6,8,18,20,35,30,36,33],"Roger":[1,8,12,24,25,18,0,0],"Murci":[3,2,21,28,35,30,28,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"9-7-2026"},
+	{"jugadors":["Alejandro","Roger"],"categories_especials":["4/4","color"],"puntuacions":{"Alejandro":[6,24,15,24,20,12,36,24],"Roger":[1,10,18,20,20,24,0,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"9-7-2026"},
+	{"jugadors":["Ioanna","Alejandro","Diego","Roger","Charls"],"categories_especials":["4/4","color"],"puntuacions":{"Ioanna":[5,10,21,20,20,0,36,0],"Alejandro":[6,10,15,24,30,30,36,24],"Diego":[4,16,12,20,35,48,36,25],"Roger":[2,8,30,28,35,12,36,26],"Charls":[5,10,21,20,30,30,0,28]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"11-7-2026"},
+	{"jugadors":["Joanna","Volker","Nicole","Helena"],"categories_especials":["4/4","color"],"puntuacions":{"Joanna":[1,4,18,24,35,6,28,23],"Volker":[2,6,18,28,30,24,32,25],"Nicole":[10,12,12,28,40,12,36,32],"Helena":[5,10,21,24,30,18,36,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"11-7-2026"},
+	{"jugadors":["Heidi","Greta","Joanna","Roger","Volker","Helena"],"categories_especials":["4/4","color"],"puntuacions":{"Heidi":[2,10,6,28,25,42,32,36],"Greta":[4,12,21,28,35,12,0,26],"Joanna":[3,14,21,28,30,36,44,20],"Roger":[4,8,15,24,25,30,36,23],"Volker":[6,8,21,28,35,18,28,24],"Helena":[5,4,18,28,25,18,36,25]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-7-2026"},
+	{"jugadors":["Mariona","Carla","Adri","Marta"],"categories_especials":[],"puntuacions":{"Mariona":[2,12,12,24,30,18],"Carla":[7,14,21,28,40,30],"Adri":[3,8,18,24,30,18],"Marta":[4,10,18,40,35,24]},"trumfo":[[""],[""],[""],[""],[""],[""]],"data":"12-7-2026"},
+	{"jugadors":["Marta","Mariona","Carla","Adri"],"categories_especials":["4/4","color"],"puntuacions":{"Marta":[5,10,15,20,30,12,32,40],"Mariona":[1,6,15,24,35,24,36,42],"Carla":[7,10,15,28,35,30,28,39],"Adri":[6,4,12,32,30,18,36,23]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-7-2026"},
+	{"jugadors":["Adri","Anamary","Elena"],"categories_especials":["2/2/2/2","buida"],"puntuacions":{"Adri":[8,6,12,28,40,18,56,0],"Anamary":[7,12,24,24,30,6,50,0],"Elena":[7,10,15,28,35,30,28,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-7-2026"},
+	{"jugadors":["Adri","Anamary","Elena"],"categories_especials":["dauet(12)","buida"],"puntuacions":{"Adri":[5,12,24,20,30,36,22,0],"Anamary":[5,16,18,24,30,30,20,0],"Elena":[7,12,24,28,25,36,21,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-7-2026"},
+	{"jugadors":["Anamary","Elena","Oscar","Adri"],"categories_especials":["4/4","color"],"puntuacions":{"Anamary":[3,12,18,16,30,24,0,23],"Elena":[5,8,24,20,40,0,28,26],"Oscar":[6,14,18,20,35,12,0,26],"Adri":[5,14,24,24,30,24,36,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-7-2026"},
+	{"jugadors":["Elena","Adri","Anamary"],"categories_especials":["dauet(12)","buida"],"puntuacions":{"Elena":[1,12,18,32,35,12,24,0],"Adri":[3,10,18,24,45,12,20,0],"Anamary":[6,12,18,20,25,36,16,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-7-2026"},
+	{"jugadors":["Elena","Adri","Anamary"],"categories_especials":["dauet(12)","2/2/2/2"],"puntuacions":{"Elena":[6,16,21,16,20,30,22,24],"Adri":[5,10,21,16,35,18,18,28],"Anamary":[6,14,15,32,25,24,18,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-7-2026"},
+	{"jugadors":["Elena","Oscar","Adri","Anamary"],"categories_especials":["dauet(12)","2/2/2/2"],"puntuacions":{"Elena":[5,12,24,16,30,36,19,0],"Oscar":[6,12,9,20,35,18,21,28],"Adri":[4,12,15,20,35,12,24,36],"Anamary":[7,10,9,28,25,18,20,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-7-2026"},
+	{"jugadors":["Adri","Anamary","Elena","Oscar"],"categories_especials":["forma","buida"],"puntuacions":{"Adri":[6,8,21,24,30,30,36,0],"Anamary":[11,10,18,24,35,30,30,0],"Elena":[4,10,18,24,25,18,28,0],"Oscar":[6,12,15,32,35,18,23,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-7-2026"},
+	{"jugadors":["Elena","Oscar","Adri","Anamary"],"categories_especials":["color","buida"],"puntuacions":{"Elena":[4,6,21,16,30,18,0,0],"Oscar":[6,14,15,28,30,18,25,0],"Adri":[3,10,24,24,35,12,25,0],"Anamary":[6,10,24,24,35,42,22,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-7-2026"},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["5/3","forma"],"puntuacions":{"Roger":[3,8,15,20,25,6,37,29],"Joanna":[4,12,15,24,30,18,37,31]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-7-2026"},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Roger":[4,6,15,28,30,24,42,0],"Joanna":[3,10,21,24,35,0,20,39]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-7-2026"},
+	{"jugadors":["Nicole","Volker","Helena"],"categories_especials":["color","4/4"],"puntuacions":{"Nicole":[6,12,15,32,30,18,25,28],"Volker":[7,12,15,24,35,30,24,28],"Helena":[7,8,15,24,25,30,25,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-7-2026"},
+	{"jugadors":["Guerau","Joan","Aniol","Andreu","Míriam","Aina"],"categories_especials":[],"puntuacions":{"Guerau":[6,12,21,24,40,36],"Joan":[4,14,18,24,30,30],"Aniol":[2,10,18,24,30,18],"Andreu":[5,8,18,24,30,12],"Míriam":[7,12,12,28,25,30],"Aina":[5,10,24,16,25,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-7-2026"},
+	{"jugadors":["Míriam","Teresa","Aniol","Andreu"],"categories_especials":["4/4","forma"],"puntuacions":{"Míriam":[8,12,9,24,35,24,28,0],"Teresa":[3,2,18,24,25,30,36,0],"Aniol":[2,8,12,24,25,18,0,30],"Andreu":[5,8,18,28,35,24,36,31]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-7-2026"},
+	{"jugadors":["Míriam","Teresa","Aniol","Andreu"],"categories_especials":["dauet(21)","buida"],"puntuacions":{"Míriam":[5,14,21,20,35,30,30,0],"Teresa":[6,6,33,24,30,30,29,0],"Aniol":[4,8,12,20,35,24,57,0],"Andreu":[3,6,18,28,30,24,53,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-7-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["color","forma"],"puntuacions":{"Joanna":[5,8,18,28,35,36,29,29],"Roger":[1,4,18,24,35,30,26,33]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"15-7-2026"},
+	{"jugadors":["Joanna","Dani OG","Murci","Diego"],"categories_especials":["2/2/2/2","forma"],"puntuacions":{"Joanna":[1,0,15,32,35,30,28,29],"Dani OG":[5,14,15,28,30,30,26,37],"Murci":[2,2,18,28,25,36,30,0],"Diego":[2,0,15,28,25,18,26,34]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"puntua_rdp": false, "torneig": "PIQ26", "data":"15-7-2026"},
+	{"jugadors":["Roger","Sergio","Giulia","Jorge"],"categories_especials":["4/4","dauet(12)"],"puntuacions":{"Roger":[5,6,15,24,35,18,28,20],"Sergio":[7,4,15,28,30,18,36,0],"Giulia":[2,4,6,24,30,24,32,18],"Jorge":[4,10,18,20,30,6,36,23]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"puntua_rdp":false, "torneig": "PIQ26", "data":"15-7-2026"},
+	{"jugadors":["Roger","Murci","Lucas","Sergio"],"categories_especials":["forma","buida"],"puntuacions":{"Roger":[7,12,18,20,40,30,31,0],"Murci":[5,10,18,28,35,18,26,0],"Lucas":[1,10,21,12,25,30,19,0],"Sergio":[1,10,18,24,40,24,0,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"puntua_rdp": false, "torneig": "PIQ26", "data":"15-7-2026"},
+	{"jugadors":["Pedro","Giulia","Joanna","Jorge"],"categories_especials":["4/4","forma"],"puntuacions":{"Pedro":[2,12,21,20,25,24,24,34],"Giulia":[3,8,18,28,30,24,0,0],"Joanna":[2,12,12,28,25,42,64,29],"Jorge":[5,8,9,24,30,36,20,23]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"puntua_rdp": false, "torneig": "PIQ26", "data":"15-7-2026"},
+	{"jugadors":["Joanna","Murci","Sergio","Roger"],"categories_especials":["2/2/2/2","forma"],"puntuacions":{"Joanna":[6,2,21,24,25,42,26,18],"Murci":[5,10,21,20,35,12,22,23],"Sergio":[4,2,21,24,35,30,22,0],"Roger":[5,6,15,32,30,18,56,18]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"puntua_rdp": false, "torneig": "PIQ26", "data":"15-7-2026"},
+	{"jugadors":["Giulia","Javi","Joanna","Йордан"],"categories_especials":["4/4","color"],"puntuacions":{"Giulia":[6,10,24,24,20,32,25,24],"Javi":[2,14,18,20,35,32,33,24],"Joanna":[5,10,15,24,35,28,41,24],"Йордан":[3,4,21,28,30,0,0,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"puntua_rdp": false, "torneig": "PIQ26", "data":"15-7-2026"},
+	{"jugadors":["Roger","Dani OG","Jofre","Murci"],"categories_especials":["4/4","dauet(12)"],"puntuacions":{"Roger":[6,10,15,24,25,24,36,20],"Dani OG":[3,10,12,28,25,30,20,21],"Jofre":[2,10,15,24,25,24,28,35],"Murci":[1,6,12,24,30,12,36,19]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"puntua_rdp": false, "torneig": "PIQ26", "data":"15-7-2026"},
+	{"jugadors":["Carla","Punky","Adri"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Carla":[7,8,21,24,25,24,46,22],"Punky":[4,6,21,20,25,24,32,26],"Adri":[5,12,18,32,30,6,22,44]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"15-7-2026"},
+	{"jugadors":["Adri","Punky"],"categories_especials":["dauet(12)","4/4"],"puntuacions":{"Adri":[8,14,21,28,30,36,22,28],"Punky":[3,10,21,28,30,24,37,20]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"15-7-2026"},
+	{"jugadors":["Roger","Joanna","Dani OG","Jorge","Jofre","Йордан"],"rdp_extra":true,"rdp":{"Roger": 40, "Joanna": 40, "Dani OG": 12, "Jorge": 12, "Jofre": 5, "Йордан": 0}, "data":"15-7-2026"},
+	{"jugadors":["Adri","Punky"],"categories_especials":["color","4/4"],"puntuacions":{"Adri":[6,14,15,24,30,30,36,36],"Punky":[6,6,21,24,35,6,34,16]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-7-2026"},
+	{"jugadors":["Adri","Punky"],"categories_especials":["dauet(12)","2/2/2/2"],"puntuacions":{"Adri":[2,14,21,28,30,18,40,54],"Punky":[4,4,21,24,30,6,0,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-7-2026"},
+	{"jugadors":["Adri","Punky"],"categories_especials":["2/2/2/2","4/4"],"puntuacions":{"Adri":[1,12,24,24,30,18,50,36],"Punky":[6,12,24,28,35,24,28,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-7-2026"},
+	{"jugadors":["Adri","Punky"],"categories_especials":["color","4/2/2"],"puntuacions":{"Adri":[2,10,18,32,40,18,34,30],"Punky":[7,6,21,20,35,30,34,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-7-2026"},
+	{"jugadors":["Punky","Adri"],"categories_especials":["forma","2/2/2/2"],"puntuacions":{"Punky":[4,16,3,24,25,24,0,52],"Adri":[7,14,18,28,30,30,16,52]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-7-2026"},
+	{"jugadors":["Punky","Adri"],"categories_especials":["dauet(12)","2/2/2/2"],"puntuacions":{"Punky":[3,10,3,24,30,30,17,70],"Adri":[3,14,15,24,35,30,0,54]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-7-2026"},
+	{"jugadors":["Punky","Adri"],"categories_especials":["dauet(12)","2/2/2/2"],"puntuacions":{"Punky":[5,12,18,16,35,12,42,24],"Adri":[6,10,18,24,25,0,0,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-7-2026"},
+	{"jugadors":["Punky","Adri"],"categories_especials":["color","4/4"],"puntuacions":{"Punky":[7,6,21,20,30,30,23,0],"Adri":[2,6,12,16,35,36,0,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-7-2026"},
+	{"jugadors":["Punky","Adri"],"categories_especials":["forma","5/3"],"puntuacions":{"Punky":[2,10,15,28,30,6,28,30],"Adri":[1,10,21,20,40,6,35,20]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"16-7-2026"},
+	{"jugadors":["Pedro","Roger"],"categories_especials":["dauet(12)","4/4"],"puntuacions":{"Pedro":[3,12,15,20,30,18,19,44],"Roger":[4,12,21,20,30,42,23,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"17-7-2026"},
+	{"jugadors":["Roger","Pedro"],"categories_especials":["4/2/2","VNK"],"puntuacions":{"Roger":[4,4,9,28,30,24,40,0],"Pedro":[6,14,18,44,25,36,36,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"17-7-2026"},
+	{"jugadors":["Dolors","Drac Català","Teresa","Beni","Andreu","Dani H"],"categories_especials":[],"puntuacions":{"Dolors":[6,10,15,20,25,36],"Drac Català":[10,10,18,12,25,36],"Teresa":[3,8,18,24,30,30],"Beni":[5,12,12,28,25,24],"Andreu":[2,14,18,28,25,36],"Dani H":[3,8,18,28,35,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"18-7-2026"},
+	{"jugadors":["Adri","Robert","Nona","Albert","Quim"],"categories_especials":["4/4","4/4"],"puntuacions":{"Adri":[5,10,18,20,35,36,36,28],"Robert":[1,12,12,20,25,24,32,32],"Nona":[4,12,21,20,35,36,28,24],"Albert":[5,12,21,24,30,18,32,36],"Quim":[1,10,15,20,30,24,32,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"18-7-2026"},
+	{"jugadors":["Helena","Roger","Joanna","Justus","Volker"],"categories_especials":["4/4","color"],"puntuacions":{"Helena":[7,4,12,24,25,18,36,34],"Roger":[5,8,12,24,40,24,36,45],"Joanna":[3,2,21,20,35,30,32,37],"Justus":[7,14,18,24,35,42,32,36],"Volker":[6,10,18,20,30,30,24,23]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"19-7-2026"},
+	{"jugadors":["Heidi","Helena","Justus","Roger","Joanna"],"categories_especials":["color","2/2/2/2"],"puntuacions":{"Heidi":[5,4,21,24,30,12,38,32],"Helena":[5,10,12,24,35,0,44,58],"Justus":[4,12,18,20,25,30,39,28],"Roger":[5,6,21,24,30,6,25,20],"Joanna":[7,10,21,24,30,30,27,48]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"19-7-2026"},
+	{"jugadors":["Anamary","Elena","Adri"],"categories_especials":["4/4","color"],"puntuacions":{"Anamary":[4,14,18,28,40,30,36,23],"Elena":[5,10,15,28,30,30,24,22],"Adri":[0,4,12,20,30,12,40,39]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"19-7-2026"},
+	{"jugadors":["Anamary","Elena","Adri"],"categories_especials":["2/2/2/2","forma"],"puntuacions":{"Anamary":[5,10,21,24,30,30,58,17],"Elena":[7,10,24,28,35,42,20,16],"Adri":[4,12,18,24,30,36,20,29]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"19-7-2026"},
+	{"jugadors":["Elena","Adri","Anamary"],"categories_especials":["dauet(12)","5/3"],"puntuacions":{"Elena":[7,6,18,28,25,30,16,28],"Adri":[7,14,18,24,30,24,22,37],"Anamary":[5,12,24,16,30,30,23,34]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"19-7-2026"},
+	{"jugadors":["Anamary","Elena","Adri"],"categories_especials":["dauet(12)","forma"],"puntuacions":{"Anamary":[5,12,18,24,35,30,21,26],"Elena":[1,12,21,20,35,42,18,18],"Adri":[4,10,21,32,30,36,22,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"19-7-2026"},
+	{"jugadors":["Adri","Anamary","Elena"],"categories_especials":["4/4","buida"],"puntuacions":{"Adri":[3,8,18,20,30,24,32,0],"Anamary":[4,10,15,28,40,24,24,0],"Elena":[7,12,21,32,25,12,32,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"19-7-2026"},
+	{"jugadors":["Volker","Roger","Joanna","Justus"],"categories_especials":["4/4","color"],"puntuacions":{"Volker":[1,4,15,24,35,30,36,0],"Roger":[2,6,18,24,35,36,24,23],"Joanna":[3,10,21,16,40,18,36,34],"Justus":[2,8,18,28,30,24,32,25]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"20-7-2026"},
+	{"jugadors":["Justus","Volker","Helena","Roger","Joanna"],"categories_especials":["4/4","color"],"puntuacions":{"Justus":[5,10,18,24,35,36,40,33],"Volker":[7,14,24,24,30,24,0,0],"Helena":[4,20,18,28,30,30,36,29],"Roger":[6,6,18,28,35,24,36,0],"Joanna":[3,8,12,24,20,6,0,20]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"20-7-2026"},
+	{"jugadors":["Volker","Justus","Helena"],"categories_especials":["4/4", "color"],"puntuacions":{"Volker":[1,14,15,20,40,36,0,39],"Justus":[3,4,24,20,25,12,32,35],"Helena":[4,6,15,28,25,24,0,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"21-7-2026"},
+	{"jugadors":["Txell","Maria","Carla","Adri"],"categories_especials":[],"puntuacions":{"Txell":[7,16,18,24,30,42],"Maria":[2,12,21,28,35,30],"Carla":[7,8,12,24,25,18],"Adri":[5,14,18,28,30,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"22-7-2026"},
+	{"jugadors":["Txell","Maria","Carla","Adri"],"categories_especials":["5/3","2/2/2/2"],"puntuacions":{"Txell":[6,14,18,20,30,24,30,26],"Maria":[1,4,18,20,35,18,31,28],"Carla":[3,2,18,32,35,18,37,26],"Adri":[5,12,15,28,35,36,37,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"22-7-2026"},
+	{"jugadors":["Justus","Helena","Volker"],"categories_especials":["4/4","color"],"puntuacions":{"Justus":[4,10,18,20,35,18,36,41],"Helena":[5,14,42,32,25,24,32,24],"Volker":[7,14,21,32,30,30,36,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"23-7-2026"},
+	{"jugadors":["Justus","Helena","Volker"],"categories_especials":["4/4","color"],"puntuacions":{"Justus":[2,10,18,28,35,30,32,43],"Helena":[1,16,18,28,25,24,36,32],"Volker":[5,14,15,24,30,12,36,34]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"23-7-2026"},
+	{"jugadors":["Йордан","Raúl","Roger"],"categories_especials":["dauet(12)","color"],"puntuacions":{"Йордан":[5,14,21,24,25,30,19,26],"Raúl":[6,2,21,24,25,24,17,43],"Roger":[3,6,12,24,30,30,18,23]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"24-7-2026"},
+	{"jugadors":["Joanna","Sergio","Javi","Diego","Lucas","Roger"],"categories_especials":["buida","5/3"],"puntuacions":{"Joanna":[1,8,15,20,35,30,0,0],"Sergio":[5,2,21,16,35,36,0,0],"Javi":[7,8,18,28,30,24,0,37],"Diego":[3,14,18,28,30,6,0,30],"Lucas":[7,12,15,24,60,24,0,29],"Roger":[4,16,21,28,25,18,0,35]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"24-7-2026"},
+	{"jugadors":["Joanna","Roger","Pedro","Alejandro"],"categories_especials":["4/4","dauet(12)"],"puntuacions":{"Joanna":[3,8,18,20,30,30,16,18],"Roger":[2,6,21,20,25,30,0,19],"Pedro":[5,6,24,28,35,24,36,39],"Alejandro":[5,12,15,24,25,30,36,18]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-7-2026"},
+	{"jugadors":["Joanna","Roger","Pedro","Alejandro"],"categories_especials":["2/2/2/2","forma"],"puntuacions":{"Joanna":[1,22,12,24,30,12,0,0],"Roger":[0,10,24,52,35,12,28,26],"Pedro":[8,12,18,28,35,30,58,33],"Alejandro":[7,8,15,24,25,18,28,31]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-7-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["5/3","color"],"puntuacions":{"Joanna":[3,6,21,24,30,12,34,40],"Roger":[7,10,21,24,35,30,27,48]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-7-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["4/4","buida"],"puntuacions":{"Joanna":[5,8,18,24,35,6,36,0],"Roger":[5,10,18,18,35,18,32,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"25-7-2026"},
+	{"jugadors":["Helena","Volker"],"categories_especials":["4/4","color"],"puntuacions":{"Helena":[6,6,24,24,30,36,32,20],"Volker":[6,2,18,16,30,18,28,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Helena","Volker"],"categories_especials":["4/4","color"],"puntuacions":{"Helena":[6,2,20,30,35,24,40,0],"Volker":[6,6,24,15,15,30,32,35]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Volker","Helena"],"categories_especials":["4/4","color"],"puntuacions":{"Volker":[4,12,21,24,30,0,0,0],"Helena":[5,10,18,24,35,24,28,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Helena","Volker"],"categories_especials":["4/4","color"],"puntuacions":{"Helena":[7,14,18,24,30,18,28,35],"Volker":[7,10,18,28,30,24,24,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Helena","Volker"],"categories_especials":["4/4","color"],"puntuacions":{"Helena":[3,14,18,28,30,6,0,28],"Volker":[5,16,12,28,40,18,0,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Elena","Anamary"],"categories_especials":["color","forma"],"puntuacions":{"Elena":[7,4,18,24,35,12,19,0],"Anamary":[6,4,18,20,35,18,24,28]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Elena","Anamary"],"categories_especials":["color","buida"],"puntuacions":{"Elena":[7,12,18,28,30,18,72,0],"Anamary":[4,10,21,24,30,36,25,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Elena","Anamary"],"categories_especials":["dauet(12)","buida"],"puntuacions":{"Elena":[10,4,18,24,35,36,23,0],"Anamary":[6,14,21,20,35,30,32,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Elena","Anamary"],"categories_especials":["forma","buida"],"puntuacions":{"Elena":[5,10,15,24,35,36,30,0],"Anamary":[4,10,18,12,35,24,31,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Elena","Anamary"],"categories_especials":["dauet(12)","2/2/2/2"],"puntuacions":{"Elena":[6,12,21,20,30,36,20,28],"Anamary":[4,2,12,24,25,18,38,58]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Elena","Anamary"],"categories_especials":["buida","4/4"],"puntuacions":{"Elena":[7,8,15,20,30,36,0,25],"Anamary":[4,16,18,20,35,12,0,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Elena","Anamary"],"categories_especials":["forma","color"],"puntuacions":{"Elena":[5,12,18,16,25,36,17,29],"Anamary":[1,8,6,32,25,24,20,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Elena","Anamary"],"categories_especials":["dauet(12)","color"],"puntuacions":{"Elena":[4,16,15,20,35,24,31,24],"Anamary":[5,10,12,24,35,30,33,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Elena","Anamary"],"categories_especials":["buida","color"],"puntuacions":{"Elena":[5,12,18,24,15,42,0,0],"Anamary":[6,16,21,8,30,36,0,28]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"26-7-2026"},
+	{"jugadors":["Kiara","Michelle","Arnau C4","Adrià","Adri"],"categories_especials":["buida","color"],"puntuacions":{"Kiara":[5,6,18,28,30,24,0,22],"Michelle":[4,20,12,24,25,24,0,20],"Arnau C4":[5,12,15,28,35,18,0,31],"Adrià":[3,8,15,28,30,24,0,30],"Adri":[6,14,12,20,30,30,0,31]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"27-7-2026"},
+	{"jugadors":["Adri","Gabri","Txell"],"categories_especials":["4/4","color"],"puntuacions":{"Adri":[1,4,18,20,30,24,28,44],"Gabri":[1,6,18,28,30,18,28,36],"Txell":[5,12,21,20,30,12,20,17]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"27-7-2026"},
+	{"jugadors":["Lucas","Javi","Miguel","Roger"],"categories_especials":["7/1","dauet(12)","color"],"puntuacions":{"Lucas":[4,8,24,20,30,18,38,16,23],"Javi":[3,16,24,24,25,18,33,22,21],"Miguel":[8,10,21,28,30,24,39,0,31],"Roger":[5,6,12,28,30,30,27,19,35]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""],[""]],"data":"27-7-2026"},
+	{"jugadors":["Anamary","Adri","Elena"],"categories_especials":["color","forma"],"puntuacions":{"Anamary":[7,8,21,20,30,24,25,23],"Adri":[4,8,21,24,35,36,29,0],"Elena":[5,6,21,32,35,30,20,28]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"27-7-2026"},
+	{"jugadors":["Adri","Elena","Anamary"],"categories_especials":["dauet(12)","2/2/2/2"],"puntuacions":{"Adri":[4,12,18,20,35,36,21,28],"Elena":[4,14,15,24,30,18,19,26],"Anamary":[7,6,21,20,30,24,14,50]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"27-7-2026"},
+	{"jugadors":["Adri","Elena","Anamary"],"categories_especials":["4/4","color"],"puntuacions":{"Adri":[2,16,18,20,35,36,32,26],"Elena":[6,10,21,24,60,24,40,17],"Anamary":[3,14,15,12,35,18,28,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"27-7-2026"},
+	{"jugadors":["Anamary","Adri","Elena"],"categories_especials":["4/4","color"],"puntuacions":{"Anamary":[7,12,12,24,30,24,28,28],"Adri":[4,10,12,24,35,24,24,39],"Elena":[1,8,21,20,30,36,20,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"27-7-2026"},
+	{"jugadors":["Javi","Anti","Elia","Diego","Roger"],"categories_especials":["7/1","color"],"puntuacions":{"Javi":[2,6,36,20,25,24,39,32],"Anti":[6,6,15,16,30,12,0,0],"Elia":[5,14,24,24,25,18,27,21],"Diego":[3,12,15,28,30,12,34,44],"Roger":[3,14,21,24,30,6,31,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"30-7-2026"},
+	{"jugadors":["Diego","Roger","Lucas"],"categories_especials":["4/4","8-1"],"puntuacions":{"Diego":[7,12,15,24,35,24,36,0],"Roger":[5,10,21,20,30,36,36,0],"Lucas":[2,10,15,20,25,12,0,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"30-7-2026"},
+	{"jugadors":["Volker","Helena"],"categories_especials":["4/4","color"],"puntuacions":{"Volker":[6,10,21,32,25,12,0,0],"Helena":[7,8,15,32,30,18,36,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"30-7-2026"},
+	{"jugadors":["Volker","Helena"],"categories_especials":["4/4","color"],"puntuacions":{"Volker":[7,12,18,20,30,30,0,0],"Helena":[3,12,24,24,25,30,36,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"30-7-2026"},
+	{"jugadors":["Anti","Jorge","Javi","Roger"],"categories_especials":["5/3","forma"],"puntuacions":{"Anti":[6,0,12,24,10,30,45,0],"Jorge":[5,12,18,32,20,18,23,30],"Javi":[1,14,15,28,40,30,34,31],"Roger":[1,8,12,16,35,12,34,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"31-7-2026"},
+	{"jugadors":["Йордан","Javi","Raúl","Malena","Roger"],"categories_especials":["4/4","forma"],"puntuacions":{"Йордан":[1,8,18,28,30,18,36,33],"Javi":[3,6,15,24,30,24,36,32],"Raúl":[1,14,18,16,40,24,28,31],"Malena":[3,14,18,24,35,30,36,30],"Roger":[3,6,12,24,20,24,28,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"31-7-2026"},
+	{"jugadors":["Juan","Roger","Javi","Giulia","Sergio"],"categories_especials":["4/4","color"],"puntuacions":{"Juan":[5,8,18,28,40,24,32,25],"Roger":[6,6,15,24,35,24,36,42],"Javi":[5,8,18,28,30,12,36,34],"Giulia":[5,4,24,28,35,36,28,0],"Sergio":[3,14,15,24,35,24,20,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"31-7-2026"},
+	{"jugadors":["Zahira","Christian","Adri"],"categories_especials":["color","4/4"],"puntuacions":{"Zahira":[6,8,18,24,35,36,22,36],"Christian":[1,12,15,12,30,24,0,16],"Adri":[5,10,18,24,20,18,35,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"1-8-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["7/1","forma"],"puntuacions":{"Joanna":[3,6,24,28,25,24,38,33],"Roger":[5,0,18,20,30,24,38,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"2-8-2026"},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["4/4","sum"],"puntuacions":{"Roger":[5,2,18,24,35,36,36,37],"Joanna":[3,8,18,20,25,25,36,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"4-8-2026"},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["4/4","color"],"puntuacions":{"Roger":[5,6,18,24,35,12,36,0],"Joanna":[3,4,15,20,25,18,36,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"2-8-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["7/1","dauet(12)"],"puntuacions":{"Joanna":[4,14,18,20,30,18,36,17],"Roger":[4,10,18,20,65,24,11,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"2-8-2026"},
+	{"jugadors":["Adri","Christian"],"categories_especials":["4/4","color"],"puntuacions":{"Adri":[5,8,21,24,35,42,32,23],"Christian":[4,12,15,28,35,24,36,28]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Christian","Adri"],"categories_especials":["4/4","color"],"puntuacions":{"Christian":[5,14,18,32,25,18,0,0],"Adri":[3,14,15,12,25,24,24,27]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Adri","Punky"],"categories_especials":["dauet(12)","3/3/2"],"puntuacions":{"Adri":[3,14,15,32,35,18,21,36],"Punky":[3,8,18,16,35,18,39,33]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Punky","Adri"],"categories_especials":["color","forma"],"puntuacions":{"Punky":[5,14,21,24,30,24,27,33],"Adri":[4,6,15,20,30,24,23,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Adri","Punky"],"categories_especials":["2/2/2/2","2/2/2/2"],"puntuacions":{"Adri":[4,10,21,24,25,30,52,22],"Punky":[6,4,18,20,30,12,52,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Adri","Punky"],"categories_especials":["4/4","color"],"puntuacions":{"Adri":[5,10,21,20,35,12,36,42],"Punky":[4,16,18,24,35,18,28,32]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Adri","Punky"],"rdp_extra":true,"rdp":{"Adri":-2,"Punky":2}, "data": "3-8-2026"},
+	{"jugadors":["Dani","Adri","Roger","Joanna","Robert"],"categories_especials":["7/1","color"],"puntuacions":{"Dani":[5,8,21,20,25,24,0,25],"Adri":[5,10,18,24,20,12,0,27],"Roger":[2,2,18,24,30,24,37,23],"Joanna":[3,6,18,8,30,12,41,25],"Robert":[7,14,21,16,20,30,33,20]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Teresa","Giovanni","Joanna","Dr Magí","Andreu"],"categories_especials":["4/4","dauet(12)"],"puntuacions":{"Teresa":[7,8,15,20,35,24,36,18],"Giovanni":[3,14,18,28,15,18,36,19],"Joanna":[1,8,18,24,30,30,32,21],"Dr Magí":[6,12,24,24,30,30,28,19],"Andreu":[4,4,24,24,40,24,32,19]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Dr Magí","Andreu","Teresa","Giovanni","Roger","Adri"],"categories_especials":["sum","dauet(21)"],"puntuacions":{"Dr Magí":[7,14,18,24,25,36,35,28],"Andreu":[6,10,15,24,40,30,32,27],"Teresa":[4,10,30,24,25,30,42,26],"Giovanni":[6,6,21,24,30,24,24,27],"Roger":[3,8,21,28,35,24,45,0],"Adri":[8,12,15,28,30,30,40,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"3-8-2026"},
+	{"jugadors":["Robert","Quim","Adri","Roger","Joanna"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Robert":[5,10,21,24,20,24,22,27],"Quim":[4,8,12,28,30,12,26,34],"Adri":[5,12,18,24,30,42,36,25],"Roger":[4,10,21,44,25,18,22,26],"Joanna":[1,6,15,24,25,18,34,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-8-2026"},
+	{"jugadors":["Eva","Joanna","Roger","Jordi"],"categories_especials":["4/4","color"],"puntuacions":{"Eva":[2,6,21,20,35,24,36,22],"Joanna":[2,12,15,28,25,12,32,22],"Roger":[3,8,21,24,25,24,32,22],"Jordi":[2,8,15,28,35,18,36,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"5-8-2026"},
+	{"jugadors":["Arnau","Carla","Sheila","Quim"],"categories_especials":["4/4","color"],"puntuacions":{"Arnau":[4,10,18,16,35,24,24,22],"Carla":[3,2,15,8,25,24,68,0],"Sheila":[7,4,21,28,30,24,0,32],"Quim":[4,14,18,28,35,30,36,39]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"6-8-2026"},
+	{"jugadors":["Carla","Sheila","Quim","Arnau"],"categories_especials":["2/2/2/2","dauet(12)"],"puntuacions":{"Carla":[5,10,21,24,30,24,50,24],"Sheila":[6,14,21,28,30,30,26,23],"Quim":[7,10,21,24,30,36,28,17],"Arnau":[5,12,21,20,35,12,26,40]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"6-8-2026"},
+	{"jugadors":["Sheila","Quim","Joanna","Arnau","Carla","Roger"],"categories_especials":["5/3","buida"],"puntuacions":{"Sheila":[4,14,24,32,30,24,34,0],"Quim":[6,6,18,24,35,24,34,0],"Joanna":[7,14,18,16,40,30,34,0],"Arnau":[7,12,21,20,30,36,28,0],"Carla":[7,14,18,24,35,24,35,0],"Roger":[4,10,18,20,35,18,37,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"6-8-2026"},
+	{"jugadors":["Adri","Ayman","Kiara","Arnau C4"],"categories_especials":["color","buida"],"puntuacions":{"Adri":[4,12,15,32,30,24,39,0],"Ayman":[4,10,21,24,35,24,26,0],"Kiara":[6,12,18,24,30,30,21,0],"Arnau C4":[4,6,24,16,35,24,24,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"6-8-2026"},
+	{"jugadors":["Eric","Kiara","Adri","Arnau C4","Natalia"],"categories_especials":["color","4/4"],"puntuacions":{"Eric":[5,16,18,20,20,36,31,32],"Kiara":[5,8,36,24,15,36,30,56],"Adri":[6,14,18,24,25,24,40,36],"Arnau C4":[5,10,12,24,30,18,26,32],"Natalia":[2,4,18,12,40,24,0,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"7-8-2026"},
+	{"jugadors":["Arnau C4","Natalia","Kiara","Adri","Adrià"],"categories_especials":["forma","4/4"],"puntuacions":{"Arnau C4":[6,4,18,20,35,12,23,40],"Natalia":[5,2,21,12,30,0,12,36],"Kiara":[3,14,15,24,40,18,26,36],"Adri":[1,10,15,8,35,30,29,0],"Adrià":[7,10,21,16,35,42,26,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"7-8-2026"},
+	{"jugadors":["Adri","Adrià"],"categories_especials":["color","4/4"],"puntuacions":{"Adri":[5,12,21,28,20,24,39,32],"Adrià":[6,8,15,24,35,24,0,16]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"7-8-2026"},
+	{"jugadors":["Arnau C4","Adrià","Kiara","Adri"],"categories_especials":["2/2/2/2","dauet(12)"],"puntuacions":{"Arnau C4":[3,12,15,24,30,24,24,15],"Adrià":[6,10,21,24,25,30,20,18],"Kiara":[3,8,15,24,35,30,40,23],"Adri":[7,8,15,40,35,30,26,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"7-8-2026"},
+	{"jugadors":["Maria","Adri"],"categories_especials":["forma","4/4"],"puntuacions":{"Maria":[4,14,15,28,35,30,32,56],"Adri":[1,14,18,20,35,30,20,40]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"7-8-2026"},
+	{"jugadors":["Maria","Adri"],"categories_especials":["color","5/3"],"puntuacions":{"Maria":[3,4,21,16,25,6,25,0],"Adri":[3,12,15,24,30,30,25,41]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"7-8-2026"},
+	{"jugadors":["Arnau C4","Ayman","Pol S","Adri"],"categories_especials":["color","4/4"],"puntuacions":{"Arnau C4":[6,14,18,28,35,36,30,36],"Ayman":[5,14,15,12,25,30,36,0],"Pol S":[5,14,18,16,25,24,26,32],"Adri":[1,12,18,16,30,30,24,36]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"7-8-2026"},
+	{"jugadors":["Adri","Ayman"],"categories_especials":["5/3","2/2/2/2"],"puntuacions":{"Adri":[6,16,15,16,55,24,37,60],"Ayman":[6,14,15,24,30,24,23,52]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"7-8-2026"},
+	{"jugadors":["Nicole","Helena","Justus","Volker"],"categories_especials":["4/4","color"],"puntuacions":{"Nicole":[6,10,21,24,20,30,36,29],"Helena":[4,12,18,24,35,30,28,31],"Justus":[2,10,24,20,25,36,28,31],"Volker":[4,4,24,20,30,36,0,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-8-2026"},
+	{"jugadors":["Roger","Joanna","Robert","Dani"],"categories_especials":["7/1","4/4"],"puntuacions":{"Roger":[2,10,15,24,30,24,38,0],"Joanna":[2,8,6,24,30,18,0,28],"Robert":[7,6,21,24,20,24,31,36],"Dani":[4,12,18,20,30,18,0,12]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-8-2026"},
+	{"jugadors":["Adri","Arnau C4","Pol S","Ayman"],"categories_especials":["color","2/2/2/2"],"puntuacions":{"Adri":[4,10,24,24,35,18,0,56],"Arnau C4":[5,10,18,24,30,18,32,20],"Pol S":[6,12,21,28,35,24,33,20],"Ayman":[6,10,6,24,25,60,23,42]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-8-2026"},
+	{"jugadors":["Ayman","Adri"],"categories_especials":["color","2/2/2/2"],"puntuacions":{"Ayman":[4,16,24,24,25,12,0,24],"Adri":[6,10,12,20,35,36,31,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"8-8-2026"},
+	{"jugadors":["Lucas","Jofre","Javi","Diego"],"categories_especials":["2/2/2/2","forma"],"puntuacions":{"Lucas":[1,10,12,16,40,36,26,0],"Jofre":[3,4,21,16,30,30,26,32],"Javi":[7,12,12,24,35,36,28,28],"Diego":[4,12,12,28,30,24,26,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"9-8-2026"},
+	{"jugadors":["Pol S","Adri","Ayman","Arnau C4"],"categories_especials":["color","7/1"],"puntuacions":{"Pol S":[0,12,18,20,20,30,38,39],"Adri":[5,6,21,20,35,42,23,38],"Ayman":[3,12,12,20,30,18,26,41],"Arnau C4":[4,6,21,28,25,24,33,39]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"9-8-2026"},
+	{"jugadors":["Adri","Arnau C4"],"categories_especials":["color","2/2/2/2"],"puntuacions":{"Adri":[7,14,15,24,35,30,39,22],"Arnau C4":[3,12,15,24,30,30,41,20]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"9-8-2026"},
+	{"jugadors":["Roger","Joanna","Dani"],"categories_especials":["2/2/2/2","forma"],"puntuacions":{"Roger":[4,6,18,20,35,30,32,29],"Joanna":[3,6,6,28,35,24,26,34],"Dani":[5,6,15,28,25,24,24,28]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"10-8-2026"},
+	{"jugadors":["Andreu","Tano","Anna"],"categories_especials":[],"puntuacions":{"Andreu":[6,10,21,28,30,24],"Tano":[7,12,15,24,35,18],"Anna":[8,12,21,20,35,6]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"10-8-2026"},
+	{"jugadors":["Tano","Andreu","Anna"],"categories_especials":["dauet(12)","4/4"],"puntuacions":{"Tano":[4,14,21,28,40,18,16,20],"Andreu":[4,8,18,28,30,18,22,40],"Anna":[4,14,21,24,35,36,19,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"10-8-2026"},
+	{"jugadors":["Arnau C4","Adri","Pol S"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Arnau C4":[6,4,18,32,35,12,32,22],"Adri":[1,14,15,20,20,6,36,25],"Pol S":[3,12,18,20,25,36,32,21]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"10-8-2026"},
+	{"jugadors":["Pol S","Arnau C4","Adri","Adrià"],"categories_especials":["4/4","5/3"],"puntuacions":{"Pol S":[7,8,21,32,35,24,24,14],"Arnau C4":[5,20,15,20,30,30,36,43],"Adri":[2,8,12,20,30,18,16,30],"Adrià":[8,6,42,28,30,30,0,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"10-8-2026"},
+	{"jugadors":["Roger","Joanna","Carla"],"categories_especials":["forma","7/1"],"puntuacions":{"Roger":[1,2,18,24,30,6,15,34],"Joanna":[2,4,21,24,30,12,0,0],"Carla":[1,4,18,28,30,24,0,39]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"11-8-2026"},
+	{"jugadors":["Anna","Andreu","Roger","Joanna","Carla","Tano"],"categories_especials":["4/4","dauet(12)"],"puntuacions":{"Anna":[6,8,18,28,35,18,28,18],"Andreu":[4,12,21,20,40,24,0,40],"Roger":[2,14,18,24,35,18,40,37],"Joanna":[5,8,15,16,35,24,28,18],"Carla":[7,12,18,16,30,18,32,19],"Tano":[4,12,18,24,30,30,36,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"11-8-2026"},
+	{"jugadors":["Christian","Adri"],"categories_especials":["2/2/2/2","color"],"puntuacions":{"Christian":[7,12,12,28,25,12,22,46],"Adri":[6,6,21,24,35,6,54,35]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"11-8-2026"},
+	{"jugadors":["Adri","Christian"],"categories_especials":["4/4","color"],"puntuacions":{"Adri":[5,14,21,24,30,24,36,0],"Christian":[7,10,18,24,25,18,24,34]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"11-8-2026"},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["2/2/2/2","sum"],"puntuacions":{"Roger":[1,12,15,24,25,12,24,26],"Joanna":[2,12,21,20,25,24,28,38]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Roger","Joanna"],"categories_especials":["7/1","sum"],"puntuacions":{"Roger":[2,10,18,24,30,24,0,39],"Joanna":[4,6,18,32,30,30,39,41]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Carla","Joanna","Roger"],"categories_especials":["2/2/2/2","5/3"],"puntuacions":{"Carla":[5,14,18,28,30,24,56,37],"Joanna":[2,8,21,28,35,18,28,29],"Roger":[7,14,21,20,40,24,50,0]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Carla","Joanna","Roger"],"categories_especials":["2/2/2/2","7/1"],"puntuacions":{"Carla":[2,4,18,24,35,24,56,31],"Joanna":[4,10,24,20,40,30,46,26],"Roger":[5,8,18,24,35,30,28,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Carla","Joanna","Roger"],"categories_especials":["2/2/2/2","sum"],"puntuacions":{"Carla":[2,10,21,16,25,24,48,36],"Joanna":[3,14,15,20,40,24,24,37],"Roger":[3,12,21,24,35,18,24,34]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Maria","Adri"],"categories_especials":["color","forma"],"puntuacions":{"Maria":[6,4,18,28,20,24,20,60],"Adri":[1,6,9,48,35,24,25,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Adri","Maria"],"categories_especials":["4/4","2/2/2/2"],"puntuacions":{"Adri":[4,16,18,24,35,30,44,34],"Maria":[1,14,18,16,35,12,12,20]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Maria","Adri"],"categories_especials":["dauet(12)","sum"],"puntuacions":{"Maria":[2,16,18,16,30,24,19,37],"Adri":[3,12,24,28,30,24,42,41]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Maria","Adri"],"categories_especials":["dauet(12)","sum"],"puntuacions":{"Maria":[6,10,18,24,35,12,24,44],"Adri":[2,8,12,20,30,30,33,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"12-8-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["sum","dauet(12)"],"puntuacions":{"Joanna":[3,12,18,28,35,0,39,40],"Roger":[4,8,18,24,30,24,37,21]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-8-2026"},
+	{"jugadors":["Arnau C4","Adri"],"categories_especials":["dauet(12)","color"],"puntuacions":{"Arnau C4":[4,10,21,24,25,12,18,24],"Adri":[4,8,21,20,40,24,17,33]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-8-2026"},
+	{"jugadors":["Quim","Joanna","Roger"],"categories_especials":["2/2/2/2","5/3"],"puntuacions":{"Quim":[1,12,15,24,30,36,36,0],"Joanna":[5,8,27,44,30,30,50,29],"Roger":[3,12,15,28,30,18,52,37]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-8-2026"},
+	{"jugadors":["Roger","Quim","Carla","Joanna"],"categories_especials":["buida","color"],"puntuacions":{"Roger":[3,6,18,20,35,18,0,32],"Quim":[4,16,18,24,40,30,0,39],"Carla":[3,6,18,24,65,24,0,25],"Joanna":[5,16,21,32,35,18,0,30]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"13-8-2026"},
+	{"jugadors":["Pol Garcia","Adri"],"categories_especials":["4/4","Col"],"puntuacions":{"Pol Garcia":[6,12,15,20,35,18,20,29],"Adri":[6,8,21,20,35,18,32,25]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-8-2026"},
+	{"jugadors":["Teresa","Mimics","Dr Magí"],"categories_especials":["4/4","dauet(12)"],"puntuacions":{"Teresa":[1,10,18,32,30,36,36,14],"Mimics":[1,14,18,24,35,30,36,21],"Dr Magí":[4,8,21,24,25,18,28,22]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-8-2026"},
+	{"jugadors":["Joanna","Roger"],"categories_especials":["sum","color"],"puntuacions":{"Joanna":[5,8,24,40,30,12,38,23],"Roger":[5,8,21,24,20,24,29,35]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"14-8-2026"}
+]
 
-function descarregar(text, nom, extensio=txt) {
-	var file = new File(["\ufeff"+text], nom + "." + extensio, {type: "text/plain:charset=UTF-8"});
-	var url = window.URL.createObjectURL(file);
-	var a = document.createElement("a");
-	a.style = "display:none";
-	a.href = url;
-	a.download = file.name;
-	a.click();
-	window.URL.revokeObjectURL(url);
-}
+_tornejos = [
+	{
+		"nom": "Wesseling League",
+		"abreviatura": "WL",
+		"jugadors": ["Roger","Raúl","Jofre","Joanna"],
+		"partides": [
+			{
+				"index": 0
+			},
+			{
+				"index": 1
+			},
+			{
+				"index": 2
+			},
+			{
+				"index": 3
+			},
+			{
+				"index": 4
+			},
+			{
+				"index": 5
+			},
+			{
+				"index": 9
+			},
+			{
+				"index": 10
+			}
+		],
+		"estat": "jugant"
+	},
+	{
+		"nom": "I Copa del Drac Català",
+		"abreviatura": "DRAC-I",
+		"jugadors": ["Adri","Roger","Dani","Joanna","Albert","Andreu","Carla","Teresa","Robert","Maria"],
+		"partides": [
+			{
+				"index": false
+			},
+			{
+				"index": 6
+			},
+			{
+				"index": 7
+			},
+			{
+				"index": false
+			},
+			{
+				"index": false
+			},
+			{
+				"index": false
+			},
+			{
+				"index": false
+			},
+			{
+				"index": 8
+			},
+			{
+				"index": false
+			},
+			{
+				"index": false
+			},
+			{
+				"index": false
+			},
+			{
+				"index": 11
+			}
+		],
+		"estat": "finalitzat",
+		"finalitzacio": "25-04-2026",
+		"posicions": {
+			"Adri": 100,
+			"Roger": 80,
+			"Dani": 60,
+			"Joanna": 50,
+			"Andreu": 40,
+			"Albert": 30,
+			"Robert": 20,
+			"Carla": 10,
+			"Teresa": 8,
+			"Maria": 6
+		}
+	}
+]
 
-function escriure_nom(jugador, link=false, factor=1) {
-	var div = document.createElement("div");
-	if (link == true) {
-		var a = document.createElement("a");
-		a.href = "/jugadors.html?jugador=" + jugador;
-		a.innerHTML = jugador;
-		a.classList = ["link-cercar"];
-		div.appendChild(a);
-	} else {
-		div.innerHTML = jugador + " ";
-	}
-	if (_regions["Barna"].includes(jugador)) {
-		var img = document.createElement("img");
-		img.src = "./escuts/regio_barna.png";
-		img.height = 18*factor;
-		div.innerHTML += " ";
-		div.appendChild(img);
-	}
-	if (_regions["Cambrils-Salou"].includes(jugador)) {
-		var img = document.createElement("img");
-		img.src = "./escuts/regio_cambrils.png";
-		img.height = 17*factor;
-		div.innerHTML += " ";
-		div.appendChild(img);
-	}
-	if (_regions["Chicago"].includes(jugador)) {
-		var img = document.createElement("img");
-		img.src = "./escuts/regio_chicago.png";
-		img.height = 12*factor;
-		div.innerHTML += " ";
-		div.appendChild(img);
-	}
-	if (_regions["Lichtenberg"].includes(jugador)) {
-		var img = document.createElement("img");
-		img.src = "./escuts/regio_lichtenberg.png";
-		img.height = 12*factor;
-		div.innerHTML += " ";
-		div.appendChild(img);
-	}
-	if (_regions["L'Escala"].includes(jugador) || _regions["L'Escala-Carrefour"].includes(jugador)) {
-		var img = document.createElement("img");
-		img.src = "./escuts/regio_lescala.png";
-		img.height = 16*factor;
-		div.innerHTML += " ";
-		div.appendChild(img);
-	}
-	if (_regions["Wesseling-Bonn"].includes(jugador)) {
-		var img = document.createElement("img");
-		img.src = "./escuts/regio_wesseling.png";
-		img.height = 12*factor;
-		div.innerHTML += " ";
-		div.appendChild(img);
-	}
-	return div;
+_regions = {
+	"Barna": ["Andreu", "Teresa", "Míriam", "Aniol", "Quim", "Joan", "Aina", "Guerau", "Nona", "Arnau", "Sheila"],
+	"Cambrils-Salou": ["Teresa", "Dr Magí", "Andreu", "Giovanni", "Andreu", "Mimics"],
+	"Chicago": ["Dani Ibai"],
+	"Lichtenberg": ["Roger", "Theresa", "Justus", "Merle", "Lia", "Joanna", "Jan", "Greta", "Heidi", "Helena", "Volker", "Nicole"],
+	"L'Escala": ["Adri", "Dani", "Albert", "Andreu", "Carla", "Teresa", "Maria", "Quim", "Robert", "Punky", "RK", "Marta", "Mariona", "Anamary", "Elena", "Oscar", "Drac Català", "Dani H", "Beni", "Dolors", "Nona", "Txell", "Gabri", "Eva", "Jordi", "Anna", "Tano"],
+	"L'Escala-Carrefour": ["Adri", "Zahira", "Christian", "Kiara", "Michelle", "Arnau C4", "Adrià", "Eric", "Natalia", "Pol S", "Ayman", "Pol Garcia"],
+	"Wesseling-Bonn": ["Roger", "Sergio", "Giulia", "Lucas", "Raúl", "Jorge", "Alice", "Diego", "Jofre", "Alejandro", "Joanna", "Anti", "Andrés", "Murci", "Dani OG", "Javi", "Lucía", "Pedro", "Miguel", "Max", "Dani Ibai", "Ioanna", "Charls", "Йордан", "Elia", "Malena", "Juan"]
 }
