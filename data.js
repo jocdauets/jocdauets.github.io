@@ -418,7 +418,10 @@ _partides = [
 	{"jugadors":["Maria","Carla"],"categories_especials":["4/4","5/3"],"puntuacions":{"Maria":[7,10,21,28,35,18,16,0],"Carla":[6,14,21,16,30,24,32,18]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"18-8-2026"},
 	{"jugadors":["Maria","Carla"],"categories_especials":["dauet(12)","color"],"puntuacions":{"Maria":[3,10,18,20,25,18,42,0],"Carla":[5,16,15,28,35,12,0,24]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"18-8-2026"},
 	{"jugadors":["Maria","Carla"],"categories_especials":["2/2/2/2","2/2/2/2"],"puntuacions":{"Maria":[7,8,15,24,40,24,38,28],"Carla":[2,14,18,16,30,18,22,48]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"18-8-2026"},
-	{"jugadors":["Maria","Carla"],"categories_especials":["3/3/2","forma"],"puntuacions":{"Maria":[7,10,21,28,35,30,31,32],"Carla":[4,14,18,20,40,36,36,61]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"18-8-2026"}
+	{"jugadors":["Maria","Carla"],"categories_especials":["3/3/2","forma"],"puntuacions":{"Maria":[7,10,21,28,35,30,31,32],"Carla":[4,14,18,20,40,36,36,61]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"18-8-2026"},
+	{"jugadors":["Trebor","Dr Magí","Teresa","Mímics"],"categories_especials":["sum","dauet(12)"],"puntuacions":{"Trebor":[6,12,18,24,25,30,26,40],"Dr Magí":[6,14,15,28,30,18,38,20],"Teresa":[4,8,30,28,35,6,35,20],"Mímics":[4,12,18,28,30,30,37,17]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"18-8-2026"},
+	{"jugadors":["Quim","Albert","Robert"],"categories_especials":["4/4","2/2/2/2"],"puntuacions":{"Quim":[3,12,6,20,30,18,28,60],"Albert":[2,4,21,24,35,24,36,34],"Robert":[2,12,18,24,35,30,32,26]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"18-8-2026"},
+	{"jugadors":["Quim","Albert","Robert"],"categories_especials":["dauet(12)","forma"],"puntuacions":{"Quim":[3,12,15,20,30,30,17,36],"Albert":[5,12,12,24,30,18,20,32],"Robert":[2,0,15,16,25,30,14,33]},"trumfo":[[""],[""],[""],[""],[""],[""],[""],[""]],"data":"18-8-2026"}
 ]
 
 _tornejos = [
