@@ -709,7 +709,7 @@ _regions = {
 	"Cambrils-Salou": ["3a", "Dr Magí", "Andreu", "Giovanni", "Andreu", "Mímics", "Trebor", "Helena C", "Ferran", "Viktor"],
 	"Chicago": ["Dani Ibai", "Luca", "Gabriel"],
 	"Lichtenberg": ["Roger", "Theresa", "Justus", "Merle", "Lia", "Joanna", "Jan", "Greta", "Heidi", "Helena", "Volker", "Nicole", "Anna M"],
-	"L'Escala": ["Adri", "Dani", "Albert", "Andreu", "Carla", "3a", "Maria", "Quim", "Robert", "Punky", "RK", "Marta", "Mariona", "Anamary", "Elena", "Oscar", "Drac Català", "Dani H", "Beni", "Dolors", "Nona", "Txell", "Gabri", "Eva", "Jordi", "Anna", "Tano", "Marina", "Roger", "Joanna", "Lídia", "Clàudia", "Ruben", "Maria VG", "Toni", "Noa", "Idaira", "Susana"],
+	"L'Escala": ["Adri", "Dani", "Albert", "Andreu", "Carla", "3a", "Maria", "Quim", "Robert", "Punky", "RK", "Marta", "Mariona", "Anamary", "Elena", "Oscar", "Drac Català", "Dani H", "Beni", "Dolors", "Nona", "Txell", "Gabri", "Eva", "Jordi", "Anna", "Tano", "Marina", "Roger", "Lídia", "Clàudia", "Ruben", "Maria VG", "Toni", "Noa", "Idaira", "Susana", "Ona", "Daniela", "Josue", "Luna"],
 	"L'Escala-Carrefour": ["Adri", "Zahira", "Christian", "Kiara", "Michelle", "Arnau C4", "Adrià", "Eric", "Natalia", "Pol S", "Ayman", "Pol Garcia", "Aaron", "Antonio", "Mireia", "Victor", "Martí", "Mar", "Norbert", "Kiowa", "Gabi", "Adri Mihi"],
 	"Wesseling-Bonn": ["Roger", "Sergio", "Giulia", "Lucas", "Raúl", "Jorge", "Alice", "Diego", "Jofre", "Alejandro", "Joanna", "Anti", "Andrés", "Murci", "Dani OG", "Javi", "Lucía", "Pedro", "Miguel", "Max", "Dani Ibai", "Ioanna", "Charls", "Йордан", "Elia", "Malena", "Juan", "Flavia", "Lorin"]
 }
